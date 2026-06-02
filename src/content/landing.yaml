@@ -1,0 +1,73 @@
+seo:
+  title:
+    en: "Eliz Grome"
+    ru: "Элиз Громе"
+  description:
+    en: "Official page for Eliz Grome: concerts, albums, songs, and contact information."
+    ru: "Официальная страница Элиз Громе: концерты, альбомы, песни и контакты."
+  og_image: ""
+hero:
+  headline:
+    en: "Eliz Grome"
+    ru: "Элиз Громе"
+  subheadline:
+    en: "Voice, songs, and intimate live evenings."
+    ru: "Голос, песни и камерные живые вечера."
+  cta_text:
+    en: "Listen to the songs"
+    ru: "Послушать песни"
+  background_image: ""
+about:
+  text:
+    en: "Eliz Grome is an independent singer-songwriter creating quiet, cinematic music about memory, movement, and the city after dark."
+    ru: "Элиз Громе — независимая певица и автор песен, создающая тихую кинематографичную музыку о памяти, движении и городе после темноты."
+  photo: ""
+services:
+  - title:
+      en: "Live concerts"
+      ru: "Живые концерты"
+    description:
+      en: "Solo and chamber performances for attentive rooms and close-listening venues."
+      ru: "Сольные и камерные выступления для внимательных залов и пространств."
+  - title:
+      en: "Acoustic sets"
+      ru: "Акустические сеты"
+    description:
+      en: "Stripped-back arrangements for private events, galleries, and small stages."
+      ru: "Минималистичные аранжировки для частных событий, галерей и малых сцен."
+  - title:
+      en: "Lyrics and collaborations"
+      ru: "Тексты и коллаборации"
+    description:
+      en: "Selected songwriting and vocal collaborations with artists and producers."
+      ru: "Избранные авторские и вокальные коллаборации с артистами и продюсерами."
+concerts:
+  - title:
+      en: "Upcoming dates will be announced soon"
+      ru: "Ближайшие даты будут объявлены скоро"
+    link: ""
+songs:
+  - album:
+      en: "Night Letters"
+      ru: "Ночные письма"
+    title:
+      en: "First Light"
+      ru: "Первый свет"
+    lyrics:
+      en: "Lyrics placeholder. Replace this text in Pages CMS."
+      ru: "Текст песни. Замените этот текст в Pages CMS."
+albums:
+  - title:
+      en: "Night Letters"
+      ru: "Ночные письма"
+    year: "2026"
+    image: ""
+    songlist:
+      en: "First Light\nAfter the Rain\nLetters"
+      ru: "Первый свет\nПосле дождя\nПисьма"
+contact:
+  email: "booking@example.com"
+  phone: ""
+  address:
+    en: "Available for concerts and collaborations."
+    ru: "Открыта к концертам и сотрудничеству."

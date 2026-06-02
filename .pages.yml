@@ -1,0 +1,183 @@
+media:
+  - name: images
+    label: Images
+    input: src/assets/images
+    output: src/assets/images
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+
+components:
+  localized_string:
+    type: object
+    fields:
+      - name: en
+        label: English
+        type: string
+        required: true
+      - name: ru
+        label: Russian
+        type: string
+        required: true
+  localized_text:
+    type: object
+    fields:
+      - name: en
+        label: English
+        type: text
+        required: true
+      - name: ru
+        label: Russian
+        type: text
+        required: true
+  localized_optional_text:
+    type: object
+    fields:
+      - name: en
+        label: English
+        type: text
+      - name: ru
+        label: Russian
+        type: text
+
+content:
+  - name: landing
+    label: Landing page
+    type: file
+    path: src/content/landing.yaml
+    format: yaml
+    fields:
+      - name: seo
+        label: SEO
+        type: object
+        fields:
+          - name: title
+            label: Page title
+            component: localized_string
+          - name: description
+            label: Meta description
+            component: localized_text
+          - name: og_image
+            label: OG image
+            type: image
+            description: "Upload jpg, jpeg, png, or webp only. Please keep the image under 1mb."
+            options:
+              media: images
+              extensions: [jpg, jpeg, png, webp]
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - name: headline
+            label: Headline
+            component: localized_string
+          - name: subheadline
+            label: Subheadline
+            component: localized_text
+          - name: cta_text
+            label: CTA text
+            component: localized_string
+          - name: background_image
+            label: Background image
+            type: image
+            description: "Upload jpg, jpeg, png, or webp only. Please keep the image under 1mb."
+            options:
+              media: images
+              extensions: [jpg, jpeg, png, webp]
+      - name: about
+        label: About
+        type: object
+        fields:
+          - name: text
+            label: About text
+            component: localized_text
+          - name: photo
+            label: Photo
+            type: image
+            description: "Upload jpg, jpeg, png, or webp only. Please keep the image under 1mb."
+            options:
+              media: images
+              extensions: [jpg, jpeg, png, webp]
+      - name: services
+        label: Services / features
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title.en}"
+        fields:
+          - name: title
+            label: Title
+            component: localized_string
+          - name: description
+            label: Description
+            component: localized_text
+      - name: concerts
+        label: Concerts
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title.en}"
+        fields:
+          - name: title
+            label: Title
+            component: localized_string
+          - name: link
+            label: Optional link
+            type: string
+      - name: songs
+        label: Songs
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.album.en} — {fields.title.en}"
+        fields:
+          - name: album
+            label: Album
+            component: localized_string
+          - name: title
+            label: Song title
+            component: localized_string
+          - name: lyrics
+            label: Lyrics
+            component: localized_text
+      - name: albums
+        label: Albums
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title.en} ({fields.year})"
+        fields:
+          - name: title
+            label: Title
+            component: localized_string
+          - name: year
+            label: Year
+            type: string
+            required: true
+          - name: image
+            label: Album image
+            type: image
+            description: "Upload jpg, jpeg, png, or webp only. Please keep the image under 1mb."
+            options:
+              media: images
+              extensions: [jpg, jpeg, png, webp]
+          - name: songlist
+            label: Songlist
+            component: localized_optional_text
+            description: "Plain text song list, one song per line."
+      - name: contact
+        label: Contact
+        type: object
+        fields:
+          - name: email
+            label: Email
+            type: string
+          - name: phone
+            label: Phone
+            type: string
+          - name: address
+            label: Address
+            component: localized_text

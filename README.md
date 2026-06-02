@@ -27,7 +27,7 @@ See `UI_RULES.md` before adding any page content or components.
 
 Pages CMS reads `.pages.yml` from the repo root. Editable content lives in `src/content/landing.yaml` and images are uploaded to `src/assets/images/`.
 
-The content model includes English and Russian values for public text, plus shared fields like links, years, and image files.
+Editors change copy, images, release/concert entries, merch photos, and social URLs in `landing.yaml`. Layout positions, navigation chrome, product alt text, and section menu links are defined in code (`src/data/landing-internal.ts`).
 
 ### Pages CMS setup
 

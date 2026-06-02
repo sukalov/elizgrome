@@ -6,45 +6,11 @@ site:
     description:
       en: "Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и Ринго Старр. Также в разное время в составе группы выступали Стюарт Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles создано в соавторстве и подписано именами Джона Леннона и Пола Маккартни. Дискография группы включает 13 официальных студийных альбомов, изданных в 1963—1970 годах, и 211 песен."
       ru: "The Beatles were an English rock band formed in Liverpool in 1960. The band comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr. They are regarded as the most influential band in popular music and were integral to the development of 1960s counterculture and the recognition of popular music as an art form. Rooted in skiffle, beat and 1950s rock 'n' roll, their sound incorporated elements of classical music and traditional pop in innovative ways. They also explored styles ranging from folk and Indian music to psychedelia and hard rock. As pioneers in recording, songwriting and artistic presentation, the Beatles revolutionised many aspects of the music industry and were often publicised as leaders of the era's youth and sociocultural movements."
-  navigation:
-    logo:
-      en: logo
-      ru: лого
-    menu_label:
-      en: Open navigation menu
-      ru: Открыть меню
-    search_label:
-      en: Search
-      ru: Поиск
-    language_label:
-      en: RU / ENG
-      ru: RU / ENG
-    promo_pack:
-      url: "#contacts"
-      label:
-        en: promo-pack
-        ru: промо-пак
-    section_links:
-      - target: about
-        label:
-          en: about
-          ru: об артисте
-      - target: releases
-        label:
-          en: releases
-          ru: релизы
-      - target: concerts
-        label:
-          en: concerts
-          ru: концерты
-      - target: merch
-        label:
-          en: merch
-          ru: мерч
-      - target: contacts
-        label:
-          en: contacts
-          ru: контакты
+  promo_pack:
+    url: "#contacts"
+    label:
+      en: promo-pack
+      ru: промо-пак
 sections:
   about:
     title:
@@ -61,92 +27,56 @@ sections:
       en: releases
       ru: релизы
     items:
-      - id: hard-day
-        title:
+      - title:
           en: a hard day's night
           ru: вечер трудного дня
         year: "1964"
         image: src/assets/images/cover1.jpg
-        layout:
-          desktop: { x: 7, y: 19 }
-      - id: help
-        title:
+      - title:
           en: help!
           ru: помогити!
         year: "1965"
         image: src/assets/images/cover2.jpg
-        layout:
-          desktop: { x: 56, y: 12 }
-      - id: rubber-soul
-        title:
+      - title:
           en: rubber soul
           ru: резиновая душа
         year: "1965"
         image: src/assets/images/cover4.jpg
-        layout:
-          desktop: { x: 63, y: 60 }
-      - id: revolver
-        title:
+      - title:
           en: revolver
           ru: револьвер
         year: "1966"
         image: src/assets/images/cover3.jpg
-        layout:
-          desktop: { x: 31, y: 49 }
-      - id: last-room
-        title:
+      - title:
           en: Sgt. Pepper's Lonely Hearts Club Band
           ru: оркестр одиноких сердец сержанта пеппера
         year: "1967"
         image: src/assets/images/cover5.jpg
-        layout:
-          desktop: { x: 10, y: 73 }
   concerts:
     title:
       en: concerts
       ru: концерты
     items:
-      - id: picnic-moscow
-        title:
+      - title:
           en: picnic afishi
           ru: пикник афиши
         note:
           en: Moscow
           ru: Москва
         url: "#contacts"
-        style: secondary
-        layout:
-          desktop: { x: 6, y: 16 }
-          mobile: { x: 6, y: 11 }
-      - id: sunny-concert
-        title:
+      - title:
           en: headline show
           ru: большой сольный концерт
-        layout:
-          desktop: { x: 67, y: 20 }
-          mobile: { x: 47, y: 31 }
-      - id: omanko-day
-        title:
+      - title:
           en: omanko day
           ru: оманко дей
-        layout:
-          desktop: { x: 18, y: 58 }
-          mobile: { x: 10, y: 58 }
-      - id: spb-picnic
-        title:
+      - title:
           en: picnic afishi spb
           ru: пикник афиши спб
         url: "https://google.com"
-        layout:
-          desktop: { x: 76, y: 67 }
-          mobile: { x: 55, y: 72 }
-      - id: motherland
-        title:
+      - title:
           en: motherland
           ru: мазерленд
-        layout:
-          desktop: { x: 42, y: 82 }
-          mobile: { x: 26, y: 84 }
   merch:
     title:
       en: merch
@@ -160,27 +90,27 @@ sections:
           en: t-shirts
           ru: футболки
         items:
-          - { id: shirt-1, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt1.jpg }
-          - { id: shirt-2, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt2.jpg }
-          - { id: shirt-3, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt3.jpg }
-          - { id: shirt-4, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt4.jpg }
-          - { id: shirt-5, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt5.jpg }
-          - { id: shirt-6, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt6.jpg }
-          - { id: shirt-7, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt7.jpg }
-          - { id: shirt-8, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt8.jpg }
-          - { id: shirt-9, alt: { en: "T-shirt product photo", ru: "Фото футболки" }, image: src/assets/images/shirt9.jpg }
+          - { image: src/assets/images/shirt1.jpg }
+          - { image: src/assets/images/shirt2.jpg }
+          - { image: src/assets/images/shirt3.jpg }
+          - { image: src/assets/images/shirt4.jpg }
+          - { image: src/assets/images/shirt5.jpg }
+          - { image: src/assets/images/shirt6.jpg }
+          - { image: src/assets/images/shirt7.jpg }
+          - { image: src/assets/images/shirt8.jpg }
+          - { image: src/assets/images/shirt9.jpg }
       vinyl:
         title:
           en: vinyl
           ru: винил
         items:
-          - { id: vinyl-1, alt: { en: "Vinyl product photo", ru: "Фото винила" }, image: src/assets/images/vinyl1.jpg }
-          - { id: vinyl-2, alt: { en: "Vinyl product photo", ru: "Фото винила" }, image: src/assets/images/vinyl2.jpg }
-          - { id: vinyl-3, alt: { en: "Vinyl product photo", ru: "Фото винила" }, image: src/assets/images/vinyl3.jpg }
-          - { id: vinyl-4, alt: { en: "Vinyl product photo", ru: "Фото винила" }, image: src/assets/images/vinyl4.jpg }
-          - { id: vinyl-5, alt: { en: "Vinyl product photo", ru: "Фото винила" }, image: src/assets/images/vinyl5.jpg }
-          - { id: vinyl-6, alt: { en: "Vinyl product photo", ru: "Фото винила" }, image: src/assets/images/vinyl6.jpg }
-          - { id: vinyl-7, alt: { en: "Vinyl product photo", ru: "Фото винила" }, image: src/assets/images/vinyl7.jpg }
+          - { image: src/assets/images/vinyl1.jpg }
+          - { image: src/assets/images/vinyl2.jpg }
+          - { image: src/assets/images/vinyl3.jpg }
+          - { image: src/assets/images/vinyl4.jpg }
+          - { image: src/assets/images/vinyl5.jpg }
+          - { image: src/assets/images/vinyl6.jpg }
+          - { image: src/assets/images/vinyl7.jpg }
       picks:
         title:
           en: picks
@@ -191,32 +121,12 @@ sections:
       ru: контакты
     links:
       - id: instagram
-        label: Instagram
         url: https://instagram.com/
-        layout:
-          desktop: { x: 18, y: 24 }
-          mobile: { x: 12, y: 18 }
       - id: telegram
-        label: Telegram
         url: https://t.me/
-        layout:
-          desktop: { x: 64, y: 18 }
-          mobile: { x: 54, y: 17 }
       - id: tiktok
-        label: TikTok
         url: https://www.tiktok.com/
-        layout:
-          desktop: { x: 42, y: 44 }
-          mobile: { x: 20, y: 48 }
       - id: mail
-        label: Mail
         url: mailto:booking@example.com
-        layout:
-          desktop: { x: 92, y: 62 }
-          mobile: { x: 92, y: 64 }
       - id: youtube
-        label: YouTube
         url: https://www.youtube.com/
-        layout:
-          desktop: { x: 24, y: 70 }
-          mobile: { x: 36, y: 78 }

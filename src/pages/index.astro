@@ -5,77 +5,10 @@ import { MerchCarousel } from '../components/MerchCarousel';
 import { SiteNavbar } from '../components/SiteNavbar';
 import landingRaw from '../content/landing.yaml?raw';
 import logoImage from '../assets/images/logo.png';
+import { mergeLandingData, type CmsLanding, type Lang, type Localized } from '../data/landing-internal';
 import Layout from '../layouts/Layout.astro';
 
-type Lang = 'en' | 'ru';
-type Localized = Record<Lang, string>;
-type LayoutPoint = { x: number; y: number };
-type Product = { id: string; alt: Localized; image: string };
-
-type Landing = {
-  site: {
-    seo: {
-      title: Localized;
-      description: Localized;
-    };
-    navigation: {
-      logo: Localized;
-      menu_label: Localized;
-      search_label: Localized;
-      language_label: Localized;
-      promo_pack: { url: string; label: Localized };
-      section_links: { target: string; label: Localized }[];
-    };
-  };
-  sections: {
-    about: {
-      title: Localized;
-      hero: { desktop: string; mobile: string };
-      text: Localized;
-    };
-    releases: {
-      title: Localized;
-      items: {
-        id: string;
-        title: Localized;
-        year: string;
-        image: string;
-        layout: { desktop: LayoutPoint };
-      }[];
-    };
-    concerts: {
-      title: Localized;
-      items: {
-        id: string;
-        title: Localized;
-        note: Localized;
-        url?: string;
-        style: 'primary' | 'secondary';
-        layout: { desktop: LayoutPoint; mobile: LayoutPoint };
-      }[];
-    };
-    merch: {
-      title: Localized;
-      order_label: Localized;
-      groups: {
-        shirts: { title: Localized; items: Product[] };
-        vinyl: { title: Localized; items: Product[] };
-        picks: { title: Localized };
-      };
-    };
-    contacts: {
-      title: Localized;
-      links: {
-        id: 'instagram' | 'telegram' | 'tiktok' | 'mail' | 'youtube';
-        label: string;
-        url: string;
-        layout: { desktop: LayoutPoint; mobile: LayoutPoint };
-      }[];
-    };
-  };
-};
-
-const data = YAML.parse(landingRaw) as Landing;
+const data = mergeLandingData(YAML.parse(landingRaw) as CmsLanding);
 const images = import.meta.glob('../assets/images/*.{jpg,jpeg,png}', {
   eager: true,
   import: 'default',

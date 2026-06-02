@@ -34,6 +34,39 @@ type SiteNavbarProps = {
 
 let currentScrollAnimation = 0
 
+/**
+ * Logo shrink-on-scroll tuning.
+ * progress 0 = top of page, 1 = after `scrollDistancePx` of scroll.
+ *
+ * Vertical position uses two knobs per breakpoint:
+ * - `topStart` / `topEnd` — CSS `top` (px from viewport top)
+ * - `translateYPercentEnd` — extra upward shift at full scroll (% of logo height)
+ *
+ * If the logo jumps off-screen, change `topEnd` and `translateYPercentEnd` together,
+ * not only `topStart`.
+ */
+const LOGO_ON_SCROLL = {
+  scrollDistancePx: 140,
+  mobile: {
+    topStart: 32,
+    topEnd: 22,
+    heightStart: 110,
+    heightEnd: 32,
+    translateYPercentEnd: -50,
+  },
+  desktop: {
+    topStart: 42,
+    topEnd: 24,
+    heightStart: 159,
+    heightEnd: 42,
+    translateYPercentEnd: -50,
+  },
+} as const
+
+function lerp(start: number, end: number, progress: number) {
+  return start + (end - start) * progress
+}
+
 function text(value: Localized, lang: Lang) {
   return value[lang] || value.en
 }
@@ -125,7 +158,7 @@ export function SiteNavbar({
 
   useEffect(() => {
     function updateScrollState() {
-      setLogoProgress(Math.min(window.scrollY / 140, 1))
+      setLogoProgress(Math.min(window.scrollY / LOGO_ON_SCROLL.scrollDistancePx, 1))
     }
 
     updateScrollState()
@@ -164,19 +197,16 @@ export function SiteNavbar({
     window.dispatchEvent(new CustomEvent("elizgrome:set-language", { detail: next }))
   }
 
-  const logoTop = 88 - logoProgress * 66
-  const logoHeight = 64 - logoProgress * 32
-  const desktopLogoTop = 76 - logoProgress * 52
-  const desktopLogoHeight = 92 - logoProgress * 50
+  const { mobile, desktop } = LOGO_ON_SCROLL
   const logoStyle = {
-    top: `${logoTop}px`,
-    height: `${logoHeight}px`,
-    transform: `translate(-50%, ${-50 * logoProgress}%)`,
+    top: `${lerp(mobile.topStart, mobile.topEnd, logoProgress)}px`,
+    height: `${lerp(mobile.heightStart, mobile.heightEnd, logoProgress)}px`,
+    transform: `translate(-50%, ${lerp(0, mobile.translateYPercentEnd, logoProgress)}%)`,
   }
   const desktopLogoStyle = {
-    top: `${desktopLogoTop}px`,
-    height: `${desktopLogoHeight}px`,
-    transform: `translate(-50%, ${-50 * logoProgress}%)`,
+    top: `${lerp(desktop.topStart, desktop.topEnd, logoProgress)}px`,
+    height: `${lerp(desktop.heightStart, desktop.heightEnd, logoProgress)}px`,
+    transform: `translate(-50%, ${lerp(0, desktop.translateYPercentEnd, logoProgress)}%)`,
   }
   const headerStyle = {
     backgroundColor: `oklch(1 0 0 / ${logoProgress * 0.95})`,

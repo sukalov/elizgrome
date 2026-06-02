@@ -8,44 +8,25 @@ interface Props {
 const { active } = Astro.props;
 ---
 
-<nav
-  class="font-preview-bar fixed inset-x-0 top-0 z-[60] border-b border-border bg-background/95 px-3 py-2 backdrop-blur-sm"
-  aria-label="Font preview variants"
->
-  <ul class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm">
+<div class="font-preview-selector fixed bottom-4 right-4 z-[60]">
+  <select
+    id="font-variant-select"
+    class="min-w-[11rem] max-w-[calc(100vw-2rem)] cursor-pointer rounded-lg border border-border bg-background px-3 py-2 font-serif text-sm leading-tight text-foreground shadow-[0_8px_24px_rgb(0_0_0/0.12)] outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+    aria-label="Choose font preview"
+  >
     {FONT_VARIANT_LIST.map((variant) => (
-      <li>
-        <a
-          href={variant.path}
-          class:list={[
-            'inline-block rounded px-2 py-1 no-underline hover:no-underline',
-            variant.id === active
-              ? 'bg-primary text-primary-foreground'
-              : 'text-foreground hover:bg-muted',
-          ]}
-          aria-current={variant.id === active ? 'page' : undefined}
-        >
-          {variant.id === 'default' ? '/' : `/${variant.id}`}
-          <span class="mx-1 opacity-50" aria-hidden="true">·</span>
-          {variant.label}
-        </a>
-      </li>
+      <option value={variant.path} selected={variant.id === active}>
+        {variant.label}
+      </option>
     ))}
-  </ul>
-</nav>
+  </select>
+</div>
 
-<style>
-  :global(body:has(.font-preview-bar) header[data-navbar-smooth-scroll]) {
-    top: 2.75rem;
+<script>
+  const select = document.getElementById('font-variant-select');
+  if (select instanceof HTMLSelectElement) {
+    select.addEventListener('change', () => {
+      if (select.value) window.location.assign(select.value);
+    });
   }
-
-  :global(body:has(.font-preview-bar) .about-hero-copy) {
-    padding-top: 9.25rem;
-  }
-
-  @media (min-width: 768px) {
-    :global(body:has(.font-preview-bar) .about-hero-copy) {
-      padding-top: 10.25rem;
-    }
-  }
-</style>
+</script>

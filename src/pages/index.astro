@@ -159,14 +159,14 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
         </div>
       </section>
 
-      <section id="releases" class="min-h-svh scroll-mt-11 bg-background px-5 py-7 md:h-svh md:scroll-mt-12 md:overflow-hidden md:px-10 md:py-8">
+      <section id="releases" class="min-h-svh scroll-mt-11 bg-background px-5 py-7 md:scroll-mt-12 md:px-10 md:py-8 lg:h-svh lg:overflow-hidden">
         <h2 class="font-heading text-5xl leading-none font-bold md:text-6xl" {...localAttrs(releases.title)}>
           {releases.title[lang]}
         </h2>
 
-        <div class="mt-7 grid gap-12 sm:px-8 md:hidden">
+        <div class="mt-7 grid gap-12 sm:px-8 lg:hidden">
           {releases.items.map((item) => (
-            <article class="grid grid-cols-[minmax(0,18.75rem)_8.5rem] items-center justify-between gap-7 sm:grid-cols-[18.75rem_13rem] sm:gap-10">
+            <article class="grid grid-cols-[minmax(0,18.75rem)_8.5rem] items-center justify-between gap-7 sm:grid-cols-[18.75rem_13rem] sm:gap-10 md:grid-cols-[18.75rem_18rem] md:gap-8">
               <a href="#contacts" class="block no-underline hover:no-underline">
                 <div class="rounded-md bg-background shadow-[0_18px_45px_rgb(0_0_0/0.12)]">
                   <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
@@ -184,13 +184,13 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
           ))}
         </div>
 
-        <div class="relative mt-2 hidden h-[calc(100%-4rem)] md:block">
+        <div class="relative mt-2 hidden h-[calc(100%-4rem)] lg:block">
           {releases.items.map((item) => (
             <article
-              class="absolute w-[clamp(23rem,42vw,35rem)] lg:w-[clamp(24rem,34vw,35rem)]"
+              class="absolute w-[clamp(22rem,32vw,35rem)]"
               style={`left:${item.layout.desktop.x}%; top:${item.layout.desktop.y}%; transform:rotate(${item.layout.desktop.rotate}deg);`}
             >
-              <a href="#contacts" class="grid grid-cols-[clamp(9.5rem,18vw,18.75rem)_minmax(11rem,1fr)] items-center gap-8 text-foreground no-underline hover:text-primary hover:no-underline lg:gap-10">
+              <a href="#contacts" class="grid grid-cols-[clamp(9.5rem,15vw,18.75rem)_minmax(10.5rem,1fr)] items-center gap-8 text-foreground no-underline hover:text-primary hover:no-underline lg:gap-10">
                 <div class="rounded-md bg-background">
                   <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
                 </div>

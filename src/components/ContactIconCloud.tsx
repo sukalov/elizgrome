@@ -40,13 +40,13 @@ export function ContactIconCloud({ links }: ContactIconCloudProps) {
             target={link.url.startsWith("mailto:") ? undefined : "_blank"}
             rel={link.url.startsWith("mailto:") ? undefined : "noreferrer"}
             aria-label={link.label}
-            className="absolute flex size-12 items-center justify-center rounded-full text-foreground no-underline transition hover:text-primary hover:no-underline md:hidden"
+            className="absolute flex size-8 items-center justify-center rounded-full text-foreground no-underline transition hover:text-primary hover:no-underline md:hidden"
             style={{
               left: `${link.layout.mobile.x}%`,
               top: `${link.layout.mobile.y}%`,
             }}
           >
-            <Icon className="h-7 w-7" aria-hidden="true" />
+            <Icon className="size-6" aria-hidden="true" />
             <span className="sr-only">{link.label}</span>
           </a>
         )
@@ -62,13 +62,13 @@ export function ContactIconCloud({ links }: ContactIconCloudProps) {
             target={link.url.startsWith("mailto:") ? undefined : "_blank"}
             rel={link.url.startsWith("mailto:") ? undefined : "noreferrer"}
             aria-label={link.label}
-            className="absolute hidden size-16 items-center justify-center rounded-full text-foreground no-underline transition hover:text-primary hover:no-underline md:flex"
+            className="absolute hidden size-12 items-center justify-center rounded-full text-foreground no-underline transition hover:text-primary hover:no-underline md:flex"
             style={{
               left: `${link.layout.desktop.x}%`,
               top: `${link.layout.desktop.y}%`,
             }}
           >
-            <Icon className="h-9 w-9" aria-hidden="true" />
+            <Icon className="size-7" aria-hidden="true" />
             <span className="sr-only">{link.label}</span>
           </a>
         )

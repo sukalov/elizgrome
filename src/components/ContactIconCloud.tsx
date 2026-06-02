@@ -6,7 +6,7 @@ import {
 } from "react-icons/fa"
 import { MdMailOutline } from "react-icons/md"
 
-type LayoutPoint = { x: number; y: number; rotate: number }
+type LayoutPoint = { x: number; y: number }
 
 type ContactLink = {
   id: "instagram" | "telegram" | "tiktok" | "mail" | "youtube"
@@ -44,7 +44,6 @@ export function ContactIconCloud({ links }: ContactIconCloudProps) {
             style={{
               left: `${link.layout.mobile.x}%`,
               top: `${link.layout.mobile.y}%`,
-              transform: `rotate(${link.layout.mobile.rotate}deg)`,
             }}
           >
             <Icon className="h-7 w-7" aria-hidden="true" />
@@ -67,7 +66,6 @@ export function ContactIconCloud({ links }: ContactIconCloudProps) {
             style={{
               left: `${link.layout.desktop.x}%`,
               top: `${link.layout.desktop.y}%`,
-              transform: `rotate(${link.layout.desktop.rotate}deg)`,
             }}
           >
             <Icon className="h-9 w-9" aria-hidden="true" />

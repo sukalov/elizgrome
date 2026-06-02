@@ -65,7 +65,7 @@ components:
 
   layout_point:
     type: object
-    description: "Position in percent. Rotate is in degrees."
+    description: "Position in percent."
     fields:
       - name: x
         label: X position
@@ -73,10 +73,6 @@ components:
         required: true
       - name: y
         label: Y position
-        type: number
-        required: true
-      - name: rotate
-        label: Rotation
         type: number
         required: true
 

@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
 
 type Lang = 'en' | 'ru';
 type Localized = Record<Lang, string>;
-type LayoutPoint = { x: number; y: number; rotate: number };
+type LayoutPoint = { x: number; y: number };
 type Product = { id: string; alt: Localized; image: string };
 
 type Landing = {
@@ -188,7 +188,7 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
           {releases.items.map((item) => (
             <article
               class="absolute w-[clamp(22rem,32vw,35rem)]"
-              style={`left:${item.layout.desktop.x}%; top:${item.layout.desktop.y}%; transform:rotate(${item.layout.desktop.rotate}deg);`}
+              style={`left:${item.layout.desktop.x}%; top:${item.layout.desktop.y}%;`}
             >
               <a href="#contacts" class="grid grid-cols-[clamp(9.5rem,15vw,18.75rem)_minmax(10.5rem,1fr)] items-center gap-8 text-foreground no-underline hover:text-primary hover:no-underline lg:gap-10">
                 <div class="rounded-md bg-background">
@@ -223,7 +223,7 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
                     'absolute md:hidden',
                     item.style === 'primary' ? 'w-[12rem]' : 'w-[9.5rem]',
                   ]}
-                  style={`left:${mobile.x}%; top:${mobile.y}%; transform:rotate(${mobile.rotate}deg);`}
+                  style={`left:${mobile.x}%; top:${mobile.y}%;`}
                 >
                   <a
                     href={item.url ?? undefined}
@@ -248,7 +248,7 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
                     'absolute hidden md:block',
                     item.style === 'primary' ? 'w-[18rem]' : 'w-[14rem]',
                   ]}
-                  style={`left:${desktop.x}%; top:${desktop.y}%; transform:rotate(${desktop.rotate}deg);`}
+                  style={`left:${desktop.x}%; top:${desktop.y}%;`}
                 >
                   <a
                     href={item.url ?? undefined}

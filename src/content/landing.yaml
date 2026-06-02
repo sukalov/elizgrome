@@ -68,7 +68,7 @@ sections:
         year: "1964"
         image: src/assets/images/cover1.jpg
         layout:
-          desktop: { x: 7, y: 19, rotate: -2 }
+          desktop: { x: 7, y: 19 }
       - id: help
         title:
           en: help!
@@ -76,7 +76,7 @@ sections:
         year: "1965"
         image: src/assets/images/cover2.jpg
         layout:
-          desktop: { x: 56, y: 12, rotate: 4 }
+          desktop: { x: 56, y: 12 }
       - id: rubber-soul
         title:
           en: rubber soul
@@ -84,7 +84,7 @@ sections:
         year: "1965"
         image: src/assets/images/cover4.jpg
         layout:
-          desktop: { x: 63, y: 60, rotate: 3 }
+          desktop: { x: 63, y: 60 }
       - id: revolver
         title:
           en: revolver
@@ -92,7 +92,7 @@ sections:
         year: "1966"
         image: src/assets/images/cover3.jpg
         layout:
-          desktop: { x: 31, y: 49, rotate: -3 }
+          desktop: { x: 31, y: 49 }
       - id: last-room
         title:
           en: Sgt. Pepper's Lonely Hearts Club Band
@@ -100,7 +100,7 @@ sections:
         year: "1967"
         image: src/assets/images/cover5.jpg
         layout:
-          desktop: { x: 10, y: 73, rotate: 2 }
+          desktop: { x: 10, y: 73 }
   concerts:
     title:
       en: concerts
@@ -116,37 +116,37 @@ sections:
         url: "#contacts"
         style: secondary
         layout:
-          desktop: { x: 6, y: 16, rotate: 3 }
-          mobile: { x: 6, y: 11, rotate: 2 }
+          desktop: { x: 6, y: 16 }
+          mobile: { x: 6, y: 11 }
       - id: sunny-concert
         title:
           en: headline show
           ru: большой сольный концерт
         layout:
-          desktop: { x: 67, y: 20, rotate: -2 }
-          mobile: { x: 47, y: 31, rotate: -3 }
+          desktop: { x: 67, y: 20 }
+          mobile: { x: 47, y: 31 }
       - id: omanko-day
         title:
           en: omanko day
           ru: оманко дей
         layout:
-          desktop: { x: 18, y: 58, rotate: -5 }
-          mobile: { x: 10, y: 58, rotate: -4 }
+          desktop: { x: 18, y: 58 }
+          mobile: { x: 10, y: 58 }
       - id: spb-picnic
         title:
           en: picnic afishi spb
           ru: пикник афиши спб
         url: "https://google.com"
         layout:
-          desktop: { x: 76, y: 67, rotate: 2 }
-          mobile: { x: 55, y: 72, rotate: 2 }
+          desktop: { x: 76, y: 67 }
+          mobile: { x: 55, y: 72 }
       - id: motherland
         title:
           en: motherland
           ru: мазерленд
         layout:
-          desktop: { x: 42, y: 82, rotate: -1 }
-          mobile: { x: 26, y: 84, rotate: -1 }
+          desktop: { x: 42, y: 82 }
+          mobile: { x: 26, y: 84 }
   merch:
     title:
       en: merch
@@ -194,29 +194,29 @@ sections:
         label: Instagram
         url: https://instagram.com/
         layout:
-          desktop: { x: 18, y: 24, rotate: -6 }
-          mobile: { x: 12, y: 18, rotate: -5 }
+          desktop: { x: 18, y: 24 }
+          mobile: { x: 12, y: 18 }
       - id: telegram
         label: Telegram
         url: https://t.me/
         layout:
-          desktop: { x: 64, y: 18, rotate: 5 }
-          mobile: { x: 54, y: 17, rotate: 4 }
+          desktop: { x: 64, y: 18 }
+          mobile: { x: 54, y: 17 }
       - id: tiktok
         label: TikTok
         url: https://www.tiktok.com/
         layout:
-          desktop: { x: 42, y: 44, rotate: -2 }
-          mobile: { x: 20, y: 48, rotate: -2 }
+          desktop: { x: 42, y: 44 }
+          mobile: { x: 20, y: 48 }
       - id: mail
         label: Mail
         url: mailto:booking@example.com
         layout:
-          desktop: { x: 92, y: 62, rotate: 7 }
-          mobile: { x: 92, y: 64, rotate: 6 }
+          desktop: { x: 92, y: 62 }
+          mobile: { x: 92, y: 64 }
       - id: youtube
         label: YouTube
         url: https://www.youtube.com/
         layout:
-          desktop: { x: 24, y: 70, rotate: 4 }
-          mobile: { x: 36, y: 78, rotate: 3 }
+          desktop: { x: 24, y: 70 }
+          mobile: { x: 36, y: 78 }

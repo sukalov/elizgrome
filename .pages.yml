@@ -1,3 +1,7 @@
+settings:
+  content:
+    merge: true
+
 media:
   - name: images
     label: Images
@@ -18,6 +22,7 @@ components:
         label: Russian
         type: string
         required: true
+
   localized_text:
     type: object
     fields:
@@ -29,6 +34,7 @@ components:
         label: Russian
         type: text
         required: true
+
   localized_optional_text:
     type: object
     fields:
@@ -38,12 +44,56 @@ components:
       - name: ru
         label: Russian
         type: text
+
   image_upload:
     type: image
     description: "Upload jpg, jpeg, png, or webp only. Please keep the image under 1mb."
     options:
       media: images
       extensions: [jpg, jpeg, png, webp]
+      rename: safe
+
+  layout_point:
+    type: object
+    description: "Position in percent. Rotate is in degrees."
+    fields:
+      - name: x
+        label: X position
+        type: number
+        required: true
+      - name: y
+        label: Y position
+        type: number
+        required: true
+      - name: rotate
+        label: Rotation
+        type: number
+        required: true
+
+  responsive_layout:
+    type: object
+    fields:
+      - name: desktop
+        label: Desktop position
+        component: layout_point
+      - name: mobile
+        label: Mobile position
+        component: layout_point
+
+  product_item:
+    type: object
+    fields:
+      - name: id
+        label: ID
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: alt
+        label: Alt text
+        component: localized_string
+      - name: image
+        label: Product image
+        component: image_upload
 
 content:
   - name: landing
@@ -69,6 +119,8 @@ content:
               - name: og_image
                 label: OG image
                 component: image_upload
+                required: false
+
           - name: navigation
             label: Navigation
             type: object
@@ -82,6 +134,20 @@ content:
               - name: search_label
                 label: Search button label
                 component: localized_string
+              - name: language_label
+                label: Language switcher label
+                component: localized_string
+              - name: promo_pack
+                label: Promo pack link
+                type: object
+                fields:
+                  - name: url
+                    label: URL
+                    type: string
+                    required: true
+                  - name: label
+                    label: Label
+                    component: localized_string
               - name: section_links
                 label: Internal section links
                 type: object
@@ -94,24 +160,11 @@ content:
                     label: Section id without #
                     type: string
                     required: true
+                    pattern: "^[a-z0-9-]+$"
                   - name: label
                     label: Label
                     component: localized_string
-              - name: external_links
-                label: External links
-                type: object
-                list:
-                  collapsible:
-                    collapsed: true
-                    summary: "{fields.label.en}"
-                fields:
-                  - name: url
-                    label: URL
-                    type: string
-                    required: true
-                  - name: label
-                    label: Label
-                    component: localized_string
+
       - name: sections
         label: Page sections
         type: object
@@ -123,12 +176,20 @@ content:
               - name: title
                 label: Section title
                 component: localized_string
+              - name: hero
+                label: Hero images
+                type: object
+                fields:
+                  - name: desktop
+                    label: Desktop hero image
+                    component: image_upload
+                  - name: mobile
+                    label: Mobile hero image
+                    component: image_upload
               - name: text
                 label: About text
                 component: localized_text
-              - name: photo
-                label: Photo
-                component: image_upload
+
           - name: releases
             label: Releases
             type: object
@@ -136,14 +197,19 @@ content:
               - name: title
                 label: Section title
                 component: localized_string
-              - name: albums
-                label: Albums
+              - name: items
+                label: Release items
                 type: object
                 list:
                   collapsible:
                     collapsed: true
                     summary: "{fields.title.en} ({fields.year})"
                 fields:
+                  - name: id
+                    label: ID
+                    type: string
+                    required: true
+                    pattern: "^[a-z0-9-]+$"
                   - name: title
                     label: Title
                     component: localized_string
@@ -152,29 +218,16 @@ content:
                     type: string
                     required: true
                   - name: image
-                    label: Album image
+                    label: Cover image
                     component: image_upload
-                  - name: songlist
-                    label: Songlist
-                    component: localized_optional_text
-                    description: "Plain text song list, one song per line."
-              - name: songs
-                label: Songs
-                type: object
-                list:
-                  collapsible:
-                    collapsed: true
-                    summary: "{fields.album.en} — {fields.title.en}"
-                fields:
-                  - name: album
-                    label: Album
-                    component: localized_string
-                  - name: title
-                    label: Song title
-                    component: localized_string
-                  - name: lyrics
-                    label: Lyrics
-                    component: localized_text
+                  - name: layout
+                    label: Desktop layout
+                    type: object
+                    fields:
+                      - name: desktop
+                        label: Desktop position
+                        component: layout_point
+
           - name: concerts
             label: Concerts
             type: object
@@ -190,12 +243,33 @@ content:
                     collapsed: true
                     summary: "{fields.title.en}"
                 fields:
+                  - name: id
+                    label: ID
+                    type: string
+                    required: true
+                    pattern: "^[a-z0-9-]+$"
                   - name: title
                     label: Title
                     component: localized_string
-                  - name: link
-                    label: Optional link
+                  - name: note
+                    label: Note
+                    component: localized_optional_text
+                  - name: url
+                    label: Optional URL
                     type: string
+                  - name: style
+                    label: Visual style
+                    type: select
+                    options:
+                      values:
+                        - name: primary
+                          label: Primary
+                        - name: secondary
+                          label: Secondary
+                  - name: layout
+                    label: Layout
+                    component: responsive_layout
+
           - name: merch
             label: Merch
             type: object
@@ -203,6 +277,49 @@ content:
               - name: title
                 label: Section title
                 component: localized_string
+              - name: order_label
+                label: Order link label
+                component: localized_string
+              - name: groups
+                label: Product groups
+                type: object
+                fields:
+                  - name: shirts
+                    label: T-shirts
+                    type: object
+                    fields:
+                      - name: title
+                        label: Group title
+                        component: localized_string
+                      - name: items
+                        label: Shirt items
+                        component: product_item
+                        list:
+                          collapsible:
+                            collapsed: true
+                            summary: "{fields.id}"
+                  - name: vinyl
+                    label: Vinyl
+                    type: object
+                    fields:
+                      - name: title
+                        label: Group title
+                        component: localized_string
+                      - name: items
+                        label: Vinyl items
+                        component: product_item
+                        list:
+                          collapsible:
+                            collapsed: true
+                            summary: "{fields.id}"
+                  - name: picks
+                    label: Picks
+                    type: object
+                    fields:
+                      - name: title
+                        label: Group title
+                        component: localized_string
+
           - name: contacts
             label: Contacts
             type: object
@@ -210,12 +327,37 @@ content:
               - name: title
                 label: Section title
                 component: localized_string
-              - name: email
-                label: Email
-                type: string
-              - name: phone
-                label: Phone
-                type: string
-              - name: address
-                label: Address
-                component: localized_text
+              - name: links
+                label: Contact links
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{fields.label}"
+                fields:
+                  - name: id
+                    label: Icon
+                    type: select
+                    options:
+                      values:
+                        - name: instagram
+                          label: Instagram
+                        - name: telegram
+                          label: Telegram
+                        - name: tiktok
+                          label: TikTok
+                        - name: mail
+                          label: Mail
+                        - name: youtube
+                          label: YouTube
+                  - name: label
+                    label: Label
+                    type: string
+                    required: true
+                  - name: url
+                    label: URL
+                    type: string
+                    required: true
+                  - name: layout
+                    label: Layout
+                    component: responsive_layout

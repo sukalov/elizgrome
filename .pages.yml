@@ -70,6 +70,29 @@ components:
         label: Image
         component: image_upload
 
+  layout_point:
+    type: object
+    description: "Position in percent (0–100)."
+    fields:
+      - name: x
+        label: X position
+        type: number
+        required: true
+      - name: y
+        label: Y position
+        type: number
+        required: true
+
+  responsive_layout:
+    type: object
+    fields:
+      - name: desktop
+        label: Desktop position
+        component: layout_point
+      - name: mobile
+        label: Mobile position
+        component: layout_point
+
 content:
   - name: landing
     label: Landing page
@@ -153,6 +176,13 @@ content:
                   - name: image
                     label: Cover
                     component: image_upload
+                  - name: layout
+                    label: Desktop layout
+                    type: object
+                    fields:
+                      - name: desktop
+                        label: Desktop position
+                        component: layout_point
 
           - name: concerts
             label: Concerts
@@ -178,6 +208,9 @@ content:
                   - name: url
                     label: Link (optional)
                     type: string
+                  - name: layout
+                    label: Layout
+                    component: responsive_layout
 
           - name: merch
             label: Merch
@@ -263,3 +296,6 @@ content:
                     label: URL
                     type: string
                     required: true
+                  - name: layout
+                    label: Layout
+                    component: responsive_layout

@@ -18,11 +18,21 @@ export type CmsLanding = {
     };
     releases: {
       title: Localized;
-      items: { title: Localized; year: string; image: string }[];
+      items: {
+        title: Localized;
+        year: string;
+        image: string;
+        layout: { desktop: LayoutPoint };
+      }[];
     };
     concerts: {
       title: Localized;
-      items: { title: Localized; note?: Localized; url?: string }[];
+      items: {
+        title: Localized;
+        note?: Localized;
+        url?: string;
+        layout: { desktop: LayoutPoint; mobile: LayoutPoint };
+      }[];
     };
     merch: {
       title: Localized;
@@ -38,6 +48,7 @@ export type CmsLanding = {
       links: {
         id: 'instagram' | 'telegram' | 'tiktok' | 'mail' | 'youtube';
         url: string;
+        layout: { desktop: LayoutPoint; mobile: LayoutPoint };
       }[];
     };
   };
@@ -111,13 +122,6 @@ const DEFAULT_PROMO: { url: string; label: Localized } = {
 const SECTION_TARGETS = ['about', 'releases', 'concerts', 'merch', 'contacts'] as const;
 
 const RELEASE_IDS = ['hard-day', 'help', 'rubber-soul', 'revolver', 'last-room'] as const;
-const RELEASE_LAYOUTS: { desktop: LayoutPoint }[] = [
-  { desktop: { x: 7, y: 19 } },
-  { desktop: { x: 56, y: 12 } },
-  { desktop: { x: 63, y: 60 } },
-  { desktop: { x: 31, y: 49 } },
-  { desktop: { x: 10, y: 73 } },
-];
 
 const CONCERT_IDS = ['picnic-moscow', 'sunny-concert', 'omanko-day', 'spb-picnic', 'motherland'] as const;
 const CONCERT_STYLES: ('primary' | 'secondary')[] = [
@@ -127,31 +131,12 @@ const CONCERT_STYLES: ('primary' | 'secondary')[] = [
   'secondary',
   'secondary',
 ];
-const CONCERT_LAYOUTS: { desktop: LayoutPoint; mobile: LayoutPoint }[] = [
-  { desktop: { x: 6, y: 16 }, mobile: { x: 6, y: 11 } },
-  { desktop: { x: 67, y: 20 }, mobile: { x: 47, y: 31 } },
-  { desktop: { x: 18, y: 58 }, mobile: { x: 10, y: 58 } },
-  { desktop: { x: 76, y: 67 }, mobile: { x: 55, y: 72 } },
-  { desktop: { x: 42, y: 82 }, mobile: { x: 26, y: 84 } },
-];
-
 const CONTACT_LABELS: Record<CmsLanding['sections']['contacts']['links'][number]['id'], string> = {
   instagram: 'Instagram',
   telegram: 'Telegram',
   tiktok: 'TikTok',
   mail: 'Mail',
   youtube: 'YouTube',
-};
-
-const CONTACT_LAYOUTS: Record<
-  CmsLanding['sections']['contacts']['links'][number]['id'],
-  { desktop: LayoutPoint; mobile: LayoutPoint }
-> = {
-  instagram: { desktop: { x: 18, y: 24 }, mobile: { x: 12, y: 18 } },
-  telegram: { desktop: { x: 64, y: 18 }, mobile: { x: 54, y: 17 } },
-  tiktok: { desktop: { x: 42, y: 44 }, mobile: { x: 20, y: 48 } },
-  mail: { desktop: { x: 92, y: 62 }, mobile: { x: 92, y: 64 } },
-  youtube: { desktop: { x: 24, y: 70 }, mobile: { x: 36, y: 78 } },
 };
 
 const MERCH_ALT: Record<'shirts' | 'vinyl', Localized> = {
@@ -208,7 +193,6 @@ export function mergeLandingData(cms: CmsLanding): Landing {
         items: cms.sections.releases.items.map((item, index) => ({
           ...item,
           id: RELEASE_IDS[index] ?? `release-${index + 1}`,
-          layout: RELEASE_LAYOUTS[index] ?? RELEASE_LAYOUTS[0],
         })),
       },
       concerts: {
@@ -219,7 +203,7 @@ export function mergeLandingData(cms: CmsLanding): Landing {
           note: item.note ?? EMPTY_LOCALIZED,
           url: item.url,
           style: CONCERT_STYLES[index] ?? 'secondary',
-          layout: CONCERT_LAYOUTS[index] ?? CONCERT_LAYOUTS[0],
+          layout: item.layout,
         })),
       },
       merch: {
@@ -242,7 +226,6 @@ export function mergeLandingData(cms: CmsLanding): Landing {
         links: cms.sections.contacts.links.map((link) => ({
           ...link,
           label: CONTACT_LABELS[link.id],
-          layout: CONTACT_LAYOUTS[link.id],
         })),
       },
     },

@@ -64,26 +64,36 @@ sections:
           ru: вечер трудного дня
         year: "1964"
         image: src/assets/images/cover1.jpg
+        layout:
+          desktop: { x: 7, y: 19 }
       - title:
           en: help!
           ru: помогити!
         year: "1965"
         image: src/assets/images/cover2.jpg
+        layout:
+          desktop: { x: 56, y: 12 }
       - title:
           en: rubber soul
           ru: резиновая душа
         year: "1965"
         image: src/assets/images/cover4.jpg
+        layout:
+          desktop: { x: 63, y: 60 }
       - title:
           en: revolver
           ru: револьвер
         year: "1966"
         image: src/assets/images/cover3.jpg
+        layout:
+          desktop: { x: 31, y: 49 }
       - title:
           en: Sgt. Pepper's Lonely Hearts Club Band
           ru: оркестр одиноких сердец сержанта пеппера
         year: "1967"
         image: src/assets/images/cover5.jpg
+        layout:
+          desktop: { x: 10, y: 73 }
   concerts:
     title:
       en: concerts
@@ -96,19 +106,34 @@ sections:
           en: Moscow
           ru: Москва
         url: "#contacts"
+        layout:
+          desktop: { x: 6, y: 16 }
+          mobile: { x: 6, y: 11 }
       - title:
           en: headline show
           ru: большой сольный концерт
+        layout:
+          desktop: { x: 67, y: 20 }
+          mobile: { x: 47, y: 31 }
       - title:
           en: omanko day
           ru: оманко дей
+        layout:
+          desktop: { x: 18, y: 58 }
+          mobile: { x: 10, y: 58 }
       - title:
           en: picnic afishi spb
           ru: пикник афиши спб
         url: https://google.com
+        layout:
+          desktop: { x: 76, y: 67 }
+          mobile: { x: 55, y: 72 }
       - title:
           en: motherland
           ru: мазерленд
+        layout:
+          desktop: { x: 42, y: 82 }
+          mobile: { x: 26, y: 84 }
   merch:
     title:
       en: merch
@@ -143,7 +168,6 @@ sections:
           - image: src/assets/images/vinyl5.jpg
           - image: src/assets/images/vinyl6.jpg
           - image: src/assets/images/vinyl7.jpg
-          - {}
       picks:
         title:
           en: picks
@@ -155,11 +179,26 @@ sections:
     links:
       - id: instagram
         url: https://instagram.com/elizgrome
+        layout:
+          desktop: { x: 18, y: 24 }
+          mobile: { x: 12, y: 18 }
       - id: telegram
         url: https://t.me/
+        layout:
+          desktop: { x: 64, y: 18 }
+          mobile: { x: 54, y: 17 }
       - id: tiktok
         url: https://www.tiktok.com/
+        layout:
+          desktop: { x: 42, y: 44 }
+          mobile: { x: 20, y: 48 }
       - id: mail
         url: mailto:booking@example.com
+        layout:
+          desktop: { x: 92, y: 62 }
+          mobile: { x: 92, y: 64 }
       - id: youtube
         url: https://www.youtube.com/
+        layout:
+          desktop: { x: 24, y: 70 }
+          mobile: { x: 36, y: 78 }

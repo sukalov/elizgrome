@@ -164,19 +164,19 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
           {releases.title[lang]}
         </h2>
 
-        <div class="mt-6 grid gap-10 md:hidden">
+        <div class="mt-7 grid gap-12 sm:px-8 md:hidden">
           {releases.items.map((item) => (
-            <article class="grid grid-cols-[minmax(0,1fr)_6.5rem] items-center gap-5">
+            <article class="grid grid-cols-[minmax(0,18.75rem)_8.5rem] items-center justify-between gap-7 sm:grid-cols-[18.75rem_13rem] sm:gap-10">
               <a href="#contacts" class="block no-underline hover:no-underline">
-                <div class="rounded-md bg-background">
-                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full rounded-md object-cover" loading="lazy" />
+                <div class="rounded-md bg-background shadow-[0_18px_45px_rgb(0_0_0/0.12)]">
+                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
                 </div>
               </a>
-              <div class="text-right">
+              <div class="text-right sm:pr-2">
                 <p class="relative inline-block font-heading text-4xl leading-none text-foreground">
                   <span>{item.year}</span>
                 </p>
-                <p class="mt-1 font-serif text-base leading-tight text-foreground" {...localAttrs(item.title)}>
+                <p class="mt-1 font-serif text-base leading-tight text-foreground sm:text-lg" {...localAttrs(item.title)}>
                   {item.title[lang]}
                 </p>
               </div>
@@ -187,12 +187,12 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
         <div class="relative mt-2 hidden h-[calc(100%-4rem)] md:block">
           {releases.items.map((item) => (
             <article
-              class="absolute w-[clamp(17rem,25vw,21rem)]"
+              class="absolute w-[clamp(23rem,42vw,35rem)] lg:w-[clamp(24rem,34vw,35rem)]"
               style={`left:${item.layout.desktop.x}%; top:${item.layout.desktop.y}%; transform:rotate(${item.layout.desktop.rotate}deg);`}
             >
-              <a href="#contacts" class="grid grid-cols-[clamp(8rem,12vw,10rem)_minmax(0,1fr)] items-center gap-7 text-foreground no-underline hover:text-primary hover:no-underline">
+              <a href="#contacts" class="grid grid-cols-[clamp(9.5rem,18vw,18.75rem)_minmax(11rem,1fr)] items-center gap-8 text-foreground no-underline hover:text-primary hover:no-underline lg:gap-10">
                 <div class="rounded-md bg-background">
-                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full rounded-md object-cover" loading="lazy" />
+                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
                 </div>
                 <div>
                   <p class="relative inline-block font-heading text-5xl leading-none text-foreground">

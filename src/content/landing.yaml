@@ -4,8 +4,24 @@ site:
       en: the beatles
       ru: битлз
     description:
-      en: "Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и Ринго Старр. Также в разное время в составе группы выступали Стюарт Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles создано в соавторстве и подписано именами Джона Леннона и Пола Маккартни. Дискография группы включает 13 официальных студийных альбомов, изданных в 1963—1970 годах, и 211 песен."
-      ru: "The Beatles were an English rock band formed in Liverpool in 1960. The band comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr. They are regarded as the most influential band in popular music and were integral to the development of 1960s counterculture and the recognition of popular music as an art form. Rooted in skiffle, beat and 1950s rock 'n' roll, their sound incorporated elements of classical music and traditional pop in innovative ways. They also explored styles ranging from folk and Indian music to psychedelia and hard rock. As pioneers in recording, songwriting and artistic presentation, the Beatles revolutionised many aspects of the music industry and were often publicised as leaders of the era's youth and sociocultural movements."
+      en: Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в
+        составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и
+        Ринго Старр. Также в разное время в составе группы выступали Стюарт
+        Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles
+        создано в соавторстве и подписано именами Джона Леннона и Пола
+        Маккартни. Дискография группы включает 13 официальных студийных
+        альбомов, изданных в 1963—1970 годах, и 211 песен.
+      ru: The Beatles were an English rock band formed in Liverpool in 1960. The band
+        comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr.
+        They are regarded as the most influential band in popular music and were
+        integral to the development of 1960s counterculture and the recognition
+        of popular music as an art form. Rooted in skiffle, beat and 1950s rock
+        'n' roll, their sound incorporated elements of classical music and
+        traditional pop in innovative ways. They also explored styles ranging
+        from folk and Indian music to psychedelia and hard rock. As pioneers in
+        recording, songwriting and artistic presentation, the Beatles
+        revolutionised many aspects of the music industry and were often
+        publicised as leaders of the era's youth and sociocultural movements.
   promo_pack:
     url: "#contacts"
     label:
@@ -20,8 +36,24 @@ sections:
       desktop: src/assets/images/hero-desktop.jpg
       mobile: src/assets/images/hero-mobile.jpg
     text:
-      ru: "Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и Ринго Старр. Также в разное время в составе группы выступали Стюарт Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles создано в соавторстве и подписано именами Джона Леннона и Пола Маккартни. Дискография группы включает 13 официальных студийных альбомов, изданных в 1963—1970 годах, и 211 песен."
-      en: "The Beatles were an English rock band formed in Liverpool in 1960. The band comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr. They are regarded as the most influential band in popular music and were integral to the development of 1960s counterculture and the recognition of popular music as an art form. Rooted in skiffle, beat and 1950s rock 'n' roll, their sound incorporated elements of classical music and traditional pop in innovative ways. They also explored styles ranging from folk and Indian music to psychedelia and hard rock. As pioneers in recording, songwriting and artistic presentation, the Beatles revolutionised many aspects of the music industry and were often publicised as leaders of the era's youth and sociocultural movements."
+      ru: Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в
+        составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и
+        Ринго Старр. Также в разное время в составе группы выступали Стюарт
+        Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles
+        создано в соавторстве и подписано именами Джона Леннона и Пола
+        Маккартни. Дискография группы включает 13 официальных студийных
+        альбомов, изданных в 1963—1970 годах, и 211 песен.
+      en: The Beatles were an English rock band formed in Liverpool in 1960. The band
+        comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr.
+        They are regarded as the most influential band in popular music and were
+        integral to the development of 1960s counterculture and the recognition
+        of popular music as an art form. Rooted in skiffle, beat and 1950s rock
+        'n' roll, their sound incorporated elements of classical music and
+        traditional pop in innovative ways. They also explored styles ranging
+        from folk and Indian music to psychedelia and hard rock. As pioneers in
+        recording, songwriting and artistic presentation, the Beatles
+        revolutionised many aspects of the music industry and were often
+        publicised as leaders of the era's youth and sociocultural movements.
   releases:
     title:
       en: releases
@@ -73,7 +105,7 @@ sections:
       - title:
           en: picnic afishi spb
           ru: пикник афиши спб
-        url: "https://google.com"
+        url: https://google.com
       - title:
           en: motherland
           ru: мазерленд
@@ -90,27 +122,28 @@ sections:
           en: t-shirts
           ru: футболки
         items:
-          - { image: src/assets/images/shirt1.jpg }
-          - { image: src/assets/images/shirt2.jpg }
-          - { image: src/assets/images/shirt3.jpg }
-          - { image: src/assets/images/shirt4.jpg }
-          - { image: src/assets/images/shirt5.jpg }
-          - { image: src/assets/images/shirt6.jpg }
-          - { image: src/assets/images/shirt7.jpg }
-          - { image: src/assets/images/shirt8.jpg }
-          - { image: src/assets/images/shirt9.jpg }
+          - image: src/assets/images/shirt1.jpg
+          - image: src/assets/images/shirt2.jpg
+          - image: src/assets/images/shirt3.jpg
+          - image: src/assets/images/shirt4.jpg
+          - image: src/assets/images/shirt5.jpg
+          - image: src/assets/images/shirt6.jpg
+          - image: src/assets/images/shirt7.jpg
+          - image: src/assets/images/shirt8.jpg
+          - image: src/assets/images/shirt9.jpg
       vinyl:
         title:
           en: vinyl
           ru: винил
         items:
-          - { image: src/assets/images/vinyl1.jpg }
-          - { image: src/assets/images/vinyl2.jpg }
-          - { image: src/assets/images/vinyl3.jpg }
-          - { image: src/assets/images/vinyl4.jpg }
-          - { image: src/assets/images/vinyl5.jpg }
-          - { image: src/assets/images/vinyl6.jpg }
-          - { image: src/assets/images/vinyl7.jpg }
+          - image: src/assets/images/vinyl1.jpg
+          - image: src/assets/images/vinyl2.jpg
+          - image: src/assets/images/vinyl3.jpg
+          - image: src/assets/images/vinyl4.jpg
+          - image: src/assets/images/vinyl5.jpg
+          - image: src/assets/images/vinyl6.jpg
+          - image: src/assets/images/vinyl7.jpg
+          - {}
       picks:
         title:
           en: picks
@@ -121,7 +154,7 @@ sections:
       ru: контакты
     links:
       - id: instagram
-        url: https://instagram.com/
+        url: https://instagram.com/elizgrome
       - id: telegram
         url: https://t.me/
       - id: tiktok

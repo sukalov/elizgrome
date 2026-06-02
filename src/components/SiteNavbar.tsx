@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -196,13 +197,13 @@ export function SiteNavbar({
                 <MenuIcon strokeWidth={2.5} />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="justify-center border-r-2 border-foreground bg-background">
+            <SheetContent side="left" className="border-r-2 border-foreground bg-background">
               <SheetHeader className="absolute -left-4 top-4">
                 <SheetTitle className="font-serif tracking-normal text-foreground">
                   <img src={logoImage} alt={text(logo, lang)} className="h-9 w-auto" />
                 </SheetTitle>
               </SheetHeader>
-              <nav className="grid gap-1" aria-label={text(menuLabel, lang)}>
+              <nav className="flex flex-1 flex-col justify-center gap-1" aria-label={text(menuLabel, lang)}>
                 {sectionLinks.map((link) => {
                   const href = sectionHref(link.target)
 
@@ -217,16 +218,27 @@ export function SiteNavbar({
                     </a>
                   )
                 })}
+                <a
+                  href={promoPack.url}
+                  className="px-2 py-3 font-serif text-2xl leading-tight text-primary no-underline hover:underline"
+                  data-i18n-en={promoPack.label.en}
+                  data-i18n-ru={promoPack.label.ru}
+                  onClick={(event) => handleMobileSectionClick(event, promoPack.url)}
+                >
+                  {text(promoPack.label, lang)}
+                </a>
+              </nav>
+              <SheetFooter className="border-t border-border">
                 <button
                   type="button"
-                  className="mt-5 w-fit px-2 py-3 font-serif text-base leading-tight text-primary"
+                  className="w-fit px-2 py-3 font-serif text-base leading-tight text-primary"
                   onClick={toggleLanguage}
                   data-i18n-en={languageLabel.en}
                   data-i18n-ru={languageLabel.ru}
                 >
                   {text(languageLabel, lang)}
                 </button>
-              </nav>
+              </SheetFooter>
             </SheetContent>
           </Sheet>
         </div>

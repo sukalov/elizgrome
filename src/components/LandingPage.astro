@@ -1,0 +1,452 @@
+---
+import YAML from 'yaml';
+import { ContactIconCloud } from './ContactIconCloud';
+import FontPreviewBar from './FontPreviewBar.astro';
+import { MerchCarousel } from './MerchCarousel';
+import { SiteNavbar } from './SiteNavbar';
+import landingRaw from '../content/landing.yaml?raw';
+import logoImage from '../assets/images/logo.png';
+import type { FontVariantId } from '../data/font-variants';
+import { mergeLandingData, type CmsLanding, type Lang, type Localized } from '../data/landing-internal';
+import Layout from '../layouts/Layout.astro';
+
+interface Props {
+  fontVariant: FontVariantId;
+}
+
+const { fontVariant } = Astro.props;
+
+const data = mergeLandingData(YAML.parse(landingRaw) as CmsLanding);
+const images = import.meta.glob('../assets/images/*.{jpg,jpeg,png}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, ImageMetadata>;
+
+function imageSrc(path: string) {
+  const key = path.replace('src/assets/images/', '../assets/images/');
+  return images[key]?.src ?? path;
+}
+
+function localAttrs(value: Localized) {
+  return {
+    'data-i18n-en': value.en,
+    'data-i18n-ru': value.ru,
+  };
+}
+
+const about = data.sections.about;
+const releases = data.sections.releases;
+const concerts = data.sections.concerts;
+const merch = data.sections.merch;
+const contacts = data.sections.contacts;
+const lang = 'en' as Lang;
+
+const shirts = merch.groups.shirts.items.map((item) => ({
+  ...item,
+  image: imageSrc(item.image),
+}));
+const vinyl = merch.groups.vinyl.items.map((item) => ({
+  ...item,
+  image: imageSrc(item.image),
+}));
+
+---
+
+<Layout seo={data.site.seo} fontVariant={fontVariant}>
+  <FontPreviewBar active={fontVariant} />
+  <div id="top" class="min-h-screen overflow-x-hidden bg-background text-foreground">
+    <SiteNavbar
+      client:load
+      logo={data.site.navigation.logo}
+      logoImage={logoImage.src}
+      menuLabel={data.site.navigation.menu_label}
+      searchLabel={data.site.navigation.search_label}
+      languageLabel={data.site.navigation.language_label}
+      promoPack={data.site.navigation.promo_pack}
+      sectionLinks={data.site.navigation.section_links}
+    />
+
+    <main>
+      <section id="about" class="relative min-h-svh scroll-mt-11 overflow-hidden bg-background md:h-svh md:scroll-mt-12">
+        <picture>
+          <source media="(min-width: 768px)" srcset={imageSrc(about.hero.desktop)} />
+          <img
+            src={imageSrc(about.hero.mobile)}
+            alt=""
+            class="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+          />
+        </picture>
+        <div
+          class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 via-40% to-transparent"
+          aria-hidden="true"
+        ></div>
+        <div class="pointer-events-none absolute inset-0 bg-white/15" aria-hidden="true"></div>
+        <div class="about-hero-copy relative z-10 flex min-h-svh flex-col px-5 pb-8 pt-26 text-white md:h-svh md:px-10 md:pt-28">
+          <div class="mt-auto max-w-2xl">
+            <h2
+              id="about-title"
+              class="font-heading text-5xl leading-none font-bold text-white md:text-6xl"
+              {...localAttrs(about.title)}
+            >
+              {about.title[lang]}
+            </h2>
+            <p
+              class="mt-4 max-w-xl font-serif text-lg leading-tight md:text-2xl"
+              {...localAttrs(about.text)}
+            >
+              {about.text[lang]}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="releases" class="min-h-svh scroll-mt-11 bg-background px-5 py-7 md:scroll-mt-12 md:px-10 md:py-8 lg:h-svh lg:overflow-hidden">
+        <h2 class="font-heading text-5xl leading-none font-bold md:text-6xl" {...localAttrs(releases.title)}>
+          {releases.title[lang]}
+        </h2>
+
+        <div class="mt-7 grid gap-12 sm:px-8 lg:hidden">
+          {releases.items.map((item) => (
+            <article class="grid grid-cols-[minmax(0,18.75rem)_8.5rem] items-center justify-between gap-7 sm:grid-cols-[18.75rem_13rem] sm:gap-10 md:grid-cols-[18.75rem_18rem] md:gap-8">
+              <a href="#contacts" class="block no-underline hover:no-underline">
+                <div class="rounded-md bg-background shadow-[0_18px_45px_rgb(0_0_0/0.12)]">
+                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
+                </div>
+              </a>
+              <div class="text-right sm:pr-2">
+                <p class="relative inline-block font-heading text-4xl leading-none text-foreground">
+                  <span>{item.year}</span>
+                </p>
+                <p class="mt-1 font-serif text-base leading-tight text-foreground sm:text-lg" {...localAttrs(item.title)}>
+                  {item.title[lang]}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="relative mt-2 hidden h-[calc(100%-4rem)] lg:block">
+          {releases.items.map((item) => (
+            <article
+              class="absolute w-[clamp(22rem,32vw,35rem)]"
+              style={`left:${item.layout.desktop.x}%; top:${item.layout.desktop.y}%;`}
+            >
+              <a href="#contacts" class="grid grid-cols-[clamp(9.5rem,15vw,18.75rem)_minmax(10.5rem,1fr)] items-center gap-8 text-foreground no-underline hover:text-primary hover:no-underline lg:gap-10">
+                <div class="rounded-md bg-background">
+                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
+                </div>
+                <div>
+                  <p class="relative inline-block font-heading text-5xl leading-none text-foreground">
+                    <span>{item.year}</span>
+                  </p>
+                  <h3 class="mt-3 font-serif text-xl leading-tight" {...localAttrs(item.title)}>
+                    {item.title[lang]}
+                  </h3>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="concerts" class="min-h-svh scroll-mt-11 bg-background px-5 py-7 md:h-svh md:scroll-mt-12 md:overflow-hidden md:px-10 md:py-8">
+        <h2 class="font-heading text-5xl leading-none font-bold md:text-6xl" {...localAttrs(concerts.title)}>
+          {concerts.title[lang]}
+        </h2>
+        <div class="relative mt-4 min-h-[calc(100svh-9rem)] md:h-[calc(100%-4rem)] md:min-h-0">
+          {concerts.items.map((item) => {
+            const mobile = item.layout.mobile;
+            const desktop = item.layout.desktop;
+            return (
+              <Fragment>
+                <div
+                  class:list={[
+                    'absolute md:hidden',
+                    item.style === 'primary' ? 'w-[12rem]' : 'w-[9.5rem]',
+                  ]}
+                  style={`left:${mobile.x}%; top:${mobile.y}%;`}
+                >
+                  <a
+                    href={item.url ?? undefined}
+                    class:list={[
+                      'block no-underline hover:no-underline',
+                      item.url ? 'hover:text-primary' : '',
+                    ]}
+                  >
+                    <span
+                      class:list={[
+                        'block font-serif leading-tight text-foreground',
+                        item.style === 'primary' ? 'text-2xl' : 'text-xl text-primary',
+                      ]}
+                      {...localAttrs(item.title)}
+                    >
+                      {item.title[lang]}
+                    </span>
+                  </a>
+                </div>
+                <div
+                  class:list={[
+                    'absolute hidden md:block',
+                    item.style === 'primary' ? 'w-[18rem]' : 'w-[14rem]',
+                  ]}
+                  style={`left:${desktop.x}%; top:${desktop.y}%;`}
+                >
+                  <a
+                    href={item.url ?? undefined}
+                    class:list={[
+                      'block no-underline hover:no-underline',
+                      item.url ? 'hover:text-primary' : '',
+                    ]}
+                  >
+                    <span
+                      class:list={[
+                        'block font-serif leading-tight text-foreground',
+                        item.style === 'primary' ? 'text-4xl' : 'text-2xl text-primary',
+                      ]}
+                      {...localAttrs(item.title)}
+                    >
+                      {item.title[lang]}
+                    </span>
+                  </a>
+                </div>
+              </Fragment>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="merch" class="merch-section min-h-svh scroll-mt-11 bg-background px-5 py-7 md:h-[calc(100svh-3rem)] md:min-h-0 md:scroll-mt-12 md:overflow-hidden md:px-0 md:py-0">
+        <div class="merch-stage relative mx-auto h-full md:mx-0 md:max-w-none">
+          <h2 class="merch-title font-heading text-5xl leading-none font-bold md:text-5xl lg:text-6xl" {...localAttrs(merch.title)}>
+            {merch.title[lang]}
+          </h2>
+
+          <div class="merch-categories mt-6 hidden gap-2 md:mt-0 md:grid md:w-28 lg:w-32">
+            <span class="font-serif text-sm leading-tight text-foreground lg:text-base" {...localAttrs(merch.groups.shirts.title)}>
+              {merch.groups.shirts.title[lang]}
+            </span>
+            <span class="font-serif text-sm leading-tight text-foreground lg:text-base" {...localAttrs(merch.groups.vinyl.title)}>
+              {merch.groups.vinyl.title[lang]}
+            </span>
+            <span class="font-serif text-sm leading-tight text-foreground lg:text-base" {...localAttrs(merch.groups.picks.title)}>
+              {merch.groups.picks.title[lang]}
+            </span>
+          </div>
+
+          <div id="merch-shirts" class="merch-shirts mt-8 md:mt-0">
+            <h3 class="mb-3 font-serif text-xl leading-tight text-foreground md:hidden" {...localAttrs(merch.groups.shirts.title)}>
+              {merch.groups.shirts.title[lang]}
+            </h3>
+            <MerchCarousel client:load items={shirts} lang={lang} desktopSingle fillHeight />
+          </div>
+
+          <div id="merch-vinyl" class="mt-10 md:hidden">
+            <h3 class="mb-3 font-serif text-xl leading-tight text-foreground" {...localAttrs(merch.groups.vinyl.title)}>
+              {merch.groups.vinyl.title[lang]}
+            </h3>
+            <MerchCarousel client:load items={vinyl} lang={lang} aspect="square" />
+          </div>
+
+          <div class="merch-vinyl-stripe hidden md:grid md:grid-cols-7 md:items-end md:gap-0">
+            {vinyl.map((item) => (
+              <figure>
+                <img src={item.image} alt={item.alt[lang]} class="aspect-square w-full object-cover" loading="lazy" />
+              </figure>
+            ))}
+          </div>
+
+          <a
+            href="#contacts"
+            class="merch-order mx-auto mt-8 block w-fit font-serif text-2xl leading-tight text-foreground no-underline underline-offset-4  md:mx-0 md:mt-0 md:text-3xl lg:text-4xl hover:underline transition-all"
+            {...localAttrs(merch.order_label)}
+          >
+            {merch.order_label[lang]}
+        </a>
+        </div>
+      </section>
+
+      <section id="contacts" class="h-[calc(100svh-2.75rem-1px)] overflow-hidden scroll-mt-11 bg-background px-5 py-7 md:h-[calc(100svh-3rem-1px)] md:scroll-mt-12 md:px-10 md:pb-8 md:pt-[31px]">
+        <div class="relative mx-auto h-full max-w-7xl">
+          <h2 class="font-heading text-5xl leading-none font-bold md:text-6xl" {...localAttrs(contacts.title)}>
+            {contacts.title[lang]}
+          </h2>
+          <ContactIconCloud client:load links={contacts.links} />
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <style>
+    @media (min-width: 768px) {
+      .merch-stage {
+        --merch-section-h: calc(100svh - 3rem);
+        --merch-pad: clamp(1rem, 3svh, 2rem);
+        --vinyl-size: calc(100vw / 7);
+        --carousel-top: var(--merch-pad);
+        --carousel-bottom: var(--merch-pad);
+        --carousel-h: min(
+          clamp(24rem, 66svh, 40rem),
+          calc(var(--merch-section-h) - var(--vinyl-size) - var(--carousel-top) - var(--carousel-bottom))
+        );
+        --carousel-w: min(
+          calc(var(--carousel-h) * 0.8),
+          56vw,
+          calc(100vw - (var(--merch-pad) * 2) - 20rem)
+        );
+        --diagonal-gap: clamp(1.75rem, 4vw, 4.5rem);
+      }
+
+      .merch-title {
+        position: absolute;
+        left: calc(var(--merch-pad) + var(--carousel-w) + var(--diagonal-gap));
+        top: var(--carousel-top);
+        max-width: calc(100vw - var(--merch-pad) - var(--carousel-w) - var(--diagonal-gap));
+      }
+
+      .merch-shirts {
+        position: absolute;
+        left: var(--merch-pad);
+        top: var(--carousel-top);
+        height: var(--carousel-h);
+        width: var(--carousel-w);
+        min-height: 0;
+      }
+
+      .merch-categories {
+        position: absolute;
+        left: calc(var(--merch-pad) + var(--carousel-w) + ((100vw - var(--merch-pad) - var(--carousel-w)) / 2));
+        top: calc((100% - var(--vinyl-size)) * 0.48);
+        transform: translate(-50%, -50%);
+      }
+
+      .merch-order {
+        position: absolute;
+        right: var(--merch-pad);
+        bottom: calc(var(--vinyl-size) + var(--diagonal-gap));
+      }
+
+      .merch-vinyl-stripe {
+        position: absolute;
+        inset-inline: 0;
+        bottom: 0;
+        height: var(--vinyl-size);
+        width: 100vw;
+      }
+
+      .merch-vinyl-stripe figure,
+      .merch-vinyl-stripe img {
+        height: 100%;
+      }
+    }
+  </style>
+
+  <script>
+    type Lang = 'en' | 'ru';
+
+    const translated = document.querySelectorAll<HTMLElement>('[data-i18n-en][data-i18n-ru]');
+    const toggles = document.querySelectorAll<HTMLElement>('[data-language-toggle]');
+    let currentScrollAnimation = 0;
+
+    function setLanguage(lang: Lang) {
+      document.documentElement.lang = lang;
+      localStorage.setItem('elizgrome-lang', lang);
+
+      translated.forEach((node) => {
+        if (node.closest('header')) return;
+
+        node.textContent = node.dataset[`i18n${lang === 'ru' ? 'Ru' : 'En'}`] || '';
+      });
+
+      document.querySelectorAll<HTMLMetaElement>('[data-seo-description], [data-seo-description-og]').forEach((node) => {
+        node.content = node.dataset[lang] || node.content;
+      });
+      document.querySelectorAll<HTMLMetaElement>('[data-seo-title]').forEach((node) => {
+        node.content = node.dataset[lang] || node.content;
+      });
+      const title = document.querySelector<HTMLTitleElement>('[data-page-title]');
+      if (title) title.textContent = title.dataset[lang] || title.textContent;
+    }
+
+    function switchLanguage(lang: Lang) {
+      setLanguage(lang);
+      window.dispatchEvent(new CustomEvent('elizgrome:set-language', { detail: lang }));
+    }
+
+    function setScrollTop(top: number) {
+      const scrollingElement = document.scrollingElement || document.documentElement;
+
+      scrollingElement.scrollTop = top;
+      document.documentElement.scrollTop = top;
+      document.body.scrollTop = top;
+    }
+
+    function scrollToHash(hash: string, updateHistory = true) {
+      const id = hash.replace(/^#/, '');
+      if (!id) return;
+
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      const scrollMarginTop = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - scrollMarginTop;
+      const start = window.scrollY;
+      const distance = top - start;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduceMotion || Math.abs(distance) < 2) {
+        setScrollTop(top);
+        if (updateHistory) window.history.pushState(null, '', `#${id}`);
+        return;
+      }
+
+      const animationId = currentScrollAnimation + 1;
+      currentScrollAnimation = animationId;
+      const duration = Math.min(Math.max(Math.abs(distance) * 0.55, 420), 900);
+      const startedAt = window.performance.now();
+      const easeOutCubic = (value: number) => 1 - Math.pow(1 - value, 3);
+
+      function step(now: number) {
+        if (currentScrollAnimation !== animationId) return;
+
+        const progress = Math.min((now - startedAt) / duration, 1);
+        setScrollTop(start + distance * easeOutCubic(progress));
+
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else if (updateHistory) {
+          window.history.pushState(null, '', `#${id}`);
+        }
+      }
+
+      window.requestAnimationFrame(step);
+    }
+
+    document.addEventListener('click', (event) => {
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+      if (!link) return;
+
+      const url = new URL(link.href);
+      if (url.pathname !== window.location.pathname || url.hash.length <= 1) return;
+
+      event.preventDefault();
+      scrollToHash(url.hash);
+    }, { capture: true });
+
+    window.addEventListener('hashchange', () => scrollToHash(window.location.hash, false));
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        switchLanguage(document.documentElement.lang === 'ru' ? 'en' : 'ru');
+      });
+    });
+
+    window.addEventListener('elizgrome:set-language', (event) => {
+      const lang = 'detail' in event && event.detail === 'ru' ? 'ru' : 'en';
+      setLanguage(lang);
+    });
+
+    setLanguage(localStorage.getItem('elizgrome-lang') === 'ru' ? 'ru' : 'en');
+    window.setTimeout(() => scrollToHash(window.location.hash, false), 0);
+  </script>
+</Layout>

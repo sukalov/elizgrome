@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.6",
-    "@fontsource/amatic-sc": "^5.2.7",
+    "@fontsource/geist-mono": "^5.2.8",
+    "@fontsource/manrope": "^5.2.8",
+    "@fontsource/open-sans": "^5.2.7",
+    "@fontsource/wix-madefor-text": "^5.2.8",
     "@tailwindcss/vite": "4.3.0",
     "astro": "6.4.2",
     "class-variance-authority": "^0.7.1",

@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import type { FontVariantId } from '../data/font-variants';
+import { getFontVariant } from '../data/font-variants';
 
 type Localized = { en: string; ru: string };
 
@@ -9,24 +11,35 @@ interface Props {
     description: Localized;
     og_image?: string;
   };
+  fontVariant?: FontVariantId;
 }
 
-const { seo } = Astro.props;
+const { seo, fontVariant = 'default' } = Astro.props;
+const variant = getFontVariant(fontVariant);
+
+if (fontVariant === '1') await import('../styles/fonts/variant-1.css');
+if (fontVariant === '2') await import('../styles/fonts/variant-2.css');
+if (fontVariant === '3') await import('../styles/fonts/variant-3.css');
+if (fontVariant === '4') await import('../styles/fonts/variant-4.css');
+if (fontVariant === '5') await import('../styles/fonts/variant-5.css');
+
 const title = seo.title.en;
 const description = seo.description.en;
+const pageTitle =
+  fontVariant === 'default' ? title : `${title} — ${variant.label}`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class={variant.htmlClass}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content={description} data-seo-description data-en={seo.description.en} data-ru={seo.description.ru} />
-    <meta property="og:title" content={title} data-seo-title data-en={seo.title.en} data-ru={seo.title.ru} />
+    <meta property="og:title" content={pageTitle} data-seo-title data-en={seo.title.en} data-ru={seo.title.ru} />
     <meta property="og:description" content={description} data-seo-description-og data-en={seo.description.en} data-ru={seo.description.ru} />
     {seo.og_image && <meta property="og:image" content={seo.og_image} />}
-    <title data-page-title data-en={seo.title.en} data-ru={seo.title.ru}>{title}</title>
+    <title data-page-title data-en={seo.title.en} data-ru={seo.title.ru}>{pageTitle}</title>
   </head>
   <body>
     <slot />

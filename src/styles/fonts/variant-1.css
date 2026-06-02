@@ -1,0 +1,8 @@
+@import "@fontsource/open-sans/latin-400.css";
+@import "@fontsource/open-sans/latin-700.css";
+@import "@fontsource/open-sans/cyrillic-400.css";
+@import "@fontsource/open-sans/cyrillic-700.css";
+
+html.font-variant-1 {
+  --site-font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+}

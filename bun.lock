@@ -6,7 +6,10 @@
       "name": "elizgrome",
       "dependencies": {
         "@astrojs/react": "^5.0.6",
-        "@fontsource/amatic-sc": "^5.2.7",
+        "@fontsource/geist-mono": "^5.2.8",
+        "@fontsource/manrope": "^5.2.8",
+        "@fontsource/open-sans": "^5.2.7",
+        "@fontsource/wix-madefor-text": "^5.2.8",
         "@tailwindcss/vite": "4.3.0",
         "astro": "6.4.2",
         "class-variance-authority": "^0.7.1",
@@ -197,7 +200,13 @@
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.11", "", {}, "sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg=="],
 
-    "@fontsource/amatic-sc": ["@fontsource/amatic-sc@5.2.7", "", {}, "sha512-fZanMNAXHSguiPeZqEQ8gFMgK0mQKivdDEQx+Z/zL29fgI7I3ZDLjNd0j/+T0rq7Gq50QUCdOGdK+Ues7ukjDg=="],
+    "@fontsource/geist-mono": ["@fontsource/geist-mono@5.2.8", "", {}, "sha512-YqZUb3X42GjRaHkibUNyE8K4Rk9A6I9Ez81YpJYiuJN4ggmTW2ixoQpa9EWCPfXZtIsCQJTyrDoV9OJOZO/UcA=="],
+
+    "@fontsource/manrope": ["@fontsource/manrope@5.2.8", "", {}, "sha512-gJHJmcuUk7qWcNCfcAri/DJQtXtBYqi9yKratr4jXhSo0I3xUtNNKI+igQIcw5c+m95g0vounk8ZnX/kb8o0TA=="],
+
+    "@fontsource/open-sans": ["@fontsource/open-sans@5.2.7", "", {}, "sha512-8yfgDYjE5O0vmTPdrcjV35y4yMnctsokmi9gN49Gcsr0sjzkMkR97AnKDe6OqZh2SFkYlR28fxOvi21bYEgMSw=="],
+
+    "@fontsource/wix-madefor-text": ["@fontsource/wix-madefor-text@5.2.8", "", {}, "sha512-ZuYqSbRo7ZlUL2ZAT+NKF2YAhsxUxGVwBDypKhD2UuK3qahZjE2+0/X1SmDZXggjuPBQLkiQA66smGoE7tXePA=="],
 
     "@hono/node-server": ["@hono/node-server@1.19.14", "", { "peerDependencies": { "hono": "^4" } }, "sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw=="],
 

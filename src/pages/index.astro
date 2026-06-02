@@ -1,201 +1,78 @@
 ---
-import { Image } from 'astro:assets';
 import YAML from 'yaml';
-import { FeatureCarousel } from '../components/FeatureCarousel';
+import { SiteNavbar } from '../components/SiteNavbar';
 import landingRaw from '../content/landing.yaml?raw';
 import Layout from '../layouts/Layout.astro';
 
 type Lang = 'en' | 'ru';
 type Localized = Record<Lang, string>;
-type ImageModule = { src: ImageMetadata };
 
 type Landing = {
-  seo: { title: Localized; description: Localized; og_image?: string };
-  hero: { headline: Localized; subheadline: Localized; cta_text: Localized; background_image?: string };
-  about: { text: Localized; photo?: string };
-  services: { title: Localized; description: Localized }[];
-  concerts: { title: Localized; link?: string }[];
-  songs: { album: Localized; title: Localized; lyrics: Localized }[];
-  albums: { title: Localized; year: string; image?: string; songlist?: Partial<Localized> }[];
-  contact: { email?: string; phone?: string; address: Localized };
+  site: {
+    seo: {
+      title: Localized;
+      description: Localized;
+    };
+    navigation: {
+      logo: Localized;
+      menu_label: Localized;
+      search_label: Localized;
+      section_links: { target: string; label: Localized }[];
+      external_links: { url: string; label: Localized }[];
+    };
+  };
+  sections: Record<string, { title?: Localized }>;
 };
 
 const data = YAML.parse(landingRaw) as Landing;
-const imageModules = import.meta.glob<ImageModule>('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true });
+const sections = data.site.navigation.section_links.map((link) => {
+  const id = link.target.replace(/^#/, '');
 
-function lines(value = '') {
-  return value.split('\n').map((line) => line.trim()).filter(Boolean);
-}
-
-function imageFor(path?: string) {
-  if (!path) return undefined;
-  const filename = path.split('/').pop();
-  return filename ? imageModules[`../assets/images/${filename}`]?.src : undefined;
-}
-
-const heroImage = imageFor(data.hero.background_image);
-const aboutPhoto = imageFor(data.about.photo);
+  return {
+    id,
+    title: data.sections[id]?.title ?? link.label,
+  };
+});
 ---
 
-<Layout seo={data.seo}>
-  <main class="site-shell">
-    <header class="topbar" aria-label="Main navigation">
-      <a class="brand" href="#hero">EG</a>
-      <nav>
-        <a href="#about" data-i18n-en="About" data-i18n-ru="О ней">About</a>
-        <a href="#concerts" data-i18n-en="Concerts" data-i18n-ru="Концерты">Concerts</a>
-        <a href="#songs" data-i18n-en="Songs" data-i18n-ru="Песни">Songs</a>
-        <a href="#albums" data-i18n-en="Albums" data-i18n-ru="Альбомы">Albums</a>
-        <a href="#contact" data-i18n-en="Contact" data-i18n-ru="Контакты">Contact</a>
-      </nav>
-      <div class="language-toggle" aria-label="Language switcher">
-        <button type="button" class="active" data-lang-button="en">EN</button>
-        <button type="button" data-lang-button="ru">RU</button>
-      </div>
-    </header>
-
-    <section id="hero" class="hero section-panel">
-      <div class="hero-copy">
-        <p class="eyebrow" data-i18n-en="official page" data-i18n-ru="официальная страница">official page</p>
-        <h1 data-i18n-en={data.hero.headline.en} data-i18n-ru={data.hero.headline.ru}>{data.hero.headline.en}</h1>
-        <p class="lead" data-i18n-en={data.hero.subheadline.en} data-i18n-ru={data.hero.subheadline.ru}>{data.hero.subheadline.en}</p>
-        <a class="cta" href="#songs" data-i18n-en={data.hero.cta_text.en} data-i18n-ru={data.hero.cta_text.ru}>{data.hero.cta_text.en}</a>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        {heroImage ? <Image src={heroImage} alt="" width={900} height={1100} /> : <div class="image-fallback">eliz<br />grome</div>}
-      </div>
-    </section>
-
-    <section id="about" class="about-grid section-panel">
-      <div>
-        <p class="section-kicker" data-i18n-en="about" data-i18n-ru="о ней">about</p>
-        <h2 data-i18n-en="A voice for late rooms and long walks" data-i18n-ru="Голос для поздних комнат и долгих прогулок">A voice for late rooms and long walks</h2>
-        <p data-i18n-en={data.about.text.en} data-i18n-ru={data.about.text.ru}>{data.about.text.en}</p>
-      </div>
-      <div class="portrait-frame">
-        {aboutPhoto ? <Image src={aboutPhoto} alt={data.hero.headline.en} width={680} height={850} /> : <div class="portrait-placeholder" />}
-      </div>
-    </section>
-
-    <section id="services" class="section-panel">
-      <p class="section-kicker" data-i18n-en="features" data-i18n-ru="форматы">features</p>
-      <div class="cards three">
-        {data.services.map((item) => (
-          <article class="card">
-            <h3 data-i18n-en={item.title.en} data-i18n-ru={item.title.ru}>{item.title.en}</h3>
-            <p data-i18n-en={item.description.en} data-i18n-ru={item.description.ru}>{item.description.en}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="section-panel">
-      <p class="section-kicker" data-i18n-en="carousel" data-i18n-ru="карусель">carousel</p>
-      <h2 data-i18n-en="Passing notes" data-i18n-ru="Заметки на полях">Passing notes</h2>
-      <FeatureCarousel client:load />
-    </section>
-
-    <section id="concerts" class="section-panel split-heading">
-      <div>
-        <p class="section-kicker" data-i18n-en="concerts" data-i18n-ru="концерты">concerts</p>
-        <h2 data-i18n-en="Next appearances" data-i18n-ru="Ближайшие выступления">Next appearances</h2>
-      </div>
-      <div class="list-stack">
-        {data.concerts.map((concert) => (
-          <article class="concert-row">
-            {concert.link ? (
-              <a href={concert.link} target="_blank" rel="noreferrer" data-i18n-en={concert.title.en} data-i18n-ru={concert.title.ru}>{concert.title.en}</a>
-            ) : (
-              <span data-i18n-en={concert.title.en} data-i18n-ru={concert.title.ru}>{concert.title.en}</span>
-            )}
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section id="songs" class="section-panel">
-      <p class="section-kicker" data-i18n-en="songs" data-i18n-ru="песни">songs</p>
-      <div class="songbook">
-        {data.songs.map((song) => (
-          <details class="song" open>
-            <summary>
-              <span data-i18n-en={song.title.en} data-i18n-ru={song.title.ru}>{song.title.en}</span>
-              <small data-i18n-en={song.album.en} data-i18n-ru={song.album.ru}>{song.album.en}</small>
-            </summary>
-            <p data-i18n-en={song.lyrics.en} data-i18n-ru={song.lyrics.ru}>{song.lyrics.en}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-
-    <section id="albums" class="section-panel">
-      <p class="section-kicker" data-i18n-en="albums" data-i18n-ru="альбомы">albums</p>
-      <div class="album-grid">
-        {data.albums.map((album) => {
-          const albumImage = imageFor(album.image);
-          return (
-            <article class="album-card">
-              <div class="album-cover">
-                {albumImage ? <Image src={albumImage} alt={album.title.en} width={640} height={640} /> : <div class="cover-placeholder" />}
-              </div>
-              <div>
-                <h3 data-i18n-en={album.title.en} data-i18n-ru={album.title.ru}>{album.title.en}</h3>
-                <p class="year">{album.year}</p>
-                <ol>
-                  {lines(album.songlist?.en).map((songName, index) => (
-                    <li data-i18n-en={songName} data-i18n-ru={lines(album.songlist?.ru)[index] ?? songName}>{songName}</li>
-                  ))}
-                </ol>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-
-    <section id="contact" class="contact section-panel">
-      <p class="section-kicker" data-i18n-en="contact" data-i18n-ru="контакты">contact</p>
-      <h2 data-i18n-en="Booking and collaborations" data-i18n-ru="Букинг и сотрудничество">Booking and collaborations</h2>
-      <p data-i18n-en={data.contact.address.en} data-i18n-ru={data.contact.address.ru}>{data.contact.address.en}</p>
-      <div class="contact-links">
-        {data.contact.email && <a href={`mailto:${data.contact.email}`}>{data.contact.email}</a>}
-        {data.contact.phone && <a href={`tel:${data.contact.phone}`}>{data.contact.phone}</a>}
-      </div>
-    </section>
-  </main>
+<Layout seo={data.site.seo}>
+  <div id="top" class="min-h-screen overflow-x-hidden bg-background">
+    <SiteNavbar
+      client:load
+      logo={data.site.navigation.logo}
+      menuLabel={data.site.navigation.menu_label}
+      searchLabel={data.site.navigation.search_label}
+      sectionLinks={data.site.navigation.section_links}
+      externalLinks={data.site.navigation.external_links}
+    />
+    <main class="pt-12 md:pt-18">
+      {sections.map((section) => (
+        <section id={section.id} class="min-h-screen w-screen scroll-mt-12 border-b border-border bg-background px-4 py-8 md:scroll-mt-18 md:px-8 md:py-10">
+          <h2
+            class="font-heading text-6xl font-bold tracking-wide text-foreground md:text-8xl"
+            data-i18n-en={section.title.en}
+            data-i18n-ru={section.title.ru}
+          >
+            {section.title.en}
+          </h2>
+        </section>
+      ))}
+    </main>
+  </div>
 
   <script>
     type Lang = 'en' | 'ru';
 
-    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-lang-button]');
     const translated = document.querySelectorAll<HTMLElement>('[data-i18n-en][data-i18n-ru]');
-    const title = document.querySelector<HTMLElement>('[data-page-title]');
-    const description = document.querySelector<HTMLMetaElement>('[data-seo-description]');
-    const ogTitle = document.querySelector<HTMLMetaElement>('[data-seo-title]');
-    const ogDescription = document.querySelector<HTMLMetaElement>('[data-seo-description-og]');
 
     function setLanguage(lang: Lang) {
       document.documentElement.lang = lang;
-      localStorage.setItem('elizgrome-lang', lang);
 
       translated.forEach((node) => {
         node.textContent = node.dataset[`i18n${lang === 'ru' ? 'Ru' : 'En'}`] || '';
       });
-
-      [title, description, ogTitle, ogDescription].forEach((node) => {
-        if (!node) return;
-        const value = node.dataset[lang] || '';
-        if (node.tagName === 'TITLE') node.textContent = value;
-        else node.setAttribute('content', value);
-      });
-
-      buttons.forEach((button) => button.classList.toggle('active', button.dataset.langButton === lang));
-      window.dispatchEvent(new CustomEvent('elizgrome:language', { detail: lang }));
     }
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => setLanguage(button.dataset.langButton === 'ru' ? 'ru' : 'en'));
-    });
     setLanguage(localStorage.getItem('elizgrome-lang') === 'ru' ? 'ru' : 'en');
   </script>
 </Layout>

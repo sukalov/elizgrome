@@ -19,6 +19,10 @@ bun run dev
 bun run build
 ```
 
+## ui rules
+
+See `UI_RULES.md` before adding any page content or components.
+
 ## cms
 
 Pages CMS reads `.pages.yml` from the repo root. Editable content lives in `src/content/landing.yaml` and images are uploaded to `src/assets/images/`.

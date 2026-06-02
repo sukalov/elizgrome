@@ -1,78 +1,108 @@
-seo:
-  title:
-    en: Liza Gromova
-    ru: Лиза Громова
-  description:
-    en: "Official page for Eliz Grome: concerts, albums, songs, and contact
-      information."
-    ru: "Официальная страница Элиз Громе: концерты, альбомы, песни и контакты."
-hero:
-  headline:
-    en: Eliz Grome
-    ru: Элиз Громе
-  subheadline:
-    en: Voice, songs, and intimate live evenings.
-    ru: Голос, песни и камерные живые вечера.
-  cta_text:
-    en: Listen to the songs
-    ru: Послушать песни
-about:
-  text:
-    en: Eliz Grome is an independent singer-songwriter creating quiet, cinematic
-      music about memory, movement, and the city after dark.
-    ru: Элиз Громе — независимая певица и автор песен, создающая тихую
-      кинематографичную музыку о памяти, движении и городе после темноты.
-services:
-  - title:
+site:
+  seo:
+    title:
+      en: Liza Gromova
+      ru: Лиза Громова
+    description:
+      en: "Official page for Eliz Grome: concerts, albums, songs, and contact information."
+      ru: "Официальная страница Элиз Громе: концерты, альбомы, песни и контакты."
+  navigation:
+    logo:
+      en: LIZA
+      ru: ЛИЗА
+    menu_label:
+      en: Open navigation menu
+      ru: Открыть меню навигации
+    search_label:
+      en: Search
+      ru: Поиск
+    section_links:
+      - target: about
+        label:
+          en: about
+          ru: о проекте
+      - target: releases
+        label:
+          en: releases
+          ru: релизы
+      - target: concerts
+        label:
+          en: concerts
+          ru: концерты
+      - target: merch
+        label:
+          en: merch
+          ru: мерч
+      - target: contacts
+        label:
+          en: contacts
+          ru: контакты
+    external_links:
+      - url: https://example.com/support
+        label:
+          en: support
+          ru: поддержать
+      - url: https://example.com/promo-pack
+        label:
+          en: promo-pack
+          ru: промо-пак
+sections:
+  about:
+    title:
+      en: about
+      ru: о проекте
+    text:
+      en: Eliz Grome is an independent singer-songwriter creating quiet, cinematic music about memory, movement, and the city after dark.
+      ru: Элиз Громе — независимая певица и автор песен, создающая тихую кинематографичную музыку о памяти, движении и городе после темноты.
+    photo: ""
+  releases:
+    title:
+      en: releases
+      ru: релизы
+    albums:
+      - title:
+          en: a hard day's night
+          ru: вечер трудного дня
+        year: "1964"
+        image: src/assets/images/cover1.jpg
+        songlist:
+          en: |-
+            First Light
+            After the Rain
+            Letters
+          ru: |-
+            Первый свет
+            После дождя
+            Письма
+    songs:
+      - album:
+          en: Night Letters
+          ru: Ночные письма
+        title:
+          en: First Light
+          ru: Первый свет
+        lyrics:
+          en: Lyrics placeholder. Replace this text in Pages CMS.
+          ru: Текст песни. Замените этот текст в Pages CMS.
+  concerts:
+    title:
       en: concerts
       ru: концерты
-    description:
-      en: Solo and chamber performances for attentive rooms and close-listening
-        venues.
-      ru: Сольные и камерные выступления для внимательных залов и пространств.
-  - title:
-      en: Acoustic sets
-      ru: Акустические сеты
-    description:
-      en: Stripped-back arrangements for private events, galleries, and small stages.
-      ru: Минималистичные аранжировки для частных событий, галерей и малых сцен.
-  - title:
-      en: Lyrics and collaborations
-      ru: Тексты и коллаборации
-    description:
-      en: Selected songwriting and vocal collaborations with artists and producers.
-      ru: Избранные авторские и вокальные коллаборации с артистами и продюсерами.
-concerts:
-  - title:
-      en: Upcoming dates will be announced soon
-      ru: Ближайшие даты будут объявлены скоро
-songs:
-  - album:
-      en: Night Letters
-      ru: Ночные письма
+    items:
+      - title:
+          en: Upcoming dates will be announced soon
+          ru: Ближайшие даты будут объявлены скоро
+        link: ""
+  merch:
     title:
-      en: First Light
-      ru: Первый свет
-    lyrics:
-      en: Lyrics placeholder. Replace this text in Pages CMS.
-      ru: Текст песни. Замените этот текст в Pages CMS.
-albums:
-  - title:
-      en: Night Letters
-      ru: Ночные письма
-    year: "2026"
-    image: src/assets/images/ava.jpg
-    songlist:
-      en: |-
-        First Light
-        After the Rain
-        Letters
-      ru: |-
-        Первый свет
-        После дождя
-        Письма
-contact:
-  email: booking@example.com
-  address:
-    en: Available for concerts and collaborations.
-    ru: Открыта к концертам и сотрудничеству.
+      en: merch
+      ru: мерч
+  contacts:
+    title:
+      en: contacts
+      ru: контакты
+    email: booking@example.com
+    phone: ""
+    address:
+      en: Available for concerts and collaborations.
+      ru: Открыта к концертам и сотрудничеству.

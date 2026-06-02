@@ -1,8 +1,3 @@
-@import "@fontsource/wix-madefor-text/latin-400.css";
-@import "@fontsource/wix-madefor-text/latin-700.css";
-@import "@fontsource/wix-madefor-text/cyrillic-400.css";
-@import "@fontsource/wix-madefor-text/cyrillic-700.css";
-
 html.font-variant-5 {
   --site-font-family: "Wix Madefor Text", ui-sans-serif, system-ui, sans-serif;
 }

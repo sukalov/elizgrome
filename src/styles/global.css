@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource/amatic-sc/400.css";
-@import "@fontsource/amatic-sc/700.css";
+@import "@fontsource/amatic-sc/latin-400.css";
+@import "@fontsource/amatic-sc/latin-700.css";
+@import "@fontsource/amatic-sc/cyrillic-400.css";
+@import "@fontsource/amatic-sc/cyrillic-700.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -125,7 +127,7 @@
   }
 
   html {
-    @apply bg-background font-sans text-foreground;
+    @apply scroll-smooth bg-background font-sans text-foreground motion-reduce:scroll-auto;
   }
 
   body {

@@ -197,9 +197,9 @@ export function SiteNavbar({
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="justify-center border-r-2 border-foreground bg-background">
-              <SheetHeader className="absolute left-4 top-4">
-                <SheetTitle className="font-serif text-2xl tracking-normal text-foreground">
-                  {text(logo, lang)}
+              <SheetHeader className="absolute -left-4 top-4">
+                <SheetTitle className="font-serif tracking-normal text-foreground">
+                  <img src={logoImage} alt={text(logo, lang)} className="h-9 w-auto" />
                 </SheetTitle>
               </SheetHeader>
               <nav className="grid gap-1" aria-label={text(menuLabel, lang)}>

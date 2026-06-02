@@ -61,6 +61,7 @@ albums:
       en: Night Letters
       ru: Ночные письма
     year: "2026"
+    image: src/assets/images/ava.jpg
     songlist:
       en: |-
         First Light

@@ -1,33 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource/open-sans/latin-400.css";
-@import "@fontsource/open-sans/latin-700.css";
-@import "@fontsource/open-sans/cyrillic-400.css";
-@import "@fontsource/open-sans/cyrillic-700.css";
-@import "@fontsource/manrope/latin-400.css";
-@import "@fontsource/manrope/latin-700.css";
-@import "@fontsource/manrope/cyrillic-400.css";
-@import "@fontsource/manrope/cyrillic-700.css";
-@import "@fontsource/geist-mono/latin-400.css";
-@import "@fontsource/geist-mono/latin-700.css";
-@import "@fontsource/geist-mono/cyrillic-400.css";
-@import "@fontsource/geist-mono/cyrillic-700.css";
 @import "@fontsource/wix-madefor-text/latin-400.css";
 @import "@fontsource/wix-madefor-text/latin-700.css";
 @import "@fontsource/wix-madefor-text/cyrillic-400.css";
 @import "@fontsource/wix-madefor-text/cyrillic-700.css";
-@import "./fonts/variant-default.css";
-@import "./fonts/variant-1.css";
-@import "./fonts/variant-2.css";
-@import "./fonts/variant-3.css";
-@import "./fonts/variant-4.css";
-@import "./fonts/variant-5.css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --site-font-family: "Times New Roman", Times, serif;
+  --site-font-family: "Wix Madefor Text", ui-sans-serif, system-ui, sans-serif;
   --background: oklch(1 0 0);
   --foreground: oklch(0 0 0);
   --card: oklch(1 0 0);

@@ -1,20 +1,12 @@
 ---
 import YAML from 'yaml';
 import { ContactIconCloud } from './ContactIconCloud';
-import FontPreviewBar from './FontPreviewBar.astro';
 import { MerchCarousel } from './MerchCarousel';
 import { SiteNavbar } from './SiteNavbar';
 import landingRaw from '../content/landing.yaml?raw';
 import logoImage from '../assets/images/logo.png';
-import type { FontVariantId } from '../data/font-variants';
 import { mergeLandingData, type CmsLanding, type Lang, type Localized } from '../data/landing-internal';
 import Layout from '../layouts/Layout.astro';
-
-interface Props {
-  fontVariant: FontVariantId;
-}
-
-const { fontVariant } = Astro.props;
 
 const data = mergeLandingData(YAML.parse(landingRaw) as CmsLanding);
 const images = import.meta.glob('../assets/images/*.{jpg,jpeg,png}', {
@@ -52,8 +44,7 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
 
 ---
 
-<Layout seo={data.site.seo} fontVariant={fontVariant}>
-  <FontPreviewBar active={fontVariant} />
+<Layout seo={data.site.seo}>
   <div id="top" class="min-h-screen overflow-x-hidden bg-background text-foreground">
     <SiteNavbar
       client:load

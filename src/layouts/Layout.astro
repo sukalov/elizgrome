@@ -1,7 +1,5 @@
 ---
 import '../styles/global.css';
-import type { FontVariantId } from '../data/font-variants';
-import { getFontVariant } from '../data/font-variants';
 
 type Localized = { en: string; ru: string };
 
@@ -11,32 +9,24 @@ interface Props {
     description: Localized;
     og_image?: string;
   };
-  fontVariant?: FontVariantId;
 }
 
-const { seo, fontVariant = 'default' } = Astro.props;
-const variant = getFontVariant(fontVariant);
-
+const { seo } = Astro.props;
 const title = seo.title.en;
 const description = seo.description.en;
-const pageTitle =
-  fontVariant === 'default' ? title : `${title} — ${variant.label}`;
 ---
 
 <!doctype html>
-<html lang="en" class={variant.htmlClass}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content={description} data-seo-description data-en={seo.description.en} data-ru={seo.description.ru} />
-    <meta property="og:title" content={pageTitle} data-seo-title data-en={seo.title.en} data-ru={seo.title.ru} />
+    <meta property="og:title" content={title} data-seo-title data-en={seo.title.en} data-ru={seo.title.ru} />
     <meta property="og:description" content={description} data-seo-description-og data-en={seo.description.en} data-ru={seo.description.ru} />
     {seo.og_image && <meta property="og:image" content={seo.og_image} />}
-    <title data-page-title data-en={seo.title.en} data-ru={seo.title.ru}>{pageTitle}</title>
-    {fontVariant === '2' && (
-      <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/google-sans" />
-    )}
+    <title data-page-title data-en={seo.title.en} data-ru={seo.title.ru}>{title}</title>
   </head>
   <body>
     <slot />

@@ -89,9 +89,11 @@ components:
       - name: desktop
         label: Desktop position
         component: layout_point
+        required: true
       - name: mobile
         label: Mobile position
         component: layout_point
+        required: true
 
 content:
   - name: landing
@@ -179,10 +181,12 @@ content:
                   - name: layout
                     label: Desktop layout
                     type: object
+                    required: true
                     fields:
                       - name: desktop
                         label: Desktop position
                         component: layout_point
+                        required: true
 
           - name: concerts
             label: Concerts
@@ -211,6 +215,7 @@ content:
                   - name: layout
                     label: Layout
                     component: responsive_layout
+                    required: true
 
           - name: merch
             label: Merch
@@ -299,3 +304,4 @@ content:
                   - name: layout
                     label: Layout
                     component: responsive_layout
+                    required: true

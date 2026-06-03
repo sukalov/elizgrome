@@ -167,9 +167,23 @@ sections:
       - title:
           en: september concert
           ru: большой сольный концерт
+        layout:
+          desktop:
+            x: 52
+            y: 38
+          mobile:
+            x: 38
+            y: 42
       - title:
           en: OUTLINE
           ru: OUTLINE
+        layout:
+          desktop:
+            x: 84
+            y: 8
+          mobile:
+            x: 68
+            y: 24
   merch:
     title:
       en: merch

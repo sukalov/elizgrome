@@ -167,6 +167,9 @@ sections:
       - title:
           en: september concert
           ru: большой сольный концерт
+      - title:
+          en: OUTLINE
+          ru: OUTLINE
   merch:
     title:
       en: merch

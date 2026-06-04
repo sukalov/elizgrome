@@ -210,12 +210,12 @@ export function SiteNavbar({
   }
   const headerStyle = {
     backgroundColor: `oklch(1 0 0 / ${logoProgress * 0.95})`,
-    borderColor: `oklch(0.922 0 0 / ${logoProgress})`,
+    boxShadow: `0 6px 16px -10px oklch(0 0 0 / ${logoProgress * 0.14})`,
   } satisfies CSSProperties
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 border-b"
+      className="fixed inset-x-0 top-0 z-50 border-b border-transparent"
       style={headerStyle}
       data-navbar-smooth-scroll
     >

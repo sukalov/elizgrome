@@ -158,23 +158,29 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
                   ]}
                   style={`left:${mobile.x}%; top:${mobile.y}%;`}
                 >
-                  <a
-                    href={item.url ?? undefined}
-                    class:list={[
-                      'block no-underline hover:no-underline',
-                      item.url ? 'hover:text-primary' : '',
-                    ]}
-                  >
+                  {item.url ? (
+                    <a href={item.url} class="block no-underline hover:text-primary hover:no-underline">
+                      <span
+                        class:list={[
+                          'block font-serif leading-tight text-foreground',
+                          item.style === 'primary' ? 'text-2xl' : 'text-xl text-primary',
+                        ]}
+                        {...localAttrs(item.title)}
+                      >
+                        {item.title[lang]}
+                      </span>
+                    </a>
+                  ) : (
                     <span
                       class:list={[
-                        'block font-serif leading-tight text-foreground',
-                        item.style === 'primary' ? 'text-2xl' : 'text-xl text-primary',
+                        'block font-serif leading-tight text-muted-foreground line-through',
+                        item.style === 'primary' ? 'text-2xl' : 'text-xl',
                       ]}
                       {...localAttrs(item.title)}
                     >
                       {item.title[lang]}
                     </span>
-                  </a>
+                  )}
                 </div>
                 <div
                   class:list={[
@@ -183,23 +189,29 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
                   ]}
                   style={`left:${desktop.x}%; top:${desktop.y}%;`}
                 >
-                  <a
-                    href={item.url ?? undefined}
-                    class:list={[
-                      'block no-underline hover:no-underline',
-                      item.url ? 'hover:text-primary' : '',
-                    ]}
-                  >
+                  {item.url ? (
+                    <a href={item.url} class="block no-underline hover:text-primary hover:no-underline">
+                      <span
+                        class:list={[
+                          'block font-serif leading-tight text-foreground',
+                          item.style === 'primary' ? 'text-4xl' : 'text-2xl text-primary',
+                        ]}
+                        {...localAttrs(item.title)}
+                      >
+                        {item.title[lang]}
+                      </span>
+                    </a>
+                  ) : (
                     <span
                       class:list={[
-                        'block font-serif leading-tight text-foreground',
-                        item.style === 'primary' ? 'text-4xl' : 'text-2xl text-primary',
+                        'block font-serif leading-tight text-muted-foreground line-through',
+                        item.style === 'primary' ? 'text-4xl' : 'text-2xl',
                       ]}
                       {...localAttrs(item.title)}
                     >
                       {item.title[lang]}
                     </span>
-                  </a>
+                  )}
                 </div>
               </Fragment>
             );

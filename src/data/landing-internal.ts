@@ -146,6 +146,13 @@ const MERCH_ALT: Record<'shirts' | 'vinyl', Localized> = {
 
 const EMPTY_LOCALIZED: Localized = { en: '', ru: '' };
 
+function upperLocalized(value: Localized): Localized {
+  return {
+    en: value.en.toLocaleUpperCase('en'),
+    ru: value.ru.toLocaleUpperCase('ru'),
+  };
+}
+
 function merchProducts(
   group: 'shirts' | 'vinyl',
   items: { image: string }[],
@@ -160,11 +167,11 @@ function merchProducts(
 
 function sectionLinks(sections: CmsLanding['sections']) {
   const titles: Record<(typeof SECTION_TARGETS)[number], Localized> = {
-    about: sections.about.title,
-    releases: sections.releases.title,
-    concerts: sections.concerts.title,
-    merch: sections.merch.title,
-    contacts: sections.contacts.title,
+    about: upperLocalized(sections.about.title),
+    releases: upperLocalized(sections.releases.title),
+    concerts: upperLocalized(sections.concerts.title),
+    merch: upperLocalized(sections.merch.title),
+    contacts: upperLocalized(sections.contacts.title),
   };
 
   return SECTION_TARGETS.map((target) => ({
@@ -187,16 +194,19 @@ export function mergeLandingData(cms: CmsLanding): Landing {
       },
     },
     sections: {
-      about: cms.sections.about,
+      about: {
+        ...cms.sections.about,
+        title: upperLocalized(cms.sections.about.title),
+      },
       releases: {
-        title: cms.sections.releases.title,
+        title: upperLocalized(cms.sections.releases.title),
         items: cms.sections.releases.items.map((item, index) => ({
           ...item,
           id: RELEASE_IDS[index] ?? `release-${index + 1}`,
         })),
       },
       concerts: {
-        title: cms.sections.concerts.title,
+        title: upperLocalized(cms.sections.concerts.title),
         items: cms.sections.concerts.items.map((item, index) => ({
           id: CONCERT_IDS[index] ?? `concert-${index + 1}`,
           title: item.title,
@@ -207,7 +217,7 @@ export function mergeLandingData(cms: CmsLanding): Landing {
         })),
       },
       merch: {
-        title: cms.sections.merch.title,
+        title: upperLocalized(cms.sections.merch.title),
         order_label: cms.sections.merch.order_label,
         groups: {
           shirts: {
@@ -222,7 +232,7 @@ export function mergeLandingData(cms: CmsLanding): Landing {
         },
       },
       contacts: {
-        title: cms.sections.contacts.title,
+        title: upperLocalized(cms.sections.contacts.title),
         links: cms.sections.contacts.links.map((link) => ({
           ...link,
           label: CONTACT_LABELS[link.id],

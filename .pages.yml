@@ -224,9 +224,22 @@ content:
               - name: title
                 label: Section title
                 component: localized_string
-              - name: order_label
-                label: Order link label
-                component: localized_string
+              - name: order_link
+                label: Order link
+                type: object
+                fields:
+                  - name: ru
+                    label: Russian label
+                    type: string
+                    required: true
+                  - name: en
+                    label: English label
+                    type: string
+                    required: true
+                  - name: url
+                    label: Link
+                    type: string
+                    required: true
               - name: groups
                 label: Product groups
                 type: object

@@ -172,9 +172,10 @@ sections:
     title:
       en: merch
       ru: мерч
-    order_label:
-      en: order
+    order_link:
       ru: заказать
+      en: order
+      url: "#contacts"
     groups:
       shirts:
         title:

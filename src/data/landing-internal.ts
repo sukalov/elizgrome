@@ -36,7 +36,7 @@ export type CmsLanding = {
     };
     merch: {
       title: Localized;
-      order_label: Localized;
+      order_link: { ru: string; en: string; url: string };
       groups: {
         shirts: { title: Localized; items: { image: string }[] };
         vinyl: { title: Localized; items: { image: string }[] };
@@ -91,7 +91,7 @@ export type Landing = {
     };
     merch: {
       title: Localized;
-      order_label: Localized;
+      order_link: { url: string; label: Localized };
       groups: {
         shirts: { title: Localized; items: { id: string; alt: Localized; image: string }[] };
         vinyl: { title: Localized; items: { id: string; alt: Localized; image: string }[] };
@@ -218,7 +218,13 @@ export function mergeLandingData(cms: CmsLanding): Landing {
       },
       merch: {
         title: upperLocalized(cms.sections.merch.title),
-        order_label: cms.sections.merch.order_label,
+        order_link: {
+          url: cms.sections.merch.order_link.url,
+          label: {
+            ru: cms.sections.merch.order_link.ru,
+            en: cms.sections.merch.order_link.en,
+          },
+        },
         groups: {
           shirts: {
             title: cms.sections.merch.groups.shirts.title,

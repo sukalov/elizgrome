@@ -260,11 +260,11 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
           </div>
 
           <a
-            href="#contacts"
+            href={merch.order_link.url}
             class="merch-order mx-auto mt-8 block w-fit font-serif text-2xl leading-tight text-foreground no-underline underline-offset-4  md:mx-0 md:mt-0 md:text-3xl lg:text-4xl hover:underline transition-all"
-            {...localAttrs(merch.order_label)}
+            {...localAttrs(merch.order_link.label)}
           >
-            {merch.order_label[lang]}
+            {merch.order_link.label[lang]}
         </a>
         </div>
       </section>

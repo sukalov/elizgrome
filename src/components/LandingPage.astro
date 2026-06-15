@@ -4,7 +4,7 @@ import { ContactIconCloud } from './ContactIconCloud';
 import { MerchCarousel } from './MerchCarousel';
 import { SiteNavbar } from './SiteNavbar';
 import landingRaw from '../content/landing.yaml?raw';
-import logoImage from '../assets/images/logo.png';
+import logoSvg from '../assets/images/liza-logo.svg?raw';
 import { mergeLandingData, type CmsLanding, type Lang, type Localized } from '../data/landing-internal';
 import Layout from '../layouts/Layout.astro';
 
@@ -49,12 +49,13 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
     <SiteNavbar
       client:load
       logo={data.site.navigation.logo}
-      logoImage={logoImage.src}
+      logoSvg={logoSvg}
       menuLabel={data.site.navigation.menu_label}
       searchLabel={data.site.navigation.search_label}
       languageLabel={data.site.navigation.language_label}
       promoPack={data.site.navigation.promo_pack}
       sectionLinks={data.site.navigation.section_links}
+      searchSongs={data.search.songs}
     />
 
     <main>
@@ -99,16 +100,31 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
 
         <div class="mt-7 grid gap-12 sm:px-8 lg:hidden">
           {releases.items.map((item) => (
-            <article class="grid grid-cols-[minmax(0,18.75rem)_8.5rem] items-center justify-between gap-7 sm:grid-cols-[18.75rem_13rem] sm:gap-10 md:grid-cols-[18.75rem_18rem] md:gap-8">
-              <a href="#contacts" class="block no-underline hover:no-underline">
-                <div class="rounded-md bg-background shadow-[0_18px_45px_rgb(0_0_0/0.12)]">
-                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
-                </div>
-              </a>
-              <div class="text-right sm:pr-2">
-                <p class="relative inline-block font-heading text-4xl leading-none text-foreground">
+            <article
+              class:list={[
+                'items-center justify-between gap-7 sm:gap-10 md:gap-8',
+                item.image
+                  ? 'grid grid-cols-[minmax(0,18.75rem)_8.5rem] sm:grid-cols-[18.75rem_13rem] md:grid-cols-[18.75rem_18rem]'
+                  : 'grid grid-cols-[5rem_minmax(0,1fr)]',
+              ]}
+            >
+              {item.image ? (
+                <a href="#contacts" class="block no-underline hover:no-underline">
+                  <div class="rounded-md bg-background shadow-[0_18px_45px_rgb(0_0_0/0.12)]">
+                    <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
+                  </div>
+                </a>
+              ) : (
+                <p class="font-heading text-3xl leading-none text-foreground">
                   <span>{item.year}</span>
                 </p>
+              )}
+              <div class={item.image ? 'text-right sm:pr-2' : 'min-w-0'}>
+                {item.image && (
+                  <p class="relative inline-block font-heading text-4xl leading-none text-foreground">
+                    <span>{item.year}</span>
+                  </p>
+                )}
                 <p class="mt-1 font-serif text-base leading-tight text-foreground sm:text-lg" {...localAttrs(item.title)}>
                   {item.title[lang]}
                 </p>
@@ -120,13 +136,26 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
         <div class="relative mt-2 hidden h-[calc(100%-4rem)] lg:block">
           {releases.items.map((item) => (
             <article
-              class="absolute w-[clamp(22rem,32vw,35rem)]"
+              class:list={[
+                'absolute',
+                item.image ? 'w-[clamp(22rem,32vw,35rem)]' : 'w-[clamp(12rem,18vw,18rem)]',
+              ]}
               style={`left:${item.layout.desktop.x}%; top:${item.layout.desktop.y}%;`}
             >
-              <a href="#contacts" class="grid grid-cols-[clamp(9.5rem,15vw,18.75rem)_minmax(10.5rem,1fr)] items-center gap-8 text-foreground no-underline hover:text-primary hover:no-underline lg:gap-10">
-                <div class="rounded-md bg-background">
-                  <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
-                </div>
+              <a
+                href="#contacts"
+                class:list={[
+                  'items-center text-foreground no-underline hover:text-primary hover:no-underline',
+                  item.image
+                    ? 'grid grid-cols-[clamp(9.5rem,15vw,18.75rem)_minmax(10.5rem,1fr)] gap-8 lg:gap-10'
+                    : 'block',
+                ]}
+              >
+                {item.image && (
+                  <div class="rounded-md bg-background">
+                    <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
+                  </div>
+                )}
                 <div>
                   <p class="relative inline-block font-heading text-5xl leading-none text-foreground">
                     <span>{item.year}</span>

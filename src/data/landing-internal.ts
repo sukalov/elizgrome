@@ -2,6 +2,17 @@ export type Lang = 'en' | 'ru';
 export type Localized = Record<Lang, string>;
 type LayoutPoint = { x: number; y: number };
 
+export type CmsSong = {
+  title: Localized;
+  lyrics: string;
+};
+
+export type SearchSong = CmsSong & {
+  id: string;
+  releaseTitle: Localized;
+  releaseYear: string;
+};
+
 export type CmsLanding = {
   site: {
     seo: {
@@ -21,7 +32,8 @@ export type CmsLanding = {
       items: {
         title: Localized;
         year: string;
-        image: string;
+        image?: string;
+        songs?: CmsSong[];
         layout: { desktop: LayoutPoint };
       }[];
     };
@@ -66,6 +78,9 @@ export type Landing = {
       section_links: { target: string; label: Localized }[];
     };
   };
+  search: {
+    songs: SearchSong[];
+  };
   sections: {
     about: CmsLanding['sections']['about'];
     releases: {
@@ -74,7 +89,8 @@ export type Landing = {
         id: string;
         title: Localized;
         year: string;
-        image: string;
+        image?: string;
+        songs: CmsSong[];
         layout: { desktop: LayoutPoint };
       }[];
     };
@@ -120,8 +136,6 @@ const DEFAULT_PROMO: { url: string; label: Localized } = {
 };
 
 const SECTION_TARGETS = ['about', 'releases', 'concerts', 'merch', 'contacts'] as const;
-
-const RELEASE_IDS = ['hard-day', 'help', 'rubber-soul', 'revolver', 'last-room'] as const;
 
 const CONCERT_IDS = ['picnic-moscow', 'sunny-concert', 'omanko-day', 'spb-picnic', 'motherland'] as const;
 const CONCERT_STYLES: ('primary' | 'secondary')[] = [
@@ -193,6 +207,18 @@ export function mergeLandingData(cms: CmsLanding): Landing {
         section_links: sectionLinks(cms.sections),
       },
     },
+    search: {
+      songs: cms.sections.releases.items.flatMap((release, releaseIndex) => {
+        const releaseId = `release-${releaseIndex + 1}`;
+
+        return (release.songs ?? []).map((song, songIndex) => ({
+          ...song,
+          id: `${releaseId}-song-${songIndex + 1}`,
+          releaseTitle: release.title,
+          releaseYear: release.year,
+        }));
+      }),
+    },
     sections: {
       about: {
         ...cms.sections.about,
@@ -202,7 +228,8 @@ export function mergeLandingData(cms: CmsLanding): Landing {
         title: upperLocalized(cms.sections.releases.title),
         items: cms.sections.releases.items.map((item, index) => ({
           ...item,
-          id: RELEASE_IDS[index] ?? `release-${index + 1}`,
+          id: `release-${index + 1}`,
+          songs: item.songs ?? [],
         })),
       },
       concerts: {

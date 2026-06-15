@@ -70,6 +70,17 @@ components:
         label: Image
         component: image_upload
 
+  song:
+    type: object
+    fields:
+      - name: title
+        label: Song title
+        component: localized_string
+      - name: lyrics
+        label: Lyrics
+        type: text
+        required: true
+
   layout_point:
     type: object
     description: "Position in percent (0–100)."
@@ -178,6 +189,13 @@ content:
                   - name: image
                     label: Cover
                     component: image_upload
+                  - name: songs
+                    label: Songs
+                    component: song
+                    list:
+                      collapsible:
+                        collapsed: true
+                        summary: "{fields.title.en}"
                   - name: layout
                     label: Desktop layout
                     type: object

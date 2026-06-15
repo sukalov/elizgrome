@@ -1,16 +1,9 @@
-import { useEffect, useState, type CSSProperties, type MouseEvent } from "react"
-import { MenuIcon, SearchIcon } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { MenuIcon, SearchIcon, XIcon } from "lucide-react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
+import type { CSSProperties, MouseEvent, ReactNode} from "react"
 type Lang = "en" | "ru"
 type Localized = Record<Lang, string>
 
@@ -19,9 +12,25 @@ type SectionLink = {
   label: Localized
 }
 
+type SearchSong = {
+  id: string
+  title: Localized
+  releaseTitle: Localized
+  releaseYear: string
+  lyrics: string
+}
+
+type SearchResult = {
+  id: string
+  song: SearchSong
+  snippet: string
+  highlightStart: number
+  highlightEnd: number
+}
+
 type SiteNavbarProps = {
   logo: Localized
-  logoImage: string
+  logoSvg: string
   menuLabel: Localized
   searchLabel: Localized
   languageLabel: Localized
@@ -30,6 +39,7 @@ type SiteNavbarProps = {
     label: Localized
   }
   sectionLinks: SectionLink[]
+  searchSongs: SearchSong[]
 }
 
 let currentScrollAnimation = 0
@@ -40,7 +50,7 @@ let currentScrollAnimation = 0
  *
  * Vertical position uses two knobs per breakpoint:
  * - `topStart` / `topEnd` — CSS `top` (px from viewport top)
- * - `translateYPercentEnd` — extra upward shift at full scroll (% of logo height)
+ * - `translateYPerycentEnd` — extra upward shift at full scroll (% of logo height)
  *
  * If the logo jumps off-screen, change `topEnd` and `translateYPercentEnd` together,
  * not only `topStart`.
@@ -69,6 +79,127 @@ function lerp(start: number, end: number, progress: number) {
 
 function text(value: Localized, lang: Lang) {
   return value[lang] || value.en
+}
+
+function normalizeSearch(value: string) {
+  let normalized = ""
+  const starts: number[] = []
+  const ends: number[] = []
+  let index = 0
+  let pendingSpace: { start: number; end: number } | null = null
+
+  function addPendingSpace() {
+    if (!pendingSpace || !normalized || normalized.endsWith(" ")) return
+
+    normalized += " "
+    starts.push(pendingSpace.start)
+    ends.push(pendingSpace.end)
+  }
+
+  for (const char of value) {
+    const nextIndex = index + char.length
+    const folded = char.toLocaleLowerCase("ru").replaceAll("ё", "е")
+
+    if (/^[\p{L}\p{N}]$/u.test(folded)) {
+      addPendingSpace()
+      normalized += folded
+      starts.push(index)
+      ends.push(nextIndex)
+      pendingSpace = null
+    } else {
+      pendingSpace = pendingSpace
+        ? { start: pendingSpace.start, end: nextIndex }
+        : { start: index, end: nextIndex }
+    }
+
+    index = nextIndex
+  }
+
+  return { normalized, starts, ends }
+}
+
+function isWordStart(value: string, index: number) {
+  return index === 0 || value[index - 1] === " "
+}
+
+function lineRanges(value: string) {
+  const lines = value.split(/\r?\n/)
+  let start = 0
+
+  return lines.map((line) => {
+    const range = { start, end: start + line.length }
+    start = range.end + (value[range.end] === "\r" && value[range.end + 1] === "\n" ? 2 : 1)
+    return range
+  })
+}
+
+function snippetForMatch(lyrics: string, matchStart: number, matchEnd: number) {
+  const ranges = lineRanges(lyrics)
+  const firstLine = Math.max(
+    ranges.findIndex((range) => matchStart >= range.start && matchStart <= range.end),
+    0,
+  )
+  const lastLineIndex = ranges.findIndex((range) => matchEnd >= range.start && matchEnd <= range.end + 1)
+  const lastLine = lastLineIndex === -1 ? firstLine : lastLineIndex
+  const fromLine = Math.max(firstLine - 1, 0)
+  const toLine = Math.min(lastLine + 1, ranges.length - 1)
+  const snippetStart = ranges[fromLine]?.start ?? 0
+  const snippetEnd = ranges[toLine]?.end ?? lyrics.length
+  const snippet = lyrics.slice(snippetStart, snippetEnd).trim()
+  const trimStart = lyrics.slice(snippetStart, snippetEnd).search(/\S/)
+  const offset = snippetStart + (trimStart === -1 ? 0 : trimStart)
+
+  return {
+    snippet,
+    highlightStart: Math.max(matchStart - offset, 0),
+    highlightEnd: Math.min(matchEnd - offset, snippet.length),
+  }
+}
+
+function searchLyrics(songs: SearchSong[], query: string, limit = 5): SearchResult[] {
+  const normalizedQuery = normalizeSearch(query).normalized
+  if (!normalizedQuery) return []
+
+  const results: SearchResult[] = []
+
+  for (const song of songs) {
+    const lyrics = normalizeSearch(song.lyrics)
+    let matchIndex = lyrics.normalized.indexOf(normalizedQuery)
+
+    while (matchIndex !== -1 && !isWordStart(lyrics.normalized, matchIndex)) {
+      matchIndex = lyrics.normalized.indexOf(normalizedQuery, matchIndex + 1)
+    }
+
+    if (matchIndex === -1) continue
+
+    const matchStart = lyrics.starts[matchIndex]
+    const matchEnd = lyrics.ends[matchIndex + normalizedQuery.length - 1]
+    if (matchStart === undefined || matchEnd === undefined) continue
+
+    const snippet = snippetForMatch(song.lyrics, matchStart, matchEnd)
+
+    results.push({
+      id: `${song.id}-${matchIndex}`,
+      song,
+      ...snippet,
+    })
+
+    if (results.length >= limit) break
+  }
+
+  return results
+}
+
+function highlightSnippet(result: SearchResult): ReactNode {
+  return (
+    <>
+      {result.snippet.slice(0, result.highlightStart)}
+      <strong className="font-bold text-foreground">
+        {result.snippet.slice(result.highlightStart, result.highlightEnd)}
+      </strong>
+      {result.snippet.slice(result.highlightEnd)}
+    </>
+  )
 }
 
 function sectionHref(target: string) {
@@ -131,17 +262,22 @@ function smoothScrollToHash(hash: string) {
 
 export function SiteNavbar({
   logo,
-  logoImage,
+  logoSvg,
   menuLabel,
   searchLabel,
   languageLabel,
   promoPack,
   sectionLinks,
+  searchSongs,
 }: SiteNavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [query, setQuery] = useState("")
   const [pendingTarget, setPendingTarget] = useState<string | null>(null)
   const [lang, setLang] = useState<Lang>("en")
   const [logoProgress, setLogoProgress] = useState(0)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+  const searchResults = useMemo(() => searchLyrics(searchSongs, query), [searchSongs, query])
 
   useEffect(() => {
     setLang(localStorage.getItem("elizgrome-lang") === "ru" ? "ru" : "en")
@@ -168,6 +304,33 @@ export function SiteNavbar({
   }, [])
 
   useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault()
+        openSearch()
+        return
+      }
+
+      if (event.key === "Escape" && isSearchOpen) closeSearch()
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isSearchOpen])
+
+  useEffect(() => {
+    if (!isSearchOpen) return
+
+    searchInputRef.current?.focus()
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isSearchOpen])
+
+  useEffect(() => {
     if (isMenuOpen || !pendingTarget) return
 
     const target = pendingTarget
@@ -188,6 +351,16 @@ export function SiteNavbar({
   function handleSectionClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
     event.preventDefault()
     smoothScrollToHash(href)
+  }
+
+  function openSearch() {
+    setIsMenuOpen(false)
+    setIsSearchOpen(true)
+  }
+
+  function closeSearch() {
+    setIsSearchOpen(false)
+    setQuery("")
   }
 
   function toggleLanguage() {
@@ -212,25 +385,33 @@ export function SiteNavbar({
     backgroundColor: `oklch(1 0 0 / ${logoProgress * 0.95})`,
     boxShadow: `0 6px 16px -10px oklch(0 0 0 / ${logoProgress * 0.14})`,
   } satisfies CSSProperties
+  const logoColorStyle = {
+    color: `oklch(${lerp(1, 0, logoProgress)} 0 0)`,
+  } satisfies CSSProperties
 
   return (
-    <header
-      className="fixed inset-x-0 top-0 z-50 border-b border-transparent"
-      style={headerStyle}
-      data-navbar-smooth-scroll
-    >
+    <>
+      <header
+        className="fixed inset-x-0 top-0 z-50 border-b border-transparent"
+        style={headerStyle}
+        data-navbar-smooth-scroll
+      >
       <div className="mx-auto flex h-11 w-full items-center justify-between px-3 lg:h-12 lg:px-6">
-        <div className="flex flex-1 items-center lg:hidden">
+        <div className="relative z-20 flex flex-1 items-center lg:hidden">
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon-sm" className="text-foreground [&_svg]:size-7" aria-label={text(menuLabel, lang)}>
+              <Button type="button" variant="ghost" size="icon-sm" className="transition-colors duration-200 [&_svg]:size-7" style={logoColorStyle} aria-label={text(menuLabel, lang)}>
                 <MenuIcon strokeWidth={2.5} />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="border-r-2 border-foreground bg-background">
               <SheetHeader className="absolute -left-4 top-4">
                 <SheetTitle className="font-serif tracking-normal text-foreground">
-                  <img src={logoImage} alt={text(logo, lang)} className="h-9 w-auto" />
+                  <span
+                    aria-label={text(logo, lang)}
+                    className="block h-9 w-auto text-foreground [&_svg]:h-full [&_svg]:w-auto"
+                    dangerouslySetInnerHTML={{ __html: logoSvg }}
+                  />
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-1 flex-col justify-center gap-1" aria-label={text(menuLabel, lang)}>
@@ -275,25 +456,35 @@ export function SiteNavbar({
 
         <a
           href="#top"
-          className="absolute left-1/2 block no-underline hover:no-underline lg:hidden"
+          className="absolute left-1/2 z-10 block no-underline hover:no-underline lg:hidden"
           style={logoStyle}
           aria-label={text(logo, lang)}
           onClick={(event) => handleSectionClick(event, "#top")}
         >
-          <img src={logoImage} alt="" className="h-full w-auto max-w-[82vw] object-contain" />
+          <span
+            aria-hidden="true"
+            className="block h-full max-w-[82vw] [&_svg]:h-full [&_svg]:w-auto"
+            style={logoColorStyle}
+            dangerouslySetInnerHTML={{ __html: logoSvg }}
+          />
         </a>
         <a
           href="#top"
-          className="absolute left-1/2 hidden no-underline hover:no-underline lg:block"
+          className="absolute left-1/2 z-10 hidden no-underline hover:no-underline lg:block"
           style={desktopLogoStyle}
           aria-label={text(logo, lang)}
           onClick={(event) => handleSectionClick(event, "#top")}
         >
-          <img src={logoImage} alt="" className="h-full w-auto max-w-[42vw] object-contain" />
+          <span
+            aria-hidden="true"
+            className="block h-full max-w-[42vw] [&_svg]:h-full [&_svg]:w-auto"
+            style={logoColorStyle}
+            dangerouslySetInnerHTML={{ __html: logoSvg }}
+          />
         </a>
 
-        <div className="hidden flex-1 items-center gap-4 lg:flex">
-          <Button variant="ghost" size="icon-sm" className="text-foreground [&_svg]:size-5" aria-label={text(searchLabel, lang)}>
+        <div className="relative z-20 hidden flex-1 items-center gap-4 lg:flex">
+          <Button type="button" variant="ghost" size="icon-sm" className="transition-colors duration-200 [&_svg]:size-5" style={logoColorStyle} aria-label={text(searchLabel, lang)} onClick={openSearch}>
             <SearchIcon strokeWidth={2} />
           </Button>
           <button
@@ -307,7 +498,7 @@ export function SiteNavbar({
           </button>
         </div>
 
-        <nav className="ml-auto hidden flex-1 items-center justify-end gap-5 lg:flex" aria-label={text(menuLabel, lang)}>
+        <nav className="relative z-20 ml-auto hidden flex-1 items-center justify-end gap-5 lg:flex" aria-label={text(menuLabel, lang)}>
           {sectionLinks.map((link) => {
             const href = sectionHref(link.target)
 
@@ -315,7 +506,8 @@ export function SiteNavbar({
               <a
                 key={link.target}
                 href={href}
-                className="font-serif text-base leading-tight text-foreground no-underline hover:text-primary hover:no-underline"
+                className="font-serif text-base leading-tight no-underline transition-colors duration-200 hover:no-underline"
+                style={logoColorStyle}
                 onClick={(event) => handleSectionClick(event, href)}
               >
                 {text(link.label, lang)}
@@ -333,12 +525,63 @@ export function SiteNavbar({
           </a>
         </nav>
 
-        <div className="flex flex-1 justify-end lg:hidden">
-          <Button variant="ghost" size="icon-sm" className="text-foreground [&_svg]:size-7" aria-label={text(searchLabel, lang)}>
+        <div className="relative z-20 flex flex-1 justify-end lg:hidden">
+          <Button type="button" variant="ghost" size="icon-sm" className="transition-colors duration-200 [&_svg]:size-7" style={logoColorStyle} aria-label={text(searchLabel, lang)} onClick={openSearch}>
             <SearchIcon strokeWidth={2.5} />
           </Button>
         </div>
-      </div>
-    </header>
+        </div>
+      </header>
+
+      {isSearchOpen && (
+        <div
+          className="fixed inset-0 z-[60] bg-background/80 px-4 pt-16 backdrop-blur-sm md:pt-20"
+          role="dialog"
+          aria-modal="true"
+          aria-label={text(searchLabel, lang)}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closeSearch()
+          }}
+        >
+          <Button type="button" variant="ghost" size="icon-sm" className="absolute right-4 top-4 text-foreground md:right-6 md:top-6 [&_svg]:size-6" aria-label={lang === "ru" ? "Закрыть поиск" : "Close search"} onClick={closeSearch}>
+            <XIcon strokeWidth={2} />
+          </Button>
+
+          <div className="mx-auto max-w-3xl">
+            <div className="flex items-center gap-3 pb-3">
+              <SearchIcon className="size-6 shrink-0 text-muted-foreground opacity-40 md:size-8" strokeWidth={2} aria-hidden="true" />
+              <input
+                ref={searchInputRef}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                className="w-full bg-transparent font-serif text-3xl leading-none text-foreground outline-none md:text-5xl"
+                type="text"
+              />
+            </div>
+
+            {query.trim() && (
+              <div className="mt-5 grid gap-3">
+                {searchResults.length > 0 ? (
+                  searchResults.map((result) => (
+                    <article key={result.id} className="border border-border bg-background p-4 shadow-sm md:p-5">
+                      <p className="whitespace-pre-line font-serif text-xl leading-tight text-foreground md:text-2xl">
+                        {highlightSnippet(result)}
+                      </p>
+                      <p className="mt-3 font-serif text-sm italic leading-tight text-muted-foreground md:text-base">
+                        <strong>{text(result.song.title, lang)}</strong> — {text(result.song.releaseTitle, lang)} ({result.song.releaseYear})
+                      </p>
+                    </article>
+                  ))
+                ) : (
+                  <p className="font-serif text-base leading-tight text-muted-foreground">
+                    {lang === "ru" ? "ничего не найдено" : "no songs found"}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   )
 }

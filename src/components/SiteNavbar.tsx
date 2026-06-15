@@ -42,7 +42,6 @@ type SiteNavbarProps = {
   searchSongs: SearchSong[]
 }
 
-let currentScrollAnimation = 0
 
 /**
  * Logo shrink-on-scroll tuning.
@@ -228,36 +227,15 @@ function smoothScrollToHash(hash: string) {
   const top = getScrollTargetTop(hash)
   if (top === null) return
 
-  const start = window.scrollY
-  const distance = top - start
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-  if (reduceMotion || Math.abs(distance) < 2) {
+  if (reduceMotion) {
     setScrollTop(top)
-    window.history.pushState(null, "", hash)
-    return
+  } else {
+    window.scrollTo({ top, behavior: "smooth" })
   }
 
-  const animationId = currentScrollAnimation + 1
-  currentScrollAnimation = animationId
-  const duration = Math.min(Math.max(Math.abs(distance) * 0.55, 420), 900)
-  const startedAt = window.performance.now()
-  const easeOutCubic = (value: number) => 1 - Math.pow(1 - value, 3)
-
-  function step(now: number) {
-    if (currentScrollAnimation !== animationId) return
-
-    const progress = Math.min((now - startedAt) / duration, 1)
-    setScrollTop(start + distance * easeOutCubic(progress))
-
-    if (progress < 1) {
-      window.requestAnimationFrame(step)
-    } else {
-      window.history.pushState(null, "", hash)
-    }
-  }
-
-  window.requestAnimationFrame(step)
+  window.history.pushState(null, "", hash)
 }
 
 export function SiteNavbar({

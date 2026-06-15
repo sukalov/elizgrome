@@ -538,7 +538,6 @@ const timelineDots = [
     const toggles = document.querySelectorAll<HTMLElement>('[data-language-toggle]');
     const releasesSection = document.querySelector<HTMLElement>('.releases-section');
     const desktopTimelineQuery = window.matchMedia('(min-width: 1024px)');
-    let currentScrollAnimation = 0;
     let releaseTimelineFrame = 0;
 
     function setLanguage(lang: Lang) {
@@ -623,36 +622,15 @@ const timelineDots = [
 
       const scrollMarginTop = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
       const top = target.getBoundingClientRect().top + window.scrollY - scrollMarginTop;
-      const start = window.scrollY;
-      const distance = top - start;
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (reduceMotion || Math.abs(distance) < 2) {
+      if (reduceMotion) {
         setScrollTop(top);
-        if (updateHistory) window.history.pushState(null, '', `#${id}`);
-        return;
+      } else {
+        window.scrollTo({ top, behavior: 'smooth' });
       }
 
-      const animationId = currentScrollAnimation + 1;
-      currentScrollAnimation = animationId;
-      const duration = Math.min(Math.max(Math.abs(distance) * 0.55, 420), 900);
-      const startedAt = window.performance.now();
-      const easeOutCubic = (value: number) => 1 - Math.pow(1 - value, 3);
-
-      function step(now: number) {
-        if (currentScrollAnimation !== animationId) return;
-
-        const progress = Math.min((now - startedAt) / duration, 1);
-        setScrollTop(start + distance * easeOutCubic(progress));
-
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        } else if (updateHistory) {
-          window.history.pushState(null, '', `#${id}`);
-        }
-      }
-
-      window.requestAnimationFrame(step);
+      if (updateHistory) window.history.pushState(null, '', `#${id}`);
     }
 
     window.addEventListener('scroll', queueReleaseTimelineUpdate, { passive: true });
@@ -661,7 +639,7 @@ const timelineDots = [
 
     document.addEventListener('click', (event) => {
       const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
-      if (!link) return;
+      if (!link || link.closest('[data-navbar-smooth-scroll]')) return;
 
       const url = new URL(link.href);
       if (url.pathname !== window.location.pathname || url.hash.length <= 1) return;

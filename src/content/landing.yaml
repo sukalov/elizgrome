@@ -20,8 +20,24 @@ sections:
       desktop: src/assets/images/hero-desktop.jpg
       mobile: src/assets/images/hero-mobile.jpg
     text:
-      ru: Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и Ринго Старр. Также в разное время в составе группы выступали Стюарт Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles создано в соавторстве и подписано именами Джона Леннона и Пола Маккартни. Дискография группы включает 13 официальных студийных альбомов, изданных в 1963—1970 годах, и 211 песен.
-      en: The Beatles were an English rock band formed in Liverpool in 1960. The band comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr. They are regarded as the most influential band in popular music and were integral to the development of 1960s counterculture and the recognition of popular music as an art form. Rooted in skiffle, beat and 1950s rock 'n' roll, their sound incorporated elements of classical music and traditional pop in innovative ways. They also explored styles ranging from folk and Indian music to psychedelia and hard rock. As pioneers in recording, songwriting and artistic presentation, the Beatles revolutionised many aspects of the music industry and were often publicised as leaders of the era's youth and sociocultural movements.
+      ru: Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в
+        составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и
+        Ринго Старр. Также в разное время в составе группы выступали Стюарт
+        Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles
+        создано в соавторстве и подписано именами Джона Леннона и Пола
+        Маккартни. Дискография группы включает 13 официальных студийных
+        альбомов, изданных в 1963—1970 годах, и 211 песен.
+      en: The Beatles were an English rock band formed in Liverpool in 1960. The band
+        comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr.
+        They are regarded as the most influential band in popular music and were
+        integral to the development of 1960s counterculture and the recognition
+        of popular music as an art form. Rooted in skiffle, beat and 1950s rock
+        'n' roll, their sound incorporated elements of classical music and
+        traditional pop in innovative ways. They also explored styles ranging
+        from folk and Indian music to psychedelia and hard rock. As pioneers in
+        recording, songwriting and artistic presentation, the Beatles
+        revolutionised many aspects of the music industry and were often
+        publicised as leaders of the era's youth and sociocultural movements.
   releases:
     title:
       en: releases
@@ -657,84 +673,162 @@ sections:
           - title:
               en: Собака
               ru: Собака
-            lyrics: |-
+            lyrics: >-
               Как собака
+
               Как собака-забияка
+
               Лаю
+
               Напоследок
+
               Может в среду
+
               Я растаю
+
               Я оскалюсь
+
               Я озлоблюсь
+
               Я — не я
+
               И не своя
+
               Тебе чужая
+
               Другим чужая
+
               Себе чужая
+
               Змея
+
               Проползла, укусила
+
               Ранкой маленькой
+
               На кисти руки оставила след
+
               Это я так молилась
+
               О тебе и обо мне
+
               Проползла, укусила
+
               Ранкой маленькой
+
               На кисти руки оставила след —
+
               Это я так молилась
+
               О тебе и обо мне
+
               Глупая
+
               Скучная
+
               Собака. (Ав!)
+
               Глупая
+
               Скучная
+
               Собака. (А-а-а-а)
+
               Глупая
+
               Скучная
+
               Собака. (Ав!)
+
               Глупая
+
               Скучная
+
               Собака. (А-а-а-а)
+
               Оба делим Москву:
+
               Волк и собака
+
               Волк и собака
+
               Знал ли ты, что домашняя даже
+
               От отчаянья может загрызть?
+
               Я больше тебя не люблю
+
               Скулю как собака
+
               Скулю как собака
-              Знал ли ты, что поглаженной однажды, руки тёплой никогда не забыть?
+
+              Знал ли ты, что поглаженной однажды, руки тёплой никогда не
+              забыть?
+
               Напоследок я
+
               Растаю
+
               Напоследок я
+
               Я оскалюсь
+
               Я озлоблюсь
+
               Я — не я
+
               И не своя
+
               Тебе чужая
+
               Другим чужая
+
               Себе чужая
+
               Змея
+
               Проползла, укусила
+
               Ранкой маленькой
+
               На кисти руки оставила след
+
               Это я так молилась
+
               О тебе и обо мне
+
               Проползла, укусила
+
               Ранкой маленькой
+
               На кисти руки оставила след —
+
               Это я так молилась
+
               О тебе и обо мне
+
               Глупая
+
               Скучная
+
               Собака. (Ав!)
+
               Глупая
+
               Скучная
+
               Собака. (А-а-а-а)
+
               Глупая
+
               Скучная
+
               Собака. (Ав!)
+
               Глупая
+
               Скучная
+
               Собака. (А-а-а-а)
           - title:
               en: Обвенчал
@@ -1025,11 +1119,6 @@ sections:
               Но тебя не станет, когда
               А заскучает
               Зима, внутри тебя зима
-
-
-
-
-              Лиза Громова - глупая скучная собака
         layout:
           desktop:
             x: 67
@@ -1224,7 +1313,7 @@ sections:
           - title:
               en: Самолёт
               ru: Самолёт
-            lyrics: ""
+            lyrics: "-"
         layout:
           desktop:
             x: 5
@@ -1303,11 +1392,6 @@ sections:
               Поцелуй, ну, поцелуй
               Поцелуй, ну, поцелуй
               Поцелуй, ну, поцелуй
-
-
-
-
-              Лиза Громова - без лица бездельница
         layout:
           desktop:
             x: 67
@@ -1591,24 +1675,42 @@ sections:
           - title:
               en: Девочка-этюд (бонус)
               ru: Девочка-этюд (бонус)
-            lyrics: |-
+            lyrics: >-
               Ты давно не человек
+
               На веки ложится дымкой сон
+
               Сон о том, как в хмурый век
+
               Тебя поставили на кон, а-а
+
               В один понедельник чёрный прохожий
+
               Запутал запястья двух полюсов
+
               Он клялся, смеялся и выглядел тоже
+
               Как будто всю юность отдать был готов
+
               О-о-о, девочка-этюд, а-а
+
               О-о-о, девочка-этюд, а-а
+
               Ах, костюм от слёз промок
+
               В объятьях блаженных змей не счесть
+
               Кто вчера был одинок
+
               Играет в ночном джаз-оркестре
+
               И сердце остыло и вдруг заросло табачными листьями ночи
-              Он трубку не курит больше под её окном, закинув свой галстук на тучи
+
+              Он трубку не курит больше под её окном, закинув свой галстук на
+              тучи
+
               О-о-о, девочка-этюд, а-а
+
               О-о-о, девочка-этюд, а-а
         layout:
           desktop:
@@ -1662,46 +1764,69 @@ sections:
           - title:
               en: Москва-Белград
               ru: Москва-Белград
-            lyrics: |-
+            lyrics: >-
               Уважаемые пассажиры, добро пожаловать на борт нашего самолёта.
 
 
-              Просим вас занять свои места и убедиться, что ручная кладь надежно размещена.
+
+              Просим вас занять свои места и убедиться, что ручная кладь надежно
+              размещена.
+
 
 
               Пристегните ремни безопасности. 
-              Чтобы пристегнуть ремень, вставьте металлический наконечник в пряжку.
+
+              Чтобы пристегнуть ремень, вставьте металлический наконечник в
+              пряжку.
+
 
 
               Аварийные выходы находятся по обе стороны салона.
 
 
+
               Просим перевести электронные устройства в авиарежим.
 
 
-              Пожалуйста, убедитесь, что спинка кресла установлена в вертикальное положение, столик сложен, подлокотники опущены, а ремни безопасности застёгнуты.
+
+              Пожалуйста, убедитесь, что спинка кресла установлена в
+              вертикальное положение, столик сложен, подлокотники опущены, а
+              ремни безопасности застёгнуты.
+
 
 
               Благодарим вас за внимание.
+
               Приятного полёта! 
+
 
 
               Ladies and gentlemen, welcome on board our aircraft.
 
 
-              Please take your seats and ensure that your hand luggage is securely stowed.
+
+              Please take your seats and ensure that your hand luggage is
+              securely stowed.
 
 
-              Please fasten your seat belts. To fasten the belt, insert the metal fitting into the buckle.
+
+              Please fasten your seat belts. To fasten the belt, insert the
+              metal fitting into the buckle.
+
 
 
               Emergency exits are located on both sides of the cabin.
 
 
+
               We kindly ask you to switch all electronic devices to flight mode.
 
 
-              Please make sure that your seat back is in the upright position, your tray table is stowed, your armrests are down, and your seat belt is securely fastened.
+
+              Please make sure that your seat back is in the upright position,
+              your tray table is stowed, your armrests are down, and your seat
+              belt is securely fastened.
+
 
 
               Thank you for your attention. We wish you a pleasant flight!

@@ -34,7 +34,6 @@ export type CmsLanding = {
         year: string;
         image?: string;
         songs?: CmsSong[];
-        layout: { desktop: LayoutPoint };
       }[];
     };
     concerts: {
@@ -91,7 +90,6 @@ export type Landing = {
         year: string;
         image?: string;
         songs: CmsSong[];
-        layout: { desktop: LayoutPoint };
       }[];
     };
     concerts: {

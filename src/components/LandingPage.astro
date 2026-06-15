@@ -42,6 +42,35 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
   ...item,
   image: imageSrc(item.image),
 }));
+const releaseYears = Array.from(new Set(releases.items.map((item) => item.year)))
+  .sort((a, b) => Number(a) - Number(b));
+const earlyReleaseYears = releaseYears.filter((year) => Number(year) < 2024);
+const latestReleaseYears = releaseYears.filter((year) => Number(year) >= 2024);
+const earlyDotPositions = [0.14, 0.3, 0.45, 0.67, 0.8, 0.92];
+const latestDotPositions = [0.42, 0.68, 0.8];
+const timelineDots = [
+  {
+    id: 'ozera',
+    year: '2016-2017',
+    title: { en: 'ОЗЁРА', ru: 'ОЗЁРА' },
+    page: 0,
+    position: earlyDotPositions[0],
+  },
+  ...earlyReleaseYears.map((year, index) => ({
+    id: `release-year-${year}`,
+    year,
+    title: null,
+    page: 0,
+    position: earlyDotPositions[index + 1] ?? 0.92,
+  })),
+  ...latestReleaseYears.map((year, index) => ({
+    id: `release-year-${year}`,
+    year,
+    title: null,
+    page: 1,
+    position: latestDotPositions[index] ?? 0.84,
+  })),
+];
 
 ---
 
@@ -145,6 +174,25 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
             <div class="releases-timeline-track">
               <div class="releases-timeline-start" aria-hidden="true"></div>
               <div class="releases-timeline-line" aria-hidden="true"></div>
+              <div class="releases-timeline-dots">
+                {timelineDots.map((dot) => (
+                  <div
+                    class="releases-timeline-dot"
+                    style={`--dot-page:${dot.page}; --dot-position:${dot.position};`}
+                    aria-label={dot.title ? `${dot.title[lang]} ${dot.year}` : dot.year}
+                  >
+                    <span class="releases-timeline-dot-label">
+                      {dot.title && (
+                        <span class="releases-timeline-dot-title" {...localAttrs(dot.title)}>
+                          {dot.title[lang]}
+                        </span>
+                      )}
+                      <span class="releases-timeline-dot-year">{dot.year}</span>
+                    </span>
+                    <span class="releases-timeline-dot-mark" aria-hidden="true"></span>
+                  </div>
+                ))}
+              </div>
               <img src={arrowTip} alt="" class="releases-timeline-arrow" aria-hidden="true" />
             </div>
           </div>
@@ -295,6 +343,7 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
       .releases-section {
         --release-progress: 0;
         --releases-timeline-pad: 10rem;
+        --releases-page-w: calc(100vw - var(--releases-timeline-pad));
       }
 
       .releases-timeline-sticky {
@@ -336,6 +385,60 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
         right: 20rem;
         top: 0;
         height: 2px;
+        background: var(--foreground);
+      }
+
+      .releases-timeline-dots {
+        position: absolute;
+        inset: 0;
+      }
+
+      .releases-timeline-dot {
+        position: absolute;
+        left: calc(
+          (var(--dot-page) * var(--releases-page-w)) +
+          (var(--dot-position) * (var(--releases-page-w) - 7rem)) +
+          2rem
+        );
+        top: 0;
+        display: grid;
+        justify-items: center;
+        transform: translateX(-50%);
+      }
+
+      .releases-timeline-dot-label {
+        display: grid;
+        justify-items: center;
+        gap: 0.3rem;
+        transform: translateY(calc(-100% - 1.2rem));
+        color: var(--primary);
+        font-family: var(--site-font-family);
+        font-weight: 500;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .releases-timeline-dot-title {
+        font-size: 0.88rem;
+        letter-spacing: 0;
+      }
+
+      .releases-timeline-dot-year {
+        font-family: var(--site-font-family);
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+
+      .releases-timeline-dot-mark {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        height: 1rem;
+        width: 1rem;
+        transform: translate(-50%, -50%);
+        border-radius: 9999px;
         background: var(--foreground);
       }
 

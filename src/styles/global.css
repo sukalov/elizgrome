@@ -9,6 +9,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  scrollbar-color: color-mix(in oklch, currentColor 35%, transparent) transparent;
   --site-font-family: "Wix Madefor Text", ui-sans-serif, system-ui, sans-serif;
   --background: oklch(1 0 0);
   --foreground: oklch(0 0 0);

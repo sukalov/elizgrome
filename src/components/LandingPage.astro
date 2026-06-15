@@ -344,6 +344,7 @@ const timelineDots = [
         --release-progress: 0;
         --releases-timeline-pad: 10rem;
         --releases-page-w: calc(100vw - var(--releases-timeline-pad));
+        --releases-scroll-w: calc(120vw - var(--releases-timeline-pad));
       }
 
       .releases-timeline-sticky {
@@ -375,7 +376,7 @@ const timelineDots = [
         top: 50%;
         height: 0;
         width: calc(200vw - (var(--releases-timeline-pad) * 2));
-        transform: translate3d(calc(var(--release-progress) * -1 * (100vw - var(--releases-timeline-pad))), 0, 0);
+        transform: translate3d(calc(var(--release-progress) * -1 * var(--releases-scroll-w)), 0, 0);
         will-change: transform;
       }
 

@@ -383,11 +383,11 @@ export function SiteNavbar({
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="border-r-2 border-foreground bg-background">
-              <SheetHeader className="absolute -left-4 top-4">
+              <SheetHeader className="absolute left-1/2 top-4 -translate-x-1/2 p-0">
                 <SheetTitle className="font-serif tracking-normal text-foreground">
                   <span
                     aria-label={text(logo, lang)}
-                    className="block h-9 w-auto text-foreground [&_svg]:h-full [&_svg]:w-auto"
+                    className="block h-12 w-auto text-foreground [&_svg]:h-full [&_svg]:w-auto"
                     dangerouslySetInnerHTML={{ __html: logoSvg }}
                   />
                 </SheetTitle>

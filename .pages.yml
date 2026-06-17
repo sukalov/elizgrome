@@ -187,6 +187,10 @@ content:
                     label: Year
                     type: string
                     required: true
+                  - name: url
+                    label: URL
+                    type: string
+                    required: true
                   - name: image
                     label: Cover
                     component: image_upload
@@ -197,15 +201,6 @@ content:
                       collapsible:
                         collapsed: true
                         summary: "{fields.title.en}"
-                  - name: layout
-                    label: Desktop layout
-                    type: object
-                    required: true
-                    fields:
-                      - name: desktop
-                        label: Desktop position
-                        component: layout_point
-                        required: true
 
           - name: concerts
             label: Concerts

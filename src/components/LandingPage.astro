@@ -146,7 +146,7 @@ const timelineDots = [
               ]}
             >
               {item.image ? (
-                <a href="#contacts" class="block no-underline hover:no-underline">
+                <a href={item.url} class="block no-underline hover:no-underline">
                   <div class="rounded-md bg-background shadow-[0_18px_45px_rgb(0_0_0/0.12)]">
                     <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
                   </div>

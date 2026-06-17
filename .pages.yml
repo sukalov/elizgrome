@@ -183,6 +183,10 @@ content:
                   - name: title
                     label: Title
                     component: localized_string
+                  - name: artist
+                    label: Artist
+                    component: localized_string
+                    required: true
                   - name: year
                     label: Year
                     type: string

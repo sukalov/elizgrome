@@ -31,6 +31,7 @@ export type CmsLanding = {
       title: Localized;
       items: {
         title: Localized;
+        artist: Localized;
         year: string;
         url: string;
         image?: string;
@@ -90,6 +91,7 @@ export type Landing = {
       items: {
         id: string;
         title: Localized;
+        artist: Localized;
         year: string;
         url: string;
         image?: string;

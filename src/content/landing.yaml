@@ -68,7 +68,7 @@ sections:
       ru: релизы
     items:
       - title:
-          en: Прелесть
+          en: Prelest
           ru: Прелесть
         year: "2018"
         url: https://google.com
@@ -453,7 +453,7 @@ sections:
               Доплыв до света края
               Загляну я в твои холодные
       - title:
-          en: Зима (сингл)
+          en: Zima (single)
           ru: Зима (сингл)
         year: "2019"
         url: "#contacts"

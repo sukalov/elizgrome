@@ -522,6 +522,7 @@ sections:
           ru: глупая скучная собака
         year: "2019"
         url: "#contacts"
+        image: src/assets/images/2026-06-17-25-2.webp
         songs:
           - title:
               en: Плавали

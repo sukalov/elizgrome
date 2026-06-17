@@ -1340,6 +1340,7 @@ sections:
           ru: Одна простая истина (сингл)
         year: "2023"
         url: "#contacts"
+        image: src/assets/images/2026-06-17-24-1.webp
         songs:
           - title:
               en: Одна простая истина

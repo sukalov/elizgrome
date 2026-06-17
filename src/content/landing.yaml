@@ -1375,6 +1375,7 @@ sections:
           ru: Романс скрипача (сингл)
         year: "2023"
         url: "#contacts"
+        image: src/assets/images/2026-06-17-28-1.webp
         songs:
           - title:
               en: Романс скрипача

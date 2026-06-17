@@ -1942,7 +1942,7 @@ sections:
         note:
           en: Moscow
           ru: Москва
-        url: "#contacts"
+        url: https://picnic.afisha.ru/?utm_content=17732784395&utm_medium=msk_search_brand-710329325&utm_source=yandex_search&utm_campaign=5756070119&utm_term=msk_search_brand-core_brand&etext=2202.MvdVxPX1ZEaNU2plQ-YVD_3F81MESR5hUgqMfsufIHJ3ZXl5eWhoZW16a2toY29u.4a32c9a3d3f4b267b7501a13708541236485b96c&yclid=17131586063989997567&ybaip=1&tickets=true
         layout:
           desktop:
             x: 6
@@ -1951,18 +1951,12 @@ sections:
             x: 6
             y: 11
       - title:
-          en: headline show
-          ru: большой сольный концерт
-        layout:
-          desktop:
-            x: 67
-            y: 20
-          mobile:
-            x: 47
-            y: 31
-      - title:
           en: omanko day
           ru: оманко дей
+        note:
+          en: Moscow
+          ru: Москва
+        url: https://omankoday.ru/#event/2650051
         layout:
           desktop:
             x: 18
@@ -1970,6 +1964,26 @@ sections:
           mobile:
             x: 10
             y: 58
+      - title:
+          en: motherland
+          ru: мазерленд
+        layout:
+          desktop:
+            x: 42
+            y: 82
+          mobile:
+            x: 26
+            y: 84
+      - title:
+          en: OUTLINE
+          ru: OUTLINE
+        layout:
+          desktop:
+            x: 84
+            y: 8
+          mobile:
+            x: 68
+            y: 24
       - title:
           en: picnic afishi spb
           ru: пикник афиши спб
@@ -1982,35 +1996,25 @@ sections:
             x: 55
             y: 72
       - title:
-          en: motherland
-          ru: мазерленд
-        layout:
-          desktop:
-            x: 42
-            y: 82
-          mobile:
-            x: 26
-            y: 84
-      - title:
-          en: september concert
+          en: headline show
           ru: большой сольный концерт
         layout:
           desktop:
-            x: 52
-            y: 38
+            x: 67
+            y: 20
           mobile:
-            x: 38
-            y: 42
+            x: 47
+            y: 31
       - title:
-          en: OUTLINE
-          ru: OUTLINE
+          en: kruto 2025
+          ru: круто 2026
         layout:
           desktop:
-            x: 84
-            y: 8
+            x: 0
+            y: 0
           mobile:
-            x: 68
-            y: 24
+            x: 0
+            y: 0
   merch:
     title:
       en: merch

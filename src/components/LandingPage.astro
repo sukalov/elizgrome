@@ -10,7 +10,7 @@ import { mergeLandingData, type CmsLanding, type Lang, type Localized } from '..
 import Layout from '../layouts/Layout.astro';
 
 const data = mergeLandingData(YAML.parse(landingRaw) as CmsLanding);
-const images = import.meta.glob('../assets/images/*.{jpg,jpeg,png}', {
+const images = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', {
   eager: true,
   import: 'default',
 }) as Record<string, ImageMetadata>;

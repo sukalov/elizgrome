@@ -38,4 +38,4 @@ Editors change copy, images, release/concert entries, merch photos, and social U
 5. open **Landing page** to edit `src/content/landing.yaml`.
 6. invite the client from the Pages CMS UI when ready.
 
-Images are limited in `.pages.yml` to `jpg`, `jpeg`, `png`, and `webp`. Image fields include a note asking editors to keep uploads under 1mb.
+New CMS image uploads are limited in `.pages.yml` to `webp`. JPG and PNG uploads are rejected; convert them first at <https://compress-or-die.com>.

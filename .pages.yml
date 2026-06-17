@@ -17,7 +17,7 @@ media:
     label: Images
     input: src/assets/images
     output: src/assets/images
-    extensions: [jpg, jpeg, png, webp]
+    extensions: [webp]
     rename: safe
 
 components:
@@ -57,10 +57,10 @@ components:
 
   image_upload:
     type: image
-    description: "Upload jpg, jpeg, png, or webp only. Please keep the image under 1mb."
+    description: "Upload webp only. JPG and PNG are not accepted; convert at https://compress-or-die.com"
     options:
       media: images
-      extensions: [jpg, jpeg, png, webp]
+      extensions: [webp]
       rename: safe
 
   merch_image:

@@ -2039,14 +2039,14 @@ sections:
           ru: винил
         items:
           - image: src/assets/images/2026-06-17-21.webp
-          - image: src/assets/images/2026-06-17-15.webp
+          - {}
           - image: src/assets/images/2026-06-17-12.webp
           - image: src/assets/images/2026-06-17-20.webp
           - image: src/assets/images/2026-06-17-14.webp
-          - image: src/assets/images/2026-06-17-18.webp
+          - {}
           - image: src/assets/images/2026-06-17-19.webp
           - image: src/assets/images/2026-06-17-17.webp
-          - image: src/assets/images/2026-06-17-13.webp
+          - {}
           - image: src/assets/images/2026-06-17-16.webp
       picks:
         title:

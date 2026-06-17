@@ -2035,7 +2035,7 @@ sections:
     order_link:
       ru: заказать
       en: order
-      url: "#contacts"
+      url: https://t.me/elizgromusic_merch
     groups:
       shirts:
         title:

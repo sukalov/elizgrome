@@ -1207,6 +1207,7 @@ sections:
           ru: Шесть (сингл, тима ищет свет & Лиза Громова)
         year: "2021"
         url: "#contacts"
+        image: src/assets/images/2026-06-17-23-1.webp
         songs:
           - title:
               en: Шесть

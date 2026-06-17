@@ -1967,6 +1967,7 @@ sections:
       - title:
           en: motherland
           ru: мазерленд
+        url: https://motherlandfestival.ru/
         layout:
           desktop:
             x: 42
@@ -1975,8 +1976,9 @@ sections:
             x: 26
             y: 84
       - title:
-          en: OUTLINE
-          ru: OUTLINE
+          en: OUTLINE (OZYORA)
+          ru: OUTLINE (ОЗЁРА)
+        url: https://ticketscloud.com/v1/widgets/common?token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjQzNmQxMDdmODM3YmNiOTQ5ZDU0NmYzIn0.E_r5c-MzTUxg_QsVApoKDk3FnDrXVN_0ElOux2VZeUw&event=687f9695b5c122e9f23e72e7&s=1&r=1&org=6436d107f837bcb949d546f3&city=484826&category=592841f8515e35002dead964&tags=592841f8515e35002dead96a%2CЭлектроника&lang=ru
         layout:
           desktop:
             x: 84
@@ -1985,9 +1987,26 @@ sections:
             x: 68
             y: 24
       - title:
-          en: picnic afishi spb
-          ru: пикник афиши спб
-        url: https://google.com
+          en: kruto 2025
+          ru: круто 2026
+        note:
+          en: Vladimir
+          ru: Владимир
+        url: https://krutofestival.com/#event/2641206
+        layout:
+          desktop:
+            x: 0
+            y: 0
+          mobile:
+            x: 0
+            y: 0
+      - title:
+          en: picnic afishi (spb)
+          ru: пикник афиши (спб)
+        note:
+          en: Saint Petersburg
+          ru: Санкт-Петербург
+        url: https://picnic.afisha.ru/?utm_content=17732794227&utm_medium=msk_search_GENERIC+FESTIVAL-710329966&utm_source=yandex_search&utm_campaign=5756080829&utm_term=msk_search_GENERIC+FESTIVAL-Air_Intent&etext=2202.5DLZ2TEBR_8gUXO_cZC6nBlixpHVFBkV4X4RkmSwd57p4rfc6vCPBZvFK1sdUTeEa2xqZ3p3Ymd0d2R5eG9vdA.0fed200c398f360504c8edec55aa98e24152cbd9&yclid=2233201942909419519&ybaip=1&tickets=true
         layout:
           desktop:
             x: 76
@@ -1996,8 +2015,12 @@ sections:
             x: 55
             y: 72
       - title:
-          en: headline show
-          ru: большой сольный концерт
+          en: "11.09 the headline show "
+          ru: "11.09 большой сольный концерт "
+        note:
+          en: Moscow
+          ru: Москва
+        url: https://liza--gromova.ticketscloud.org
         layout:
           desktop:
             x: 67
@@ -2005,16 +2028,6 @@ sections:
           mobile:
             x: 47
             y: 31
-      - title:
-          en: kruto 2025
-          ru: круто 2026
-        layout:
-          desktop:
-            x: 0
-            y: 0
-          mobile:
-            x: 0
-            y: 0
   merch:
     title:
       en: merch

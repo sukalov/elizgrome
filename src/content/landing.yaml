@@ -2050,49 +2050,19 @@ sections:
     title:
       en: contacts
       ru: контакты
+    hero:
+      desktop: src/assets/images/Beatles-1964.webp
+      mobile: src/assets/images/ce_benson_mccartney_p065.webp
+    email: elizgromusic@gmail.com
+    phone: +7blablablabla Darina (MGMT)
     links:
       - id: instagram
         url: https://instagram.com/elizgrome
-        layout:
-          desktop:
-            x: 18
-            y: 24
-          mobile:
-            x: 12
-            y: 18
       - id: telegram
         url: https://t.me/
-        layout:
-          desktop:
-            x: 64
-            y: 18
-          mobile:
-            x: 54
-            y: 17
       - id: tiktok
         url: https://www.tiktok.com/
-        layout:
-          desktop:
-            x: 42
-            y: 44
-          mobile:
-            x: 20
-            y: 48
       - id: mail
-        url: mailto:booking@example.com
-        layout:
-          desktop:
-            x: 92
-            y: 62
-          mobile:
-            x: 92
-            y: 64
+        url: mailto:elizgromusic@gmail.com
       - id: youtube
         url: https://www.youtube.com/
-        layout:
-          desktop:
-            x: 24
-            y: 70
-          mobile:
-            x: 36
-            y: 78

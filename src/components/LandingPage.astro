@@ -27,6 +27,11 @@ function localAttrs(value: Localized) {
   };
 }
 
+function phoneHref(value: string) {
+  const normalized = value.replace(/[^\d+]/g, '');
+  return normalized ? `tel:${normalized}` : undefined;
+}
+
 const about = data.sections.about;
 const releases = data.sections.releases;
 const concerts = data.sections.concerts;
@@ -345,7 +350,19 @@ const timelineDots = [
           <h2 class="font-heading text-5xl leading-none font-bold text-white md:text-6xl" {...localAttrs(contacts.title)}>
             {contacts.title[lang]}
           </h2>
-          <ContactIconCloud client:load links={contacts.links} />
+          <div class="absolute inset-x-0 bottom-0 flex flex-col items-end gap-8 md:inset-x-auto md:left-0 md:right-0 md:grid md:grid-cols-[auto_1fr] md:items-end">
+            <div class="w-fit">
+              <ContactIconCloud client:load links={contacts.links} />
+            </div>
+            <address class="w-full text-right font-heading text-[clamp(1.375rem,6vw,2rem)] leading-[1.12] font-bold not-italic text-white md:justify-self-end md:text-[clamp(2rem,3.2vw,3rem)] md:leading-[1.08] lg:text-[clamp(2.75rem,4vw,5rem)]">
+              <a href={`mailto:${contacts.email}`} class="block break-words text-white no-underline hover:text-white/80 hover:no-underline sm:whitespace-nowrap">
+                {contacts.email}
+              </a>
+              <a href={phoneHref(contacts.phone)} class="block break-words text-white no-underline hover:text-white/80 hover:no-underline sm:whitespace-nowrap">
+                {contacts.phone}
+              </a>
+            </address>
+          </div>
         </div>
       </section>
     </main>

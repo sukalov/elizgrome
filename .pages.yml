@@ -315,6 +315,14 @@ content:
                   - name: mobile
                     label: Mobile
                     component: image_upload
+              - name: email
+                label: Email
+                type: string
+                required: true
+              - name: phone
+                label: Phone
+                type: string
+                required: true
               - name: links
                 label: Social links
                 type: object
@@ -341,8 +349,4 @@ content:
                   - name: url
                     label: URL
                     type: string
-                    required: true
-                  - name: layout
-                    label: Layout
-                    component: responsive_layout
                     required: true

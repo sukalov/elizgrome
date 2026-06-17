@@ -57,10 +57,11 @@ export type CmsLanding = {
     contacts: {
       title: Localized;
       hero: { desktop: string; mobile: string };
+      email: string;
+      phone: string;
       links: {
         id: 'instagram' | 'telegram' | 'tiktok' | 'mail' | 'youtube';
         url: string;
-        layout: { desktop: LayoutPoint; mobile: LayoutPoint };
       }[];
     };
   };
@@ -116,11 +117,12 @@ export type Landing = {
     contacts: {
       title: Localized;
       hero: { desktop: string; mobile: string };
+      email: string;
+      phone: string;
       links: {
         id: 'instagram' | 'telegram' | 'tiktok' | 'mail' | 'youtube';
         label: string;
         url: string;
-        layout: { desktop: LayoutPoint; mobile: LayoutPoint };
       }[];
     };
   };
@@ -267,6 +269,8 @@ export function mergeLandingData(cms: CmsLanding): Landing {
       contacts: {
         title: upperLocalized(cms.sections.contacts.title),
         hero: cms.sections.contacts.hero,
+        email: cms.sections.contacts.email,
+        phone: cms.sections.contacts.phone,
         links: cms.sections.contacts.links.map((link) => ({
           ...link,
           label: CONTACT_LABELS[link.id],

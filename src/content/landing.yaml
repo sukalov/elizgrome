@@ -14,7 +14,7 @@ site:
 sections:
   about:
     title:
-      en: about the artist
+      en: about
       ru: об артисте
     hero:
       desktop: src/assets/images/2026-06-17-133528-1.webp

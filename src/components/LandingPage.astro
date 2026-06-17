@@ -6,6 +6,8 @@ import { SiteNavbar } from './SiteNavbar';
 import landingRaw from '../content/landing.yaml?raw';
 import logoSvg from '../assets/images/liza-logo.svg?raw';
 import arrowTip from '../assets/images/arrow-tip.svg?url';
+import pickFront from '../assets/images/pick-a.png';
+import pickBack from '../assets/images/pick-b.png';
 import { mergeLandingData, type CmsLanding, type Lang, type Localized } from '../data/landing-internal';
 import Layout from '../layouts/Layout.astro';
 
@@ -288,6 +290,19 @@ const timelineDots = [
             {merch.title[lang]}
           </h2>
 
+          <div
+            class="merch-pick"
+            style={`--pick-front: url(${pickFront.src}); --pick-back: url(${pickBack.src});`}
+            aria-label={merch.groups.picks.title[lang]}
+            tabindex="0"
+          >
+            <div class="merch-pick-model" data-merch-pick-model>
+              <span class="merch-pick-edge" aria-hidden="true"></span>
+              <img class="merch-pick-side merch-pick-front" src={pickFront.src} alt="" loading="eager" />
+              <img class="merch-pick-side merch-pick-back" src={pickBack.src} alt="" loading="eager" />
+            </div>
+          </div>
+
           <div class="merch-categories mt-6 hidden gap-2 md:mt-0 md:grid md:w-28 lg:w-32">
             <span class="font-serif text-sm leading-tight text-foreground lg:text-base" {...localAttrs(merch.groups.shirts.title)}>
               {merch.groups.shirts.title[lang]}
@@ -369,6 +384,57 @@ const timelineDots = [
   </div>
 
   <style>
+    .merch-pick {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 1;
+      display: block;
+      width: clamp(5.5rem, 18vw, 9rem);
+      perspective: 900px;
+      touch-action: manipulation;
+    }
+
+    .merch-pick-model {
+      position: relative;
+      aspect-ratio: 0.9;
+      transform: rotateX(12deg) rotateY(-22deg);
+      transform-style: preserve-3d;
+      will-change: transform;
+      filter: drop-shadow(0 0.35rem 0.45rem rgb(0 0 0 / 0.08));
+    }
+
+    .merch-pick-side,
+    .merch-pick-edge {
+      position: absolute;
+      inset: 0;
+      display: block;
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      backface-visibility: hidden;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .merch-pick-front {
+      transform: translateZ(0.32rem);
+      visibility: var(--pick-front-visible, visible);
+    }
+
+    .merch-pick-back {
+      transform: translateZ(-0.32rem) scaleX(-1);
+      visibility: var(--pick-back-visible, hidden);
+    }
+
+    .merch-pick-edge {
+      background: linear-gradient(90deg, #1a1511, #6a5845 44%, #201912);
+      -webkit-mask: var(--pick-front) center / contain no-repeat;
+      mask: var(--pick-front) center / contain no-repeat;
+      transform: translateZ(0);
+      visibility: var(--pick-edge-visible, visible);
+    }
+
     @media (min-width: 1024px) {
       .releases-section {
         --release-progress: 0;
@@ -521,7 +587,7 @@ const timelineDots = [
         position: absolute;
         left: calc(var(--merch-pad) + var(--carousel-w) + var(--diagonal-gap));
         top: var(--carousel-top);
-        max-width: calc(100vw - var(--merch-pad) - var(--carousel-w) - var(--diagonal-gap));
+        max-width: calc(100vw - var(--merch-pad) - var(--carousel-w) - var(--diagonal-gap) - 10rem);
       }
 
       .merch-shirts {
@@ -558,6 +624,12 @@ const timelineDots = [
       .merch-vinyl-stripe img {
         height: 100%;
       }
+
+      .merch-pick {
+        position: absolute;
+        right: var(--merch-pad);
+        top: var(--merch-pad);
+      }
     }
   </style>
 
@@ -567,8 +639,14 @@ const timelineDots = [
     const translated = document.querySelectorAll<HTMLElement>('[data-i18n-en][data-i18n-ru]');
     const toggles = document.querySelectorAll<HTMLElement>('[data-language-toggle]');
     const releasesSection = document.querySelector<HTMLElement>('.releases-section');
+    const pickModel = document.querySelector<HTMLElement>('[data-merch-pick-model]');
+    const pick = pickModel?.closest<HTMLElement>('.merch-pick');
     const desktopTimelineQuery = window.matchMedia('(min-width: 1024px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let releaseTimelineFrame = 0;
+    let pickFrame = 0;
+    let pickRotation = -22;
+    let pickPreviousTime = 0;
 
     function setLanguage(lang: Lang) {
       document.documentElement.lang = lang;
@@ -635,6 +713,35 @@ const timelineDots = [
       });
     }
 
+    function spinPick(time: number) {
+      if (!pickModel) return;
+
+      if (pickPreviousTime) pickRotation += ((time - pickPreviousTime) / 1000) * 42;
+      pickPreviousTime = time;
+      pickModel.style.transform = `rotateX(12deg) rotateY(${pickRotation}deg)`;
+      const normalizedRotation = ((pickRotation % 360) + 360) % 360;
+      const backVisible = normalizedRotation > 90 && normalizedRotation < 270;
+      pickModel.style.setProperty('--pick-front-visible', backVisible ? 'hidden' : 'visible');
+      pickModel.style.setProperty('--pick-back-visible', backVisible ? 'visible' : 'hidden');
+      pickModel.style.setProperty('--pick-edge-visible', backVisible ? 'hidden' : 'visible');
+      pickFrame = window.requestAnimationFrame(spinPick);
+    }
+
+    function startPickSpin() {
+      if (!pickModel || pickFrame || reducedMotionQuery.matches) return;
+
+      pickPreviousTime = 0;
+      pickFrame = window.requestAnimationFrame(spinPick);
+    }
+
+    function stopPickSpin() {
+      if (!pickFrame) return;
+
+      window.cancelAnimationFrame(pickFrame);
+      pickFrame = 0;
+      pickPreviousTime = 0;
+    }
+
     function setScrollTop(top: number) {
       const scrollingElement = document.scrollingElement || document.documentElement;
 
@@ -666,6 +773,10 @@ const timelineDots = [
     window.addEventListener('scroll', queueReleaseTimelineUpdate, { passive: true });
     window.addEventListener('resize', queueReleaseTimelineUpdate);
     desktopTimelineQuery.addEventListener('change', queueReleaseTimelineUpdate);
+    pick?.addEventListener('pointerenter', startPickSpin);
+    pick?.addEventListener('pointerleave', stopPickSpin);
+    pick?.addEventListener('focus', startPickSpin);
+    pick?.addEventListener('blur', stopPickSpin);
 
     document.addEventListener('click', (event) => {
       const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;

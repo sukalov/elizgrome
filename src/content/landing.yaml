@@ -20,13 +20,28 @@ sections:
       desktop: src/assets/images/2026-06-17-133528-1.webp
       mobile: src/assets/images/2026-06-17-132941.webp
     text:
-      ru: Битлз — британская рок-группа из Ливерпуля, основанная в 1960 году, в
-        составе которой играли Джон Леннон, Пол Маккартни, Джордж Харрисон и
-        Ринго Старр. Также в разное время в составе группы выступали Стюарт
-        Сатклифф, Пит Бест и Джимми Никол. Большинство композиций The Beatles
-        создано в соавторстве и подписано именами Джона Леннона и Пола
-        Маккартни. Дискография группы включает 13 официальных студийных
-        альбомов, изданных в 1963—1970 годах, и 211 песен.
+      ru: >-
+        Liza Gromova (28) is a singer-songwriter and musician.
+
+
+        She is a former member of the project OZYORA (2016–2017), released music
+        through the MLBC label (2018–2019), and is currently a resident artist
+        of the Disco Club label.
+
+
+        As part of OZYORA, she was the songwriter and vocalist behind the two
+        EPs Unlike You, Hardcore Will Never Die and Ferrari.
+
+
+        As a solo artist, she has released three full-length albums: Prelest,
+        Glupaya Skuchnaya Sobaka, and Bez Litsa Bezdelnitsa; as well as several
+        singles, including Zima, Ledokhod, Odna Prostaya Istina, and Romans
+        Skripacha.
+
+
+        Liza has also worked on a number of collaborative releases. Among them
+        are tracks recorded and released with Bi-2, Malbek, Synecdoche Montauk,
+        Tima Ishchet Svet, and Bomba-Oktyabr.
       en: The Beatles were an English rock band formed in Liverpool in 1960. The band
         comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr.
         They are regarded as the most influential band in popular music and were
@@ -2026,9 +2041,6 @@ sections:
     title:
       en: contacts
       ru: контакты
-    hero:
-      desktop: src/assets/images/Beatles-1964.webp
-      mobile: src/assets/images/ce_benson_mccartney_p065.webp
     links:
       - id: instagram
         url: https://instagram.com/elizgrome

@@ -40,7 +40,7 @@ export function ContactIconCloud({ links }: ContactIconCloudProps) {
             target={link.url.startsWith("mailto:") ? undefined : "_blank"}
             rel={link.url.startsWith("mailto:") ? undefined : "noreferrer"}
             aria-label={link.label}
-            className="absolute flex size-8 items-center justify-center rounded-full text-foreground no-underline transition hover:text-primary hover:no-underline md:hidden"
+            className="absolute flex size-8 items-center justify-center rounded-full text-white no-underline transition hover:text-white/80 hover:no-underline md:hidden"
             style={{
               left: `${link.layout.mobile.x}%`,
               top: `${link.layout.mobile.y}%`,
@@ -62,7 +62,7 @@ export function ContactIconCloud({ links }: ContactIconCloudProps) {
             target={link.url.startsWith("mailto:") ? undefined : "_blank"}
             rel={link.url.startsWith("mailto:") ? undefined : "noreferrer"}
             aria-label={link.label}
-            className="absolute hidden size-12 items-center justify-center rounded-full text-foreground no-underline transition hover:text-primary hover:no-underline md:flex"
+            className="absolute hidden size-12 items-center justify-center rounded-full text-white no-underline transition hover:text-white/80 hover:no-underline md:flex"
             style={{
               left: `${link.layout.desktop.x}%`,
               top: `${link.layout.desktop.y}%`,

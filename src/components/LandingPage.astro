@@ -327,9 +327,22 @@ const timelineDots = [
         </div>
       </section>
 
-      <section id="contacts" class="h-[calc(100svh-2.75rem)] overflow-hidden scroll-mt-11 bg-background px-5 py-7 md:h-[calc(100svh-3rem)] md:scroll-mt-12 md:px-10 md:pb-8 md:pt-[31px]">
-        <div class="relative h-full">
-          <h2 class="font-heading text-5xl leading-none font-bold md:text-6xl" {...localAttrs(contacts.title)}>
+      <section id="contacts" class="relative h-[calc(100svh-2.75rem)] overflow-hidden scroll-mt-11 bg-background px-5 py-7 md:h-[calc(100svh-3rem)] md:scroll-mt-12 md:px-10 md:pb-8 md:pt-[31px]">
+        <picture>
+          <source media="(min-width: 768px)" srcset={imageSrc(contacts.hero.desktop)} />
+          <img
+            src={imageSrc(contacts.hero.mobile)}
+            alt=""
+            class="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+          />
+        </picture>
+        <div
+          class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 via-45% to-black/10"
+          aria-hidden="true"
+        ></div>
+        <div class="relative z-10 h-full text-white">
+          <h2 class="font-heading text-5xl leading-none font-bold text-white md:text-6xl" {...localAttrs(contacts.title)}>
             {contacts.title[lang]}
           </h2>
           <ContactIconCloud client:load links={contacts.links} />

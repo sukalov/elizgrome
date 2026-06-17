@@ -2026,6 +2026,9 @@ sections:
     title:
       en: contacts
       ru: контакты
+    hero:
+      desktop: src/assets/images/Beatles-1964.webp
+      mobile: src/assets/images/ce_benson_mccartney_p065.webp
     links:
       - id: instagram
         url: https://instagram.com/elizgrome

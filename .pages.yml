@@ -305,6 +305,16 @@ content:
               - name: title
                 label: Section title
                 component: localized_string
+              - name: hero
+                label: Contact images
+                type: object
+                fields:
+                  - name: desktop
+                    label: Desktop
+                    component: image_upload
+                  - name: mobile
+                    label: Mobile
+                    component: image_upload
               - name: links
                 label: Social links
                 type: object

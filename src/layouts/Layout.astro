@@ -14,6 +14,7 @@ interface Props {
 const { seo } = Astro.props;
 const title = seo.title.en;
 const description = seo.description.en;
+const faviconHref = `${import.meta.env.BASE_URL}favicon.ico`;
 ---
 
 <!doctype html>
@@ -22,6 +23,7 @@ const description = seo.description.en;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href={faviconHref} sizes="any" />
     <meta name="description" content={description} data-seo-description data-en={seo.description.en} data-ru={seo.description.ru} />
     <meta property="og:title" content={title} data-seo-title data-en={seo.title.en} data-ru={seo.title.ru} />
     <meta property="og:description" content={description} data-seo-description-og data-en={seo.description.en} data-ru={seo.description.ru} />

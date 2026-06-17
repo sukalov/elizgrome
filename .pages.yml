@@ -69,6 +69,7 @@ components:
       - name: image
         label: Image
         component: image_upload
+        required: true
 
   song:
     type: object

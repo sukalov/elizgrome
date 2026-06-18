@@ -75,6 +75,7 @@ sections:
           ru: Озёра
         year: "2016"
         url: http://band.link/3Rtv2
+        image: src/assets/images/m1000x1000.webp
         songs:
           - title:
               en: Zvyozdi

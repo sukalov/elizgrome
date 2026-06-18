@@ -2325,6 +2325,15 @@ sections:
               Ты лети, лети! (Лети-лети)
               Ты лети, лети! (Лети-лети)
               Ты лети, лети!
+      - title:
+          en: Ozyora navsegda
+          ru: Озёра навсегда
+        artist:
+          en: Ozyora
+          ru: Озёра
+        year: "2026"
+        url: http://band.link/MRAcb
+        image: src/assets/images/m1000x1000-2.webp
   concerts:
     title:
       en: concerts

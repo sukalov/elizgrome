@@ -51,10 +51,10 @@ const vinyl = merch.groups.vinyl.items.map((item) => ({
 }));
 const releaseYears = Array.from(new Set(releases.items.map((item) => item.year)))
   .sort((a, b) => Number(a) - Number(b));
-const earlyReleaseYears = releaseYears.filter((year) => Number(year) < 2024);
+const earlyReleaseYears = releaseYears.filter((year) => Number(year) < 2024 && year !== '2016' && year !== '2017');
 const latestReleaseYears = releaseYears.filter((year) => Number(year) >= 2024);
 const ozyoraTitle: Localized = { en: 'OZYORA', ru: 'ОЗЁРА' };
-const earlyDotPositions = [0.12, 0.24, 0.36, 0.48, 0.6, 0.72, 0.84, 0.96];
+const earlyDotPositions = [0.08, 0.24, 0.4, 0.56, 0.72, 0.88];
 const latestDotPositions = [0.42, 0.68, 0.8];
 const timelineDots = [
   {

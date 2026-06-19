@@ -53,13 +53,15 @@ const releaseYears = Array.from(new Set(releases.items.map((item) => item.year))
   .sort((a, b) => Number(a) - Number(b));
 const earlyReleaseYears = releaseYears.filter((year) => Number(year) < 2024);
 const latestReleaseYears = releaseYears.filter((year) => Number(year) >= 2024);
-const earlyDotPositions = [0.14, 0.3, 0.45, 0.67, 0.8, 0.92];
+const ozyoraTitle: Localized = { en: 'OZYORA', ru: 'ОЗЁРА' };
+const earlyDotPositions = [0.12, 0.24, 0.36, 0.48, 0.6, 0.72, 0.84, 0.96];
 const latestDotPositions = [0.42, 0.68, 0.8];
 const timelineDots = [
   {
     id: 'ozera',
     year: '2016-2017',
-    title: { en: 'ОЗЁРА', ru: 'ОЗЁРА' },
+    title: ozyoraTitle,
+    modalId: 'ozera',
     page: 0,
     position: earlyDotPositions[0],
   },
@@ -67,6 +69,7 @@ const timelineDots = [
     id: `release-year-${year}`,
     year,
     title: null,
+    modalId: `year-${year}`,
     page: 0,
     position: earlyDotPositions[index + 1] ?? 0.92,
   })),
@@ -74,10 +77,21 @@ const timelineDots = [
     id: `release-year-${year}`,
     year,
     title: null,
+    modalId: `year-${year}`,
     page: 1,
     position: latestDotPositions[index] ?? 0.84,
   })),
 ];
+const releaseModalGroups = [
+  {
+    id: 'ozera',
+    items: releases.items.filter((item) => item.year === '2016' || item.year === '2017'),
+  },
+  ...releaseYears.map((year) => ({
+    id: `year-${year}`,
+    items: releases.items.filter((item) => item.year === year),
+  })),
+].filter((group) => group.items.some((item) => item.image));
 
 ---
 
@@ -107,7 +121,7 @@ const timelineDots = [
           />
         </picture>
         <div
-          class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 via-40% to-transparent"
+          class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 via-60% to-transparent"
           aria-hidden="true"
         ></div>
         <div class="pointer-events-none absolute inset-0 bg-white/15" aria-hidden="true"></div>
@@ -121,7 +135,7 @@ const timelineDots = [
               {about.title[lang]}
             </h2>
             <p
-              class="mt-4 max-w-xl whitespace-pre-line font-serif text-lg leading-tight md:max-w-3xl md:text-[1.35rem]"
+              class="mt-4 max-w-xl whitespace-pre-line font-serif text-base leading-tight md:max-w-3xl md:text-[1.35rem]"
               {...localAttrs(about.text)}
             >
               {about.text[lang]}
@@ -183,10 +197,13 @@ const timelineDots = [
               <div class="releases-timeline-line" aria-hidden="true"></div>
               <div class="releases-timeline-dots">
                 {timelineDots.map((dot) => (
-                  <div
+                  <button
+                    type="button"
                     class="releases-timeline-dot"
                     style={`--dot-page:${dot.page}; --dot-position:${dot.position};`}
                     aria-label={dot.title ? `${dot.title[lang]} ${dot.year}` : dot.year}
+                    aria-haspopup="dialog"
+                    data-release-modal-trigger={dot.modalId}
                   >
                     <span class="releases-timeline-dot-label">
                       {dot.title && (
@@ -197,7 +214,7 @@ const timelineDots = [
                       <span class="releases-timeline-dot-year">{dot.year}</span>
                     </span>
                     <span class="releases-timeline-dot-mark" aria-hidden="true"></span>
-                  </div>
+                  </button>
                 ))}
               </div>
               <img src={arrowTip} alt="" class="releases-timeline-arrow" aria-hidden="true" />
@@ -381,6 +398,46 @@ const timelineDots = [
         </div>
       </section>
     </main>
+
+    <div class="release-modal-overlay" data-release-modal-overlay hidden>
+      <div class="release-modal-backdrop" data-release-modal-close aria-hidden="true"></div>
+      <section
+        class="release-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label={releases.title[lang]}
+        tabindex="-1"
+        data-release-modal
+      >
+        {releaseModalGroups.map((group) => (
+          <div
+            class="release-modal-grid"
+            data-release-layout={group.items.length === 1 ? 'single' : group.items.length === 2 ? 'pair' : 'grid'}
+            data-release-count={group.items.length}
+            data-release-modal-panel={group.id}
+            hidden
+          >
+            {group.items.map((item) => item.image && (
+              <a href={item.url} class="release-modal-card" target="_blank" rel="noreferrer" aria-label={item.title[lang]}>
+                <img src={imageSrc(item.image)} alt={item.title[lang]} class="release-modal-cover" loading="lazy" />
+                <span class="release-modal-card-info">
+                  <span class="release-modal-info-line" {...localAttrs(item.artist)}>{item.artist[lang]}</span>
+                  <span class="release-modal-info-title" {...localAttrs(item.title)}>{item.title[lang]}</span>
+                  <span class="release-modal-info-line">{item.year}</span>
+                  {item.songs.length > 0 && (
+                    <span class="release-modal-tracklist">
+                      {item.songs.map((song) => (
+                        <span {...localAttrs(song.title)}>{song.title[lang]}</span>
+                      ))}
+                    </span>
+                  )}
+                </span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </section>
+    </div>
   </div>
 
   <style>
@@ -463,7 +520,6 @@ const timelineDots = [
         position: absolute;
         inset: 0;
         overflow: hidden;
-        pointer-events: none;
       }
 
       .releases-timeline-track {
@@ -491,29 +547,52 @@ const timelineDots = [
       }
 
       .releases-timeline-dot {
+        --timeline-dot-line-y: 4rem;
+        appearance: none;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
         position: absolute;
         left: calc(
           (var(--dot-page) * var(--releases-page-w)) +
           (var(--dot-position) * (var(--releases-page-w) - 7rem)) +
           2rem
         );
-        top: 0;
-        display: grid;
-        justify-items: center;
+        top: calc(-1 * var(--timeline-dot-line-y));
+        display: block;
+        min-width: 5.25rem;
+        height: 4.8rem;
         transform: translateX(-50%);
+        cursor: pointer;
       }
 
       .releases-timeline-dot-label {
+        position: absolute;
+        left: 50%;
+        top: 0.35rem;
         display: grid;
         justify-items: center;
         gap: 0.3rem;
-        transform: translateY(calc(-100% - 1.2rem));
+        transform: translateX(-50%);
         color: var(--primary);
         font-family: var(--site-font-family);
         font-weight: 500;
         line-height: 1;
         text-align: center;
         white-space: nowrap;
+        transition: color 160ms ease, transform 160ms ease;
+      }
+
+      .releases-timeline-dot:hover .releases-timeline-dot-label,
+      .releases-timeline-dot:focus-visible .releases-timeline-dot-label {
+        transform: translate(-50%, -0.12rem);
+        color: var(--foreground);
+      }
+
+      .releases-timeline-dot:focus-visible {
+        outline: 0;
       }
 
       .releases-timeline-dot-title {
@@ -531,12 +610,20 @@ const timelineDots = [
       .releases-timeline-dot-mark {
         position: absolute;
         left: 50%;
-        top: 0;
+        top: var(--timeline-dot-line-y);
         height: 1rem;
         width: 1rem;
         transform: translate(-50%, -50%);
         border-radius: 9999px;
         background: var(--foreground);
+        transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+      }
+
+      .releases-timeline-dot:hover .releases-timeline-dot-mark,
+      .releases-timeline-dot:focus-visible .releases-timeline-dot-mark {
+        transform: translate(-50%, -50%) scale(1.14);
+        background: var(--primary);
+        box-shadow: 0 0 0 0.22rem rgb(0 0 0 / 0.06);
       }
 
       .releases-timeline-start {
@@ -562,6 +649,140 @@ const timelineDots = [
         transform: translate(50%, -50%) rotate(90deg);
       }
 
+    }
+
+    .release-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: clamp(1.25rem, 4vw, 4rem);
+    }
+
+    .release-modal-overlay[hidden] {
+      display: none;
+    }
+
+    .release-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgb(0 0 0 / 0.78);
+    }
+
+    .release-modal {
+      position: relative;
+      width: min(68rem, calc(100vw - 8rem));
+      max-height: calc(100svh - 8rem);
+      overflow: auto;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .release-modal:focus {
+      outline: 0;
+    }
+
+    .release-modal-grid {
+      justify-content: center;
+      gap: clamp(1.25rem, 3vw, 2.5rem);
+      pointer-events: none;
+    }
+
+    .release-modal-grid:not([hidden]) {
+      display: grid;
+    }
+
+    .release-modal-grid[data-release-layout="single"] {
+      grid-template-columns: minmax(0, min(36rem, 72svh, 72vw));
+    }
+
+    .release-modal-grid[data-release-layout="pair"] {
+      grid-template-columns: repeat(2, minmax(0, min(30rem, 38vw, 66svh)));
+    }
+
+    .release-modal-grid[data-release-layout="grid"] {
+      grid-template-columns: repeat(3, minmax(0, min(20rem, 27vw, 36svh)));
+      justify-content: start;
+    }
+
+    .release-modal-grid[data-release-count="3"] .release-modal-card:nth-child(3) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .release-modal-card {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      pointer-events: auto;
+    }
+
+    .release-modal-card:hover,
+    .release-modal-card:focus-visible {
+      text-decoration: none;
+      outline: 0;
+    }
+
+    .release-modal-cover {
+      aspect-ratio: 1;
+      width: 100%;
+      border-radius: 0.75rem;
+      object-fit: cover;
+      background: transparent;
+      transition: filter 160ms ease, opacity 160ms ease;
+    }
+
+    .release-modal-card:hover .release-modal-cover,
+    .release-modal-card:focus-visible .release-modal-cover {
+      filter: brightness(0.34);
+    }
+
+    .release-modal-card-info {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: center;
+      gap: 0.35rem;
+      overflow: auto;
+      padding: clamp(1rem, 2vw, 1.5rem);
+      color: white;
+      opacity: 0;
+      transition: opacity 160ms ease;
+    }
+
+    .release-modal-card:hover .release-modal-card-info,
+    .release-modal-card:focus-visible .release-modal-card-info {
+      opacity: 1;
+    }
+
+    .release-modal-info-line {
+      display: block;
+      font-size: clamp(0.85rem, 1.2vw, 1rem);
+      line-height: 1.1;
+    }
+
+    .release-modal-info-title {
+      display: block;
+      font-size: clamp(1.1rem, 1.8vw, 1.55rem);
+      font-weight: 700;
+      line-height: 1.05;
+    }
+
+    .release-modal-tracklist {
+      display: grid;
+      gap: 0.15rem;
+      margin-top: 0.4rem;
+      font-size: clamp(0.78rem, 1vw, 0.9rem);
+      line-height: 1.08;
+    }
+
+    @media (max-width: 1023px) {
+      .release-modal-overlay {
+        display: none;
+      }
     }
 
     @media (min-width: 768px) {
@@ -639,6 +860,11 @@ const timelineDots = [
     const translated = document.querySelectorAll<HTMLElement>('[data-i18n-en][data-i18n-ru]');
     const toggles = document.querySelectorAll<HTMLElement>('[data-language-toggle]');
     const releasesSection = document.querySelector<HTMLElement>('.releases-section');
+    const releaseModalOverlay = document.querySelector<HTMLElement>('[data-release-modal-overlay]');
+    const releaseModal = document.querySelector<HTMLElement>('[data-release-modal]');
+    const releaseModalPanels = document.querySelectorAll<HTMLElement>('[data-release-modal-panel]');
+    const releaseModalTriggers = document.querySelectorAll<HTMLButtonElement>('[data-release-modal-trigger]');
+    const releaseModalCloseNodes = document.querySelectorAll<HTMLElement>('[data-release-modal-close]');
     const pickModel = document.querySelector<HTMLElement>('[data-merch-pick-model]');
     const pick = pickModel?.closest<HTMLElement>('.merch-pick');
     const desktopTimelineQuery = window.matchMedia('(min-width: 1024px)');
@@ -647,6 +873,7 @@ const timelineDots = [
     let pickFrame = 0;
     let pickRotation = -22;
     let pickPreviousTime = 0;
+    let releaseModalLastFocus: HTMLElement | null = null;
 
     function setLanguage(lang: Lang) {
       document.documentElement.lang = lang;
@@ -742,6 +969,37 @@ const timelineDots = [
       pickPreviousTime = 0;
     }
 
+    function setReleaseModalOpen(open: boolean) {
+      if (!releaseModalOverlay) return;
+
+      releaseModalOverlay.hidden = !open;
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    }
+
+    function closeReleaseModal() {
+      setReleaseModalOpen(false);
+      releaseModalPanels.forEach((panel) => {
+        panel.hidden = true;
+      });
+      releaseModalLastFocus?.focus();
+      releaseModalLastFocus = null;
+    }
+
+    function openReleaseModal(groupId: string, trigger: HTMLElement) {
+      if (!releaseModalOverlay || !releaseModal) return;
+
+      const panel = Array.from(releaseModalPanels).find((item) => item.dataset.releaseModalPanel === groupId);
+      if (!panel) return;
+
+      releaseModalPanels.forEach((item) => {
+        item.hidden = item !== panel;
+      });
+
+      releaseModalLastFocus = trigger;
+      setReleaseModalOpen(true);
+      releaseModal.focus({ preventScroll: true });
+    }
+
     function setScrollTop(top: number) {
       const scrollingElement = document.scrollingElement || document.documentElement;
 
@@ -777,6 +1035,21 @@ const timelineDots = [
     pick?.addEventListener('pointerleave', stopPickSpin);
     pick?.addEventListener('focus', startPickSpin);
     pick?.addEventListener('blur', stopPickSpin);
+    releaseModalTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        openReleaseModal(trigger.dataset.releaseModalTrigger || '', trigger);
+      });
+    });
+    releaseModalCloseNodes.forEach((node) => {
+      node.addEventListener('click', closeReleaseModal);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || releaseModalOverlay?.hidden !== false) return;
+
+      event.preventDefault();
+      closeReleaseModal();
+    });
 
     document.addEventListener('click', (event) => {
       const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;

@@ -39,7 +39,7 @@ export function ContactIconCloud({ links }: ContactIconCloudProps) {
             target={link.url.startsWith("mailto:") ? undefined : "_blank"}
             rel={link.url.startsWith("mailto:") ? undefined : "noreferrer"}
             aria-label={link.label}
-            className={`flex size-12 items-center justify-center text-white no-underline transition hover:text-white/80 hover:no-underline md:size-16 ${alignOddFirstIcon ? "col-start-2 md:col-start-auto" : startsSecondRow ? "col-start-1" : ""}`}
+            className={`flex size-12 items-center justify-center text-white no-underline transition-opacity hover:opacity-70 md:size-16 ${alignOddFirstIcon ? "col-start-2 md:col-start-auto" : startsSecondRow ? "col-start-1" : ""}`}
           >
             <Icon className="size-7 md:size-9" aria-hidden="true" />
             <span className="sr-only">{link.label}</span>

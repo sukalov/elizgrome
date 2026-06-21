@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { MenuIcon, SearchIcon, XIcon } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -374,13 +373,13 @@ export function SiteNavbar({
         style={headerStyle}
         data-navbar-smooth-scroll
       >
-      <div className="mx-auto flex h-11 w-full items-center justify-between px-3 lg:h-12 lg:px-6">
+      <div className="mx-auto flex h-11 w-full items-center justify-between px-5 lg:h-12 lg:px-6">
         <div className="relative z-20 flex flex-1 items-center lg:hidden">
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button type="button" variant="ghost" size="icon-sm" className="transition-colors duration-200 [&_svg]:size-7" style={logoColorStyle} aria-label={text(menuLabel, lang)}>
-                <MenuIcon strokeWidth={2.5} />
-              </Button>
+              <button type="button" className="inline-flex size-8 items-center justify-center text-current transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:size-5" style={logoColorStyle} aria-label={text(menuLabel, lang)}>
+                <MenuIcon strokeWidth={2.25} />
+              </button>
             </SheetTrigger>
             <SheetContent side="left" className="border-r-2 border-foreground bg-background">
               <SheetHeader className="absolute left-1/2 top-4 -translate-x-1/2 p-0">
@@ -400,7 +399,7 @@ export function SiteNavbar({
                     <a
                       key={link.target}
                       href={href}
-                      className="px-2 py-3 font-serif text-2xl leading-tight text-foreground no-underline hover:text-primary hover:no-underline"
+                      className="px-2 py-3 font-serif text-2xl leading-tight text-foreground no-underline transition-opacity hover:opacity-70"
                       onClick={(event) => handleMobileSectionClick(event, href)}
                     >
                       {text(link.label, lang)}
@@ -409,7 +408,7 @@ export function SiteNavbar({
                 })}
                 <a
                   href={promoPack.url}
-                  className="px-2 py-3 font-serif text-2xl leading-tight text-primary no-underline hover:underline"
+                  className="px-2 py-3 font-serif text-2xl leading-tight text-primary no-underline transition-opacity hover:opacity-70"
                   data-i18n-en={promoPack.label.en}
                   data-i18n-ru={promoPack.label.ru}
                   onClick={(event) => handleMobileSectionClick(event, promoPack.url)}
@@ -434,7 +433,7 @@ export function SiteNavbar({
 
         <a
           href="#top"
-          className="absolute left-1/2 z-10 block no-underline hover:no-underline lg:hidden"
+          className="absolute left-1/2 z-10 block no-underline hover:opacity-100 lg:hidden"
           style={logoStyle}
           aria-label={text(logo, lang)}
           onClick={(event) => handleSectionClick(event, "#top")}
@@ -448,7 +447,7 @@ export function SiteNavbar({
         </a>
         <a
           href="#top"
-          className="absolute left-1/2 z-10 hidden no-underline hover:no-underline lg:block"
+          className="absolute left-1/2 z-10 hidden no-underline hover:opacity-100 lg:block"
           style={desktopLogoStyle}
           aria-label={text(logo, lang)}
           onClick={(event) => handleSectionClick(event, "#top")}
@@ -462,9 +461,9 @@ export function SiteNavbar({
         </a>
 
         <div className="relative z-20 hidden flex-1 items-center gap-4 lg:flex">
-          <Button type="button" variant="ghost" size="icon-sm" className="transition-colors duration-200 [&_svg]:size-5" style={logoColorStyle} aria-label={text(searchLabel, lang)} onClick={openSearch}>
+          <button type="button" className="inline-flex size-8 items-center justify-center text-current transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:size-5" style={logoColorStyle} aria-label={text(searchLabel, lang)} onClick={openSearch}>
             <SearchIcon strokeWidth={2} />
-          </Button>
+          </button>
           <button
             type="button"
             className="border-l border-border pl-4 font-serif text-sm leading-tight text-primary"
@@ -484,7 +483,7 @@ export function SiteNavbar({
               <a
                 key={link.target}
                 href={href}
-                className="font-serif text-base leading-tight no-underline transition-colors duration-200 hover:no-underline"
+                className="font-serif text-base leading-tight no-underline transition-opacity hover:opacity-70"
                 style={logoColorStyle}
                 onClick={(event) => handleSectionClick(event, href)}
               >
@@ -494,7 +493,7 @@ export function SiteNavbar({
           })}
           <a
             href={promoPack.url}
-            className="font-serif text-sm leading-tight text-primary no-underline hover:underline"
+            className="font-serif text-sm leading-tight text-primary no-underline transition-opacity hover:opacity-70"
             data-i18n-en={promoPack.label.en}
             data-i18n-ru={promoPack.label.ru}
             onClick={(event) => handleSectionClick(event, promoPack.url)}
@@ -504,9 +503,9 @@ export function SiteNavbar({
         </nav>
 
         <div className="relative z-20 flex flex-1 justify-end lg:hidden">
-          <Button type="button" variant="ghost" size="icon-sm" className="transition-colors duration-200 [&_svg]:size-7" style={logoColorStyle} aria-label={text(searchLabel, lang)} onClick={openSearch}>
-            <SearchIcon strokeWidth={2.5} />
-          </Button>
+          <button type="button" className="inline-flex size-8 items-center justify-center text-current transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:size-5" style={logoColorStyle} aria-label={text(searchLabel, lang)} onClick={openSearch}>
+            <SearchIcon strokeWidth={2.25} />
+          </button>
         </div>
         </div>
       </header>
@@ -521,9 +520,9 @@ export function SiteNavbar({
             if (event.target === event.currentTarget) closeSearch()
           }}
         >
-          <Button type="button" variant="ghost" size="icon-sm" className="absolute right-4 top-4 text-foreground md:right-6 md:top-6 [&_svg]:size-6" aria-label={lang === "ru" ? "Закрыть поиск" : "Close search"} onClick={closeSearch}>
+          <button type="button" className="absolute right-5 top-1.5 inline-flex size-8 items-center justify-center text-foreground transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 md:right-6 md:top-2 [&_svg]:size-5" aria-label={lang === "ru" ? "Закрыть поиск" : "Close search"} onClick={closeSearch}>
             <XIcon strokeWidth={2} />
-          </Button>
+          </button>
 
           <div className="mx-auto max-w-3xl">
             <div className="flex items-center gap-3 pb-3">

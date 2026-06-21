@@ -162,7 +162,7 @@ const releaseModalGroups = [
               ]}
             >
               {item.image ? (
-                <a href={item.url} class="block no-underline hover:no-underline">
+                <a href={item.url} class="block no-underline transition-opacity hover:opacity-70">
                   <div class="rounded-md bg-background shadow-[0_18px_45px_rgb(0_0_0/0.12)]">
                     <img src={imageSrc(item.image)} alt={item.title[lang]} class="aspect-square w-full max-w-[18.75rem] rounded-md object-cover" loading="lazy" />
                   </div>
@@ -241,7 +241,7 @@ const releaseModalGroups = [
                   style={`left:${mobile.x}%; top:${mobile.y}%;`}
                 >
                   {item.url ? (
-                    <a href={item.url} class="block no-underline hover:text-primary hover:no-underline">
+                    <a href={item.url} class="block no-underline transition-opacity hover:opacity-70">
                       <span
                         class:list={[
                           'block font-serif leading-tight text-foreground',
@@ -272,7 +272,7 @@ const releaseModalGroups = [
                   style={`left:${desktop.x}%; top:${desktop.y}%;`}
                 >
                   {item.url ? (
-                    <a href={item.url} class="block no-underline hover:text-primary hover:no-underline">
+                    <a href={item.url} class="block no-underline transition-opacity hover:opacity-70">
                       <span
                         class:list={[
                           'block font-serif leading-tight text-foreground',
@@ -356,7 +356,7 @@ const releaseModalGroups = [
 
           <a
             href={merch.order_link.url}
-            class="merch-order mx-auto mt-8 block w-fit font-serif text-2xl leading-tight text-foreground no-underline underline-offset-4  md:mx-0 md:mt-0 md:text-3xl lg:text-4xl hover:underline transition-all"
+            class="merch-order mx-auto mt-8 block w-fit font-serif text-2xl leading-tight text-foreground no-underline transition-opacity hover:opacity-70 md:mx-0 md:mt-0 md:text-3xl lg:text-4xl"
             {...localAttrs(merch.order_link.label)}
           >
             {merch.order_link.label[lang]}
@@ -387,10 +387,10 @@ const releaseModalGroups = [
               <ContactIconCloud client:load links={contacts.links} />
             </div>
             <address class="w-full text-right font-heading text-[clamp(1.375rem,6vw,2rem)] leading-[1.12] font-bold not-italic text-white md:justify-self-end md:text-[clamp(2rem,3.2vw,3rem)] md:leading-[1.08] lg:text-[clamp(2.75rem,4vw,5rem)]">
-              <a href={`mailto:${contacts.email}`} class="block break-words text-white no-underline hover:text-white/80 hover:no-underline sm:whitespace-nowrap">
+              <a href={`mailto:${contacts.email}`} class="block break-words text-white no-underline transition-opacity hover:opacity-70 sm:whitespace-nowrap">
                 {contacts.email}
               </a>
-              <a href={phoneHref(contacts.phone)} class="block break-words text-white no-underline hover:text-white/80 hover:no-underline sm:whitespace-nowrap">
+              <a href={phoneHref(contacts.phone)} class="block break-words text-white no-underline transition-opacity hover:opacity-70 sm:whitespace-nowrap">
                 {contacts.phone}
               </a>
             </address>
@@ -718,10 +718,12 @@ const releaseModalGroups = [
       border-radius: 0.75rem;
       text-decoration: none;
       pointer-events: auto;
+      transition: opacity 160ms ease;
     }
 
     .release-modal-card:hover,
     .release-modal-card:focus-visible {
+      opacity: 0.7;
       text-decoration: none;
       outline: 0;
     }
@@ -732,12 +734,6 @@ const releaseModalGroups = [
       border-radius: 0.75rem;
       object-fit: cover;
       background: transparent;
-      transition: filter 160ms ease, opacity 160ms ease;
-    }
-
-    .release-modal-card:hover .release-modal-cover,
-    .release-modal-card:focus-visible .release-modal-cover {
-      filter: brightness(0.34);
     }
 
     .release-modal-card-info {
@@ -750,12 +746,6 @@ const releaseModalGroups = [
       padding: clamp(1rem, 2vw, 1.5rem);
       color: white;
       opacity: 0;
-      transition: opacity 160ms ease;
-    }
-
-    .release-modal-card:hover .release-modal-card-info,
-    .release-modal-card:focus-visible .release-modal-card-info {
-      opacity: 1;
     }
 
     .release-modal-info-line {

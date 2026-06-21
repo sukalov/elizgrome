@@ -725,12 +725,13 @@ const backgroundImagePreloads = Array.from(new Set([
       border-radius: 0.75rem;
       text-decoration: none;
       pointer-events: auto;
-      transition: opacity 160ms ease;
+      opacity: 1;
+      transition: none;
     }
 
     .release-modal-card:hover,
     .release-modal-card:focus-visible {
-      opacity: 0.7;
+      opacity: 1;
       text-decoration: none;
       outline: 0;
     }
@@ -741,6 +742,12 @@ const backgroundImagePreloads = Array.from(new Set([
       border-radius: 0.75rem;
       object-fit: cover;
       background: transparent;
+      transition: filter 160ms ease, opacity 160ms ease;
+    }
+
+    .release-modal-card:hover .release-modal-cover,
+    .release-modal-card:focus-visible .release-modal-cover {
+      filter: brightness(0.34);
     }
 
     .release-modal-card-info {
@@ -753,6 +760,12 @@ const backgroundImagePreloads = Array.from(new Set([
       padding: clamp(1rem, 2vw, 1.5rem);
       color: white;
       opacity: 0;
+      transition: opacity 160ms ease;
+    }
+
+    .release-modal-card:hover .release-modal-card-info,
+    .release-modal-card:focus-visible .release-modal-card-info {
+      opacity: 1;
     }
 
     .release-modal-info-line {

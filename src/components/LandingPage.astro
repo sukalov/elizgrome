@@ -92,6 +92,13 @@ const releaseModalGroups = [
     items: releases.items.filter((item) => item.year === year),
   })),
 ].filter((group) => group.items.some((item) => item.image));
+const backgroundImagePreloads = Array.from(new Set([
+  ...releases.items.map((item) => item.image ? imageSrc(item.image) : ''),
+  ...shirts.map((item) => item.image),
+  ...vinyl.map((item) => item.image),
+  imageSrc(contacts.hero.mobile),
+  imageSrc(contacts.hero.desktop),
+].filter(Boolean)));
 
 ---
 
@@ -843,6 +850,30 @@ const releaseModalGroups = [
       }
     }
   </style>
+
+  <script is:inline define:vars={{ backgroundImagePreloads }}>
+    function preloadBackgroundImages() {
+      const queue = [...backgroundImagePreloads];
+      const loadNext = () => {
+        const src = queue.shift();
+        if (!src) return;
+
+        const image = new Image();
+        image.decoding = 'async';
+        image.onload = loadNext;
+        image.onerror = loadNext;
+        image.src = src;
+      };
+
+      for (let index = 0; index < Math.min(4, queue.length); index += 1) loadNext();
+    }
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(preloadBackgroundImages, { timeout: 1500 });
+    } else {
+      window.addEventListener('load', () => window.setTimeout(preloadBackgroundImages, 500), { once: true });
+    }
+  </script>
 
   <script>
     type Lang = 'en' | 'ru';

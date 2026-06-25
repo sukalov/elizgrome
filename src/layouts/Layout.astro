@@ -15,6 +15,8 @@ const { seo } = Astro.props;
 const title = seo.title.en;
 const description = seo.description.en;
 const faviconHref = `${import.meta.env.BASE_URL}favicon.ico`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageUrl = seo.og_image ? new URL(seo.og_image, Astro.site).toString() : undefined;
 ---
 
 <!doctype html>
@@ -22,12 +24,20 @@ const faviconHref = `${import.meta.env.BASE_URL}favicon.ico`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href={faviconHref} sizes="any" />
     <meta name="description" content={description} data-seo-description data-en={seo.description.en} data-ru={seo.description.ru} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={title} />
     <meta property="og:title" content={title} data-seo-title data-en={seo.title.en} data-ru={seo.title.ru} />
     <meta property="og:description" content={description} data-seo-description-og data-en={seo.description.en} data-ru={seo.description.ru} />
-    {seo.og_image && <meta property="og:image" content={seo.og_image} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
     <title data-page-title data-en={seo.title.en} data-ru={seo.title.ru}>{title}</title>
   </head>
   <body>

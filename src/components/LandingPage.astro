@@ -102,7 +102,7 @@ const backgroundImagePreloads = Array.from(new Set([
 
 ---
 
-<Layout seo={data.site.seo}>
+<Layout seo={{ ...data.site.seo, og_image: imageSrc(about.hero.desktop) }}>
   <div id="top" class="min-h-screen overflow-x-clip bg-background text-foreground">
     <SiteNavbar
       client:load

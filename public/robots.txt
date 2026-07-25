@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sukalov.github.io/elizgrome/sitemap.xml
+Sitemap: https://elizgromusic.com/sitemap.xml

@@ -2848,7 +2848,6 @@ sections:
         note:
           en: Moscow
           ru: Москва
-        url: https://picnic.afisha.ru/?utm_content=17732784395&utm_medium=msk_search_brand-710329325&utm_source=yandex_search&utm_campaign=5756070119&utm_term=msk_search_brand-core_brand&etext=2202.MvdVxPX1ZEaNU2plQ-YVD_3F81MESR5hUgqMfsufIHJ3ZXl5eWhoZW16a2toY29u.4a32c9a3d3f4b267b7501a13708541236485b96c&yclid=17131586063989997567&ybaip=1&tickets=true
         layout:
           desktop:
             x: 6
@@ -2862,7 +2861,6 @@ sections:
         note:
           en: Moscow
           ru: Москва
-        url: https://omankoday.ru/#event/2650051
         layout:
           desktop:
             x: 18
@@ -2873,7 +2871,6 @@ sections:
       - title:
           en: motherland
           ru: мазерленд
-        url: https://motherlandfestival.ru/
         layout:
           desktop:
             x: 42
@@ -2884,7 +2881,6 @@ sections:
       - title:
           en: OUTLINE (OZYORA)
           ru: OUTLINE (ОЗЁРА)
-        url: https://ticketscloud.com/v1/widgets/common?token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjQzNmQxMDdmODM3YmNiOTQ5ZDU0NmYzIn0.E_r5c-MzTUxg_QsVApoKDk3FnDrXVN_0ElOux2VZeUw&event=687f9695b5c122e9f23e72e7&s=1&r=1&org=6436d107f837bcb949d546f3&city=484826&category=592841f8515e35002dead964&tags=592841f8515e35002dead96a%2CЭлектроника&lang=ru
         layout:
           desktop:
             x: 84
@@ -2893,7 +2889,7 @@ sections:
             x: 68
             y: 24
       - title:
-          en: kruto 2025
+          en: kruto 2026
           ru: круто 2026
         note:
           en: Vladimir

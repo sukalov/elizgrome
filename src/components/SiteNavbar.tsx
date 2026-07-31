@@ -1,8 +1,14 @@
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { MenuIcon, SearchIcon, XIcon } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react"
 
-import type { CSSProperties, MouseEvent, ReactNode} from "react"
+import type { CSSProperties, MouseEvent, ReactNode } from "react"
 type Lang = "en" | "ru"
 type Localized = Record<Lang, string>
 
@@ -285,27 +291,13 @@ export function SiteNavbar({
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault()
         openSearch()
-        return
       }
-
-      if (event.key === "Escape" && isSearchOpen) closeSearch()
     }
 
     window.addEventListener("keydown", handleKeyDown)
 
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isSearchOpen])
-
-  useEffect(() => {
-    if (!isSearchOpen) return
-
-    searchInputRef.current?.focus()
-    document.body.style.overflow = "hidden"
-
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isSearchOpen])
+  }, [])
 
   useEffect(() => {
     if (isMenuOpen || !pendingTarget) return
@@ -338,6 +330,11 @@ export function SiteNavbar({
   function closeSearch() {
     setIsSearchOpen(false)
     setQuery("")
+  }
+
+  function handleSearchOpenChange(open: boolean) {
+    if (open) openSearch()
+    else closeSearch()
   }
 
   function toggleLanguage() {
@@ -510,21 +507,32 @@ export function SiteNavbar({
         </div>
       </header>
 
-      {isSearchOpen && (
-        <div
-          className="fixed inset-0 z-[60] bg-background/80 px-4 pt-16 backdrop-blur-sm md:pt-20"
-          role="dialog"
-          aria-modal="true"
-          aria-label={text(searchLabel, lang)}
+      <Dialog open={isSearchOpen} onOpenChange={handleSearchOpenChange}>
+        <DialogContent
+          showCloseButton={false}
+          aria-describedby={undefined}
+          overlayClassName="z-[60] bg-background/80 backdrop-blur-sm"
+          className="fixed inset-0 top-0 left-0 z-[60] flex h-dvh max-h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-y-auto rounded-none bg-transparent p-0 shadow-none ring-0 duration-100 data-open:zoom-in-100 data-closed:zoom-out-100"
+          onOpenAutoFocus={(event) => {
+            event.preventDefault()
+            searchInputRef.current?.focus()
+          }}
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) closeSearch()
           }}
         >
-          <button type="button" className="absolute right-5 top-1.5 inline-flex size-8 items-center justify-center text-foreground transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 md:right-6 md:top-2 [&_svg]:size-5" aria-label={lang === "ru" ? "Закрыть поиск" : "Close search"} onClick={closeSearch}>
-            <XIcon strokeWidth={2} />
-          </button>
+          <DialogTitle className="sr-only">{text(searchLabel, lang)}</DialogTitle>
+          <DialogClose asChild>
+            <button
+              type="button"
+              className="absolute right-5 top-1.5 z-10 inline-flex size-8 items-center justify-center text-foreground transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 md:right-6 md:top-2 [&_svg]:size-5"
+              aria-label={lang === "ru" ? "Закрыть поиск" : "Close search"}
+            >
+              <XIcon strokeWidth={2} />
+            </button>
+          </DialogClose>
 
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto w-full max-w-3xl px-4 pt-16 md:pt-20">
             <div className="flex items-center gap-3 pb-3">
               <SearchIcon className="size-6 shrink-0 text-muted-foreground opacity-40 md:size-8" strokeWidth={2} aria-hidden="true" />
               <input
@@ -537,7 +545,7 @@ export function SiteNavbar({
             </div>
 
             {query.trim() && (
-              <div className="mt-5 grid gap-3">
+              <div className="mt-5 grid gap-3 pb-8">
                 {searchResults.length > 0 ? (
                   searchResults.map((result) => (
                     <article key={result.id} className="border border-border bg-background p-4 shadow-sm md:p-5">
@@ -557,8 +565,8 @@ export function SiteNavbar({
               </div>
             )}
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

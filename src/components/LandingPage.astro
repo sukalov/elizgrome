@@ -127,6 +127,16 @@ const backgroundImagePreloads = Array.from(new Set([
             loading="eager"
           />
         </picture>
+        <img
+          data-progressive-hero
+          data-src-mobile="/images/high-resolution/about-mobile.jpg"
+          data-src-desktop="/images/high-resolution/about-desktop.jpg"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          fetchpriority="low"
+          class="progressive-hero-image pointer-events-none absolute inset-0 h-full w-full object-cover"
+        />
         <div
           class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 via-60% to-transparent"
           aria-hidden="true"
@@ -381,6 +391,15 @@ const backgroundImagePreloads = Array.from(new Set([
             loading="lazy"
           />
         </picture>
+        <img
+          data-progressive-hero
+          data-src-desktop="/images/high-resolution/contacts-desktop.jpg"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          fetchpriority="low"
+          class="progressive-hero-image pointer-events-none absolute inset-0 hidden h-full w-full object-cover md:block"
+        />
         <div
           class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 via-45% to-black/10"
           aria-hidden="true"
@@ -460,6 +479,21 @@ const backgroundImagePreloads = Array.from(new Set([
   </div>
 
   <style>
+    .progressive-hero-image {
+      opacity: 0;
+      transition: opacity 400ms ease;
+    }
+
+    .progressive-hero-image.is-loaded {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .progressive-hero-image {
+        transition: none;
+      }
+    }
+
     .merch-pick {
       position: absolute;
       right: 0;
@@ -897,6 +931,61 @@ const backgroundImagePreloads = Array.from(new Set([
       window.requestIdleCallback(preloadBackgroundImages, { timeout: 1500 });
     } else {
       window.addEventListener('load', () => window.setTimeout(preloadBackgroundImages, 500), { once: true });
+    }
+
+    async function loadProgressiveHero(image) {
+      const source = window.matchMedia('(min-width: 768px)').matches
+        ? image.dataset.srcDesktop
+        : image.dataset.srcMobile;
+      if (!source) return;
+
+      image.src = source;
+      try {
+        await image.decode();
+      } catch {
+        if (!image.complete) {
+          await new Promise((resolve) => {
+            image.addEventListener('load', resolve, { once: true });
+            image.addEventListener('error', resolve, { once: true });
+          });
+        }
+      }
+
+      if (image.naturalWidth > 0) {
+        window.requestAnimationFrame(() => image.classList.add('is-loaded'));
+      }
+    }
+
+    function observeProgressiveHeroes() {
+      const images = document.querySelectorAll('[data-progressive-hero]');
+      if (!('IntersectionObserver' in window)) {
+        images.forEach((image) => loadProgressiveHero(image));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+          loadProgressiveHero(entry.target);
+        });
+      }, { rootMargin: '100% 0px' });
+
+      images.forEach((image) => observer.observe(image));
+    }
+
+    function scheduleProgressiveHeroes() {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(observeProgressiveHeroes, { timeout: 1000 });
+      } else {
+        window.setTimeout(observeProgressiveHeroes, 500);
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      scheduleProgressiveHeroes();
+    } else {
+      window.addEventListener('load', scheduleProgressiveHeroes, { once: true });
     }
   </script>
 

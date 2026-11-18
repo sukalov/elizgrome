@@ -2841,6 +2841,21 @@ sections:
     title:
       en: concerts
       ru: концерты
+    items:
+      - title:
+          en: OZYORA MSK 2026
+          ru: ОЗЁРА, МОСКВА 2026
+        note:
+          en: PLATFORMA
+          ru: ПЛАТФОРМА
+        url: https://gng.events/billboards/2026-12-24/msk/ozera
+        layout:
+          desktop:
+            x: 0
+            y: 0
+          mobile:
+            x: 0
+            y: 0
   merch:
     title:
       en: merch

@@ -2856,6 +2856,20 @@ sections:
           mobile:
             x: 0
             y: 0
+      - title:
+          en: OZYORA SPB 2026
+          ru: ОЗЁРА, ПИТЕР 2026
+        note:
+          en: AURORA
+          ru: АВРОРА
+        url: https://gng.events/billboards/2026-12-26/spb/ozera
+        layout:
+          desktop:
+            x: 0
+            y: 0
+          mobile:
+            x: 0
+            y: 0
   merch:
     title:
       en: merch
